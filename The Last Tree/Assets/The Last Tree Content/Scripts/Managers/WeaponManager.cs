@@ -10,40 +10,37 @@ public enum WeaponTypes
 
 public class WeaponManager : Singleton<WeaponManager>
 {
-    [SerializeField] private WeaponTypes currentWeaponType = WeaponTypes.NONE;
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] Crossbow _crossbow;
+
+    public Crossbow CrossbowWeapon { get { return _crossbow; } set { _crossbow = value; } }
+
     [SerializeField] public List<GameObject> weaponList;
+
+    [SerializeField] private WeaponTypes currentWeaponType = WeaponTypes.NONE;
+
     [SerializeField] WeaponTypes weaponTypes;
+
+    void Awake()
+    {
+        GameManager.Instance.WeaponManager = this;
+    }
 
     void Start()
     {
-        FillWeaponList(); // Populate the weapon list at the start
+        FillWeaponList();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        //Placeholder for a button upgrade/obtain weapon button
+/*        if (Input.GetKeyDown(KeyCode.Space))
         {
             weaponTypes = WeaponTypes.BOW;
-        }
-
-        switch (weaponTypes)
-        {
-            case WeaponTypes.NONE:
-                break;
-            case WeaponTypes.BOW:
-
-                if (!weaponList[0].activeSelf) // Check if the first weapon is inactive
-                {
-                    weaponList[0].SetActive(true); // Enable the first weapon
-                }
-
-                Debug.Log("Bow Equipped/Upgraded");
-                weaponTypes = WeaponTypes.NONE;
-                break;
-        }
+        }*/
     }
 
-    // This method will fill the list with all child GameObjects under the WeaponManager that represent weapons
+    //fills the weaponList with the child gameObjects under WeaponManager gameObject
     void FillWeaponList()
     {
         weaponList = new List<GameObject>();
@@ -51,8 +48,45 @@ public class WeaponManager : Singleton<WeaponManager>
         foreach (Transform child in transform)
         {
             GameObject weapon = child.gameObject;
-            // Optionally, you can add a check if the child has a specific component, e.g., Weapon script, if you use one
             weaponList.Add(weapon);
         }
+    }
+
+    public void EquipAndUpgradeWeapon(WeaponTypes type)
+    {
+        switch (type)
+        {
+            case WeaponTypes.NONE:
+                break;
+            case WeaponTypes.BOW:
+
+                if (!weaponList[0].activeSelf) //checks if bow gameObject is disabled, if it is, enables bow gameObject
+                {
+                    weaponList[0].SetActive(true);
+                    Debug.Log("Bow Equipped");
+                }
+
+                if (CrossbowWeapon.currentUpgradeLevel < CrossbowWeapon.upgradeLevelMax)
+                {
+                    CrossbowWeapon.Upgrade();
+                    Debug.Log("Bow Upgraded");
+
+                    if (CrossbowWeapon.currentUpgradeLevel >= CrossbowWeapon.upgradeLevelMax)
+                    {
+                        CrossbowWeapon.EvolvedBow();
+                    }
+                }
+                else
+                {
+                    Debug.Log("Bow has reached full upgrade");
+                }
+                type = WeaponTypes.NONE;
+                break;
+        }
+    }
+
+    public void UpgradeCrossbowButton()
+    {
+        EquipAndUpgradeWeapon(WeaponTypes.BOW);
     }
 }
