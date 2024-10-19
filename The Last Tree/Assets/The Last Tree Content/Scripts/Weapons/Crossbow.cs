@@ -2,16 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crossbow : MonoBehaviour
+public class Crossbow : MonoBehaviour, IUpgradeableWeapon
 {
-/*    [SerializeField] private WeaponManager weaponManager;*/
+    private int _currentUpgradeLevel;
+    private int _upgradeLevelMax;
+
+    public int currentUpgradeLevel
+    {
+        get { return _currentUpgradeLevel; }
+        private set { _currentUpgradeLevel = Mathf.Clamp(value, 0, upgradeLevelMax); } // Ensure it doesn't exceed the max level
+    }
+
+    public int upgradeLevelMax
+    {
+        get { return _upgradeLevelMax; }
+        private set { _upgradeLevelMax = Mathf.Max(value, 0); } // Ensure max level is positive
+    }
+
+    /*    [SerializeField] private WeaponManager weaponManager;*/
 
     [SerializeField] private GameObject projectilePrefab;  // The projectile to shoot
     [SerializeField] private Transform firePoint;          // The point where the arrow is shot from
     [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
     [SerializeField] public float fireRateMax = 0.5f;
-    [SerializeField] public float currentUpgradeLevel = 0f;
-    [SerializeField] public float upgradeLevelMax = 6f;
     [SerializeField] private float projectileSpeed = 10f;  // Speed of the projectile
     [SerializeField] private float projectileDestroyTime = 2.5f;
 
@@ -24,6 +37,9 @@ public class Crossbow : MonoBehaviour
     private void Awake()
     {
         WeaponManager.Instance.CrossbowWeapon = this;
+
+        currentUpgradeLevel = 0;
+        upgradeLevelMax = 6;
     }
 
     void Start()
@@ -82,7 +98,7 @@ public class Crossbow : MonoBehaviour
         StartCoroutine(DestroyProjectile(projectile));
     }
 
-    public void EvolvedBow()
+    public void Evolve()
     {
         // Increase the scale multiplier for future projectiles
         projectileScaleMultiplier += new Vector3(1f, 1f, 0f); // Increase scale on x and y axes
@@ -93,6 +109,6 @@ public class Crossbow : MonoBehaviour
     public void Upgrade()
     {
         currentFireRate = Mathf.Max(currentFireRate - 0.1f, fireRateMax);
-        currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1f, upgradeLevelMax);
+        currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
 }
