@@ -783,8 +783,6 @@ MonoBehaviour:
   firePoint: {fileID: 927956403}
   currentFireRate: 1.1
   fireRateMax: 0.5
-  currentUpgradeLevel: 0
-  upgradeLevelMax: 6
   projectileSpeed: 10
   projectileDestroyTime: 2
   canShoot: 1
@@ -1428,6 +1426,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6298733196591467365, guid: 8564edf587b6643429ecce956bc2d3f0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7996246930946959825, guid: 8564edf587b6643429ecce956bc2d3f0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1525,7 +1527,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1730551540}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: UpgradeCrossbowButton
+        m_MethodName: UpgradeBowButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
