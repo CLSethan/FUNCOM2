@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7637437017199880944}
   - component: {fileID: 8019935987240057286}
   - component: {fileID: 9057242612128982144}
-  - component: {fileID: 532900070105038101}
+  - component: {fileID: 4032699524300172539}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.092, y: 0.0987, z: 0}
-  m_LocalScale: {x: 2.9631903, y: 2.9968698, z: 2.6483474}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,7 +171,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.004713878, y: -0.10152261}
   m_Size: {x: 0.3394446, y: 0.40292975}
   m_Direction: 0
---- !u!114 &532900070105038101
+--- !u!114 &4032699524300172539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,8 +180,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7996246930946959825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f34f6c630ebc4048b2f3c8a66becd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   theRigidbody: {fileID: 8019935987240057286}
   enemySpeed: 5
+  enemyDamage: 5
+  maxEnemyHealth: 0
+  currentEnemyHealth: 2
