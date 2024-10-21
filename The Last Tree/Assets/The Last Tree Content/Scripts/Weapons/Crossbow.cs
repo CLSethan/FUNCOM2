@@ -89,12 +89,20 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
     {
         // Instantiate the projectile at the fire point's position and rotation
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+        // Rotate the projectile to face the direction of movement
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        projectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Set the projectile's velocity
         projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * projectileSpeed;
 
+        // Adjust the scale of the projectile if needed
         projectile.transform.localScale = projectileScaleMultiplier;
 
         canShoot = false;
 
+        // Destroy the projectile after some time
         StartCoroutine(DestroyProjectile(projectile));
     }
 

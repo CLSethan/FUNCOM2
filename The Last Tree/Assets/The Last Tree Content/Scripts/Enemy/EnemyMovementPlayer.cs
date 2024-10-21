@@ -11,13 +11,19 @@ public class EnemyMovementPlayer : MonoBehaviour
     [SerializeField] private float currentEnemyHealth;
     private Transform target;
 
+    [SerializeField] private PlayerExperience PlayerExp;
+
     private float attackSpeed = 2;
     [SerializeField] private float attackTimer;
+
+    [SerializeField] private int experienceAmount = 10;
 
     void Start()
     {
         target = FindObjectOfType<PlayerController>().transform;
         currentEnemyHealth = maxEnemyHealth;
+
+        PlayerExp = FindObjectOfType<PlayerExperience>();
     }
 
     void FixedUpdate()
@@ -42,14 +48,24 @@ public class EnemyMovementPlayer : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter(Collider other) // Taking Damage
-    //{
-    //    currentEnemyHealth -= weaponDamage;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Projectile projectile = other.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            TakeDamage(projectile.GetDamage());
+            projectile.OnHit(); // optional if the projectile has specific behavior on hit (e.g., destroy itself)
 
-    //    if(currentEnemyHealth <= 0)
-    //    {
-    //        gameObject.SetActive(false);
-    //        playerExperience += 1; // change to public variable in 'Upgrades' script
-    //    }
-    //}
+            if (currentEnemyHealth <= 0)
+            {
+                PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentEnemyHealth -= damage;
+    }
 }

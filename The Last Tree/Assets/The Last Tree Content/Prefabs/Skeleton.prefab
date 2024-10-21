@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8226732181711022560}
   - component: {fileID: 8401502420785724848}
   - component: {fileID: -4070828424899757705}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,9 +184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theRigidbody: {fileID: 566600034724279929}
-  enemySpeed: 5
+  enemySpeed: 3
   enemyDamage: 20
-  maxEnemyHealth: 0
+  maxEnemyHealth: 50
   currentEnemyHealth: 0
-  attackSpeed: 0
+  PlayerExp: {fileID: 0}
   attackTimer: 2
+  experienceAmount: 10

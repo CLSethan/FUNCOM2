@@ -20,6 +20,7 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
     }
 
     [SerializeField] private GameObject projectilePrefab;  // The projectile to shoot
+    [SerializeField] private GameObject evolvedProjectilePrefab;  // The projectile to shoot
     [SerializeField] private Transform firePoint;          // The point where the arrow is shot from
     [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
     [SerializeField] public float fireRateMax = 0.5f;
@@ -30,24 +31,35 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
 
     private float nextFireTime = 0f;                       // Time until next shot
 
-    [SerializeField] private float spreadAngle = 15f;  // Angle between each projectile in the spread
+    [SerializeField] private float currentSpreadAngle = 15f;  // Angle between each projectile in the spread
+    [SerializeField] private float maxSpreadAngle = 105f;  // Angle between each projectile in the spread
     [SerializeField] private int currentNumProjectiles = 3;   // Number of projectiles to shoot in the spread
     [SerializeField] private int numProjectilesMax = 10;   // Number of projectiles to shoot in the spread
     Vector2 adjustedDirection;
 
+    private void Awake()
+    {
+        WeaponManager.Instance.BowWeapon = this;
+
+        currentUpgradeLevel = 0;
+        upgradeLevelMax = 6;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        adjustedDirection = firePoint.right + new Vector3(0, 0.5f, 0); // Add a small value to Y
-        adjustedDirection.Normalize();  // Normalize to keep it a unit vector
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        adjustedDirection = firePoint.right; // Right points in the direction the fire point is facing
+        adjustedDirection.Normalize();  // Normalize to keep it a unit vector
+
         if (canShoot)
         {
-            ShootSpread(adjustedDirection, currentNumProjectiles, spreadAngle);
+            ShootSpread(adjustedDirection, currentNumProjectiles, currentSpreadAngle);
 
             StartCoroutine(ReloadTime(currentFireRate));
         }
@@ -109,11 +121,13 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
     public void Evolve()
     {
         // Increase the scale multiplier for future projectiles
+        projectilePrefab = evolvedProjectilePrefab;
         Debug.Log("Bow has evolved");
     }
 
     public void Upgrade()
     {
+        currentSpreadAngle = Mathf.Min(currentSpreadAngle + 15f, maxSpreadAngle);
         currentNumProjectiles = Mathf.Min(currentNumProjectiles + 1, numProjectilesMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }

@@ -18,11 +18,18 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public Crossbow CrossbowWeapon { get { return _crossbow; } set { _crossbow = value; } }
 
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] Bow _bow;
+
+    public Bow BowWeapon { get { return _bow; } set { _bow = value; } }
+
     [SerializeField] public List<GameObject> weaponList;
 
     [SerializeField] private WeaponTypes currentWeaponType = WeaponTypes.NONE;
 
     [SerializeField] WeaponTypes weaponTypes;
+
+    [SerializeField] private GameObject UpgradeMenu;
 
     void Awake()
     {
@@ -62,10 +69,10 @@ public class WeaponManager : Singleton<WeaponManager>
             case WeaponTypes.NONE:
                 break;
             case WeaponTypes.BOW:
-                EquipAndUpgradeWeapon(weaponList[0], CrossbowWeapon, type);
+                EquipAndUpgradeWeapon(weaponList[0], BowWeapon, type);
                 break;
             case WeaponTypes.CROSSBOW:
-                EquipAndUpgradeWeapon(weaponList[0], CrossbowWeapon, type);
+                EquipAndUpgradeWeapon(weaponList[1], CrossbowWeapon, type);
                 break;
             case WeaponTypes.SWORD:
                 //Put Equip and Upgrade for sword here
@@ -78,9 +85,18 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
+    public void UpgradeCrossbowButton()
+    {
+        WeaponModifier(WeaponTypes.CROSSBOW);
+        ResumeGame();
+
+    }
+
     public void UpgradeBowButton()
     {
         WeaponModifier(WeaponTypes.BOW);
+        ResumeGame();
+
     }
 
     /*    public void UpgradeCrossbowButton()
@@ -88,10 +104,10 @@ public class WeaponManager : Singleton<WeaponManager>
         WeaponModifier(WeaponTypes.CROSSBOW);
     }*/
 
-/*    public void UpgradeSwordButton()
-    {
-        WeaponModifier(WeaponTypes.SWORD);
-    }*/
+    /*    public void UpgradeSwordButton()
+        {
+            WeaponModifier(WeaponTypes.SWORD);
+        }*/
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
     {
@@ -123,4 +139,10 @@ public class WeaponManager : Singleton<WeaponManager>
         // Reset weapon type
         type = WeaponTypes.NONE;
     }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        UpgradeMenu.SetActive(false);
+    }    
 }

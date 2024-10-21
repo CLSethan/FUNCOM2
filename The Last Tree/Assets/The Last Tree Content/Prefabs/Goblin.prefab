@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8019935987240057286}
   - component: {fileID: 9057242612128982144}
   - component: {fileID: 4032699524300172539}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,3 +188,5 @@ MonoBehaviour:
   enemyDamage: 5
   maxEnemyHealth: 0
   currentEnemyHealth: 2
+  attackSpeed: 0
+  attackTimer: 0

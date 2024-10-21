@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2827539611878929122}
   - component: {fileID: 4402292832568910636}
   - component: {fileID: 211506993760177787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Flying eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,4 +122,8 @@ MonoBehaviour:
   theRigidbody: {fileID: 0}
   enemySpeed: 10
   enemyDamage: 2.5
-  maxHealth: 25
+  maxEnemyHealth: 0
+  currentEnemyHealth: 0
+  PlayerExp: {fileID: 0}
+  attackTimer: 0
+  experienceAmount: 10

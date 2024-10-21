@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // player movement
+    // Player movement
     [SerializeField]
     private float moveSpeed;
     private PlayerControls playerControls;
     private Vector2 movement;
 
     private Rigidbody2D rb;
-
     private Animator anim;
 
     private void Awake()
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        //enable player input system
+        // Enable player input system
         playerControls.Enable();
     }
 
@@ -35,18 +34,16 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        //FlipCharacterSprite();
-
+        RotateCharacter();
     }
 
     private void PlayerInput()
     {
-        //read player input action on movement action map
+        // Read player input action on movement action map
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
         anim.SetFloat("moveX", movement.x);
         anim.SetFloat("moveY", movement.y);
-
     }
 
     private void Move()
@@ -55,19 +52,15 @@ public class PlayerController : MonoBehaviour
         Vector2 moveToPosition = currentPosition + movement * (moveSpeed * Time.fixedDeltaTime);
 
         rb.MovePosition(moveToPosition);
-        FlipCharacterSprite();
     }
 
-    void FlipCharacterSprite()
+    private void RotateCharacter()
     {
-        if (rb.velocity.x > movement.x)
+        // If there's movement input, update the rotation
+        if (movement != Vector2.zero)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
-        }
-
-        if (rb.velocity.x < movement.x)
-        {
-            transform.localScale = Vector3.one;
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
     }
 }

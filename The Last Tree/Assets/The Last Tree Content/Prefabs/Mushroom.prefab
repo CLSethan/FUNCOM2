@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9131848527161580087}
   - component: {fileID: 2383155534116017780}
   - component: {fileID: -1194724880391704762}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,4 +122,8 @@ MonoBehaviour:
   theRigidbody: {fileID: 0}
   enemySpeed: 2.5
   enemyDamage: 7.5
-  maxHealth: 100
+  maxEnemyHealth: 0
+  currentEnemyHealth: 0
+  PlayerExp: {fileID: 0}
+  attackTimer: 0
+  experienceAmount: 10
