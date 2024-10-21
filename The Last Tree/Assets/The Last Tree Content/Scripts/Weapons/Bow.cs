@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crossbow : MonoBehaviour, IUpgradeableWeapon
+public class Bow : MonoBehaviour, IUpgradeableWeapon
 {
     private int _currentUpgradeLevel;
     private int _upgradeLevelMax;
@@ -19,8 +19,6 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         private set { _upgradeLevelMax = Mathf.Max(value, 0); } // Ensure max level is positive
     }
 
-    /*    [SerializeField] private WeaponManager weaponManager;*/
-
     [SerializeField] private GameObject projectilePrefab;  // The projectile to shoot
     [SerializeField] private Transform firePoint;          // The point where the arrow is shot from
     [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
@@ -30,42 +28,26 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
 
     [SerializeField] bool canShoot = true;
 
-    private Vector3 projectileScaleMultiplier = Vector3.one; //sets the vector3 to (1, 1, 1)
-
     private float nextFireTime = 0f;                       // Time until next shot
 
-    private void Awake()
-    {
-        WeaponManager.Instance.CrossbowWeapon = this;
+    [SerializeField] private float spreadAngle = 15f;  // Angle between each projectile in the spread
+    [SerializeField] private int currentNumProjectiles = 3;   // Number of projectiles to shoot in the spread
+    [SerializeField] private int numProjectilesMax = 10;   // Number of projectiles to shoot in the spread
+    Vector2 adjustedDirection;
 
-        currentUpgradeLevel = 0;
-        upgradeLevelMax = 6;
-    }
-
+    // Start is called before the first frame update
     void Start()
     {
+        adjustedDirection = firePoint.right + new Vector3(0, 0.5f, 0); // Add a small value to Y
+        adjustedDirection.Normalize();  // Normalize to keep it a unit vector
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (canShoot)
         {
-            Shoot(firePoint.right);
-
-            if (currentUpgradeLevel >= 2)
-            {
-                Shoot(-firePoint.right);
-            }
-
-            if (currentUpgradeLevel >= 4)
-            {
-                Shoot(firePoint.up);
-            }
-
-            if (currentUpgradeLevel >= 6)
-            {
-                Shoot(-firePoint.up);
-            }
+            ShootSpread(adjustedDirection, currentNumProjectiles, spreadAngle);
 
             StartCoroutine(ReloadTime(currentFireRate));
         }
@@ -91,24 +73,48 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * projectileSpeed;
 
-        projectile.transform.localScale = projectileScaleMultiplier;
-
         canShoot = false;
 
         StartCoroutine(DestroyProjectile(projectile));
     }
 
+    void ShootSpread(Vector2 shootDirection, int projectileCount, float spreadAngle)
+    {
+        float angleStep = spreadAngle / (projectileCount - 1); // Step between each projectile's angle
+        float startAngle = -spreadAngle / 2;                   // Start at half negative spread angle
+
+        for (int i = 0; i < projectileCount; i++)
+        {
+            // Calculate the rotation angle for each projectile
+            float angle = startAngle + i * angleStep;
+            Vector2 spreadDirection = RotateVector(shootDirection, angle);
+
+            Shoot(spreadDirection); // Shoot the projectile in the spread direction
+        }
+    }
+
+    // Helper method to rotate a vector by an angle (in degrees)
+    Vector2 RotateVector(Vector2 originalVector, float angleDegrees)
+    {
+        float angleRadians = angleDegrees * Mathf.Deg2Rad;
+        float cosAngle = Mathf.Cos(angleRadians);
+        float sinAngle = Mathf.Sin(angleRadians);
+
+        return new Vector2(
+            originalVector.x * cosAngle - originalVector.y * sinAngle,
+            originalVector.x * sinAngle + originalVector.y * cosAngle
+        );
+    }
+
     public void Evolve()
     {
         // Increase the scale multiplier for future projectiles
-        projectileScaleMultiplier += new Vector3(1f, 1f, 0f); // Increase scale on x and y axes
-        Debug.Log($"Projectile scale increased to: {projectileScaleMultiplier}");
         Debug.Log("Bow has evolved");
     }
 
     public void Upgrade()
     {
-        currentFireRate = Mathf.Max(currentFireRate - 0.1f, fireRateMax);
+        currentNumProjectiles = Mathf.Min(currentNumProjectiles + 1, numProjectilesMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
 }

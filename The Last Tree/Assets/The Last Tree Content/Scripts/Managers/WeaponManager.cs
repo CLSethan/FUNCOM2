@@ -6,6 +6,9 @@ public enum WeaponTypes
 {
     NONE,
     BOW,
+    CROSSBOW,
+    SWORD,
+    SHIELD
 }
 
 public class WeaponManager : Singleton<WeaponManager>
@@ -52,41 +55,72 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
-    public void EquipAndUpgradeWeapon(WeaponTypes type)
+    public void WeaponModifier(WeaponTypes type)
     {
         switch (type)
         {
             case WeaponTypes.NONE:
                 break;
             case WeaponTypes.BOW:
-
-                if (!weaponList[0].activeSelf) //checks if bow gameObject is disabled, if it is, enables bow gameObject
-                {
-                    weaponList[0].SetActive(true);
-                    Debug.Log("Bow Equipped");
-                }
-
-                if (CrossbowWeapon.currentUpgradeLevel < CrossbowWeapon.upgradeLevelMax)
-                {
-                    CrossbowWeapon.Upgrade();
-                    Debug.Log("Bow Upgraded");
-
-                    if (CrossbowWeapon.currentUpgradeLevel >= CrossbowWeapon.upgradeLevelMax)
-                    {
-                        CrossbowWeapon.EvolvedBow();
-                    }
-                }
-                else
-                {
-                    Debug.Log("Bow has reached full upgrade");
-                }
-                type = WeaponTypes.NONE;
+                EquipAndUpgradeWeapon(weaponList[0], CrossbowWeapon, type);
                 break;
+            case WeaponTypes.CROSSBOW:
+                EquipAndUpgradeWeapon(weaponList[0], CrossbowWeapon, type);
+                break;
+            case WeaponTypes.SWORD:
+                //Put Equip and Upgrade for sword here
+                /*EquipAndUpgradeWeapon(weaponList[1], SwordWeapon, type);*/
+                break;
+            case WeaponTypes.SHIELD:
+                //Put Equip and Upgrade for sword here
+                break;
+
         }
     }
 
-    public void UpgradeCrossbowButton()
+    public void UpgradeBowButton()
     {
-        EquipAndUpgradeWeapon(WeaponTypes.BOW);
+        WeaponModifier(WeaponTypes.BOW);
+    }
+
+    /*    public void UpgradeCrossbowButton()
+    {
+        WeaponModifier(WeaponTypes.CROSSBOW);
+    }*/
+
+/*    public void UpgradeSwordButton()
+    {
+        WeaponModifier(WeaponTypes.SWORD);
+    }*/
+
+    public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
+    {
+        // Check if the weapon is disabled, if it is, enable the weapon
+        if (!weapon.activeSelf)
+        {
+            weapon.SetActive(true);
+            Debug.Log($"{type} Equipped");
+        }
+
+        // Check if the weapon can be upgraded further
+        if (weaponClass != null && weaponClass.currentUpgradeLevel < weaponClass.upgradeLevelMax)
+        {
+            weaponClass.Upgrade();
+            Debug.Log($"{type} Upgraded");
+
+            // If the weapon has reached its max upgrade, evolve it
+            if (weaponClass.currentUpgradeLevel >= weaponClass.upgradeLevelMax)
+            {
+                weaponClass.Evolve();
+                Debug.Log($"{type} Evolved");
+            }
+        }
+        else
+        {
+            Debug.Log($"{type} has reached full upgrade");
+        }
+
+        // Reset weapon type
+        type = WeaponTypes.NONE;
     }
 }
