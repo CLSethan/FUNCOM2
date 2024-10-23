@@ -1820,7 +1820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayerExperience: 0
-  maxPlayerExperience: 50
+  maxPlayerExperience: 100
   UpgradeMenu: {fileID: 1140539567}
 --- !u!1001 &482718673
 PrefabInstance:
@@ -2187,7 +2187,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -37182,7 +37182,6 @@ MonoBehaviour:
   currentFireRate: 1.1
   fireRateMax: 0.5
   projectileSpeed: 10
-  projectileDestroyTime: 2.5
   canShoot: 1
   currentSpreadAngle: 15
   maxSpreadAngle: 105
@@ -38426,7 +38425,7 @@ MonoBehaviour:
   m_Follow: {fileID: 481510408}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 7
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

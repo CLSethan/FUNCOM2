@@ -25,11 +25,8 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
     [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
     [SerializeField] public float fireRateMax = 0.5f;
     [SerializeField] private float projectileSpeed = 10f;  // Speed of the projectile
-    [SerializeField] private float projectileDestroyTime = 2.5f;
 
     [SerializeField] bool canShoot = true;
-
-    private float nextFireTime = 0f;                       // Time until next shot
 
     [SerializeField] private float currentSpreadAngle = 15f;  // Angle between each projectile in the spread
     [SerializeField] private float maxSpreadAngle = 105f;  // Angle between each projectile in the spread
@@ -72,13 +69,6 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
         canShoot = true;
     }
 
-    private IEnumerator DestroyProjectile(GameObject projectile)
-    {
-        yield return new WaitForSeconds(projectileDestroyTime);
-
-        Destroy(projectile);
-    }
-
     void Shoot(Vector2 direction)
     {
         // Instantiate the projectile at the fire point's position and rotation
@@ -86,8 +76,6 @@ public class Bow : MonoBehaviour, IUpgradeableWeapon
         projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * projectileSpeed;
 
         canShoot = false;
-
-        StartCoroutine(DestroyProjectile(projectile));
     }
 
     void ShootSpread(Vector2 shootDirection, int projectileCount, float spreadAngle)

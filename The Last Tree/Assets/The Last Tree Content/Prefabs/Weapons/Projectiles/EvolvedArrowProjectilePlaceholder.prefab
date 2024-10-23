@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8950307405869989179}
   - component: {fileID: 6248367819370367081}
+  - component: {fileID: 7259737369363802346}
   m_Layer: 0
   m_Name: EvolvedArrowSprite
   m_TagString: Untagged
@@ -205,3 +206,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7259737369363802346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281500458327518672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad5caaa8f6ecaf40a4b2442ec283d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

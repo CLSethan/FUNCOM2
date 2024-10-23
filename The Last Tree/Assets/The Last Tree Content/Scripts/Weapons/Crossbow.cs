@@ -26,7 +26,6 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
     [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
     [SerializeField] public float fireRateMax = 0.5f;
     [SerializeField] private float projectileSpeed = 10f;  // Speed of the projectile
-    [SerializeField] private float projectileDestroyTime = 2.5f;
 
     [SerializeField] bool canShoot = true;
 
@@ -78,13 +77,6 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         canShoot = true;
     }
 
-    private IEnumerator DestroyProjectile(GameObject projectile)
-    {
-        yield return new WaitForSeconds(projectileDestroyTime);
-
-        Destroy(projectile);
-    }
-
     void Shoot(Vector2 direction)
     {
         // Instantiate the projectile at the fire point's position and rotation
@@ -101,9 +93,6 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         projectile.transform.localScale = projectileScaleMultiplier;
 
         canShoot = false;
-
-        // Destroy the projectile after some time
-        StartCoroutine(DestroyProjectile(projectile));
     }
 
     public void Evolve()
