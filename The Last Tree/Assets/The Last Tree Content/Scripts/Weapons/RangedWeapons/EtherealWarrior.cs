@@ -26,7 +26,7 @@ public class EtherealWarrior : RangedWeapon
     }
 
     // Update is called once per frame
-    protected override void Update()
+    void FixedUpdate()
     {
         if (isEvolved)
         {
@@ -98,6 +98,7 @@ public class EtherealWarrior : RangedWeapon
     {
         EtherealWarriorProjectileScript.speed += 1f;
         isEvolved = true;
+        Debug.Log("The Queen has Arrived");
     }
 
     public override void Upgrade()

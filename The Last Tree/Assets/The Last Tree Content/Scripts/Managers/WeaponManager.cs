@@ -78,6 +78,9 @@ public class WeaponManager : Singleton<WeaponManager>
             case WeaponTypes.CROSSBOW:
                 EquipAndUpgradeWeapon(weaponList[1], CrossbowWeapon, type);
                 break;
+            case WeaponTypes.ETHEREAL_WARRIOR:
+                EquipAndUpgradeWeapon(weaponList[2], EtherealWarriorWeapon, type);
+                break;
             case WeaponTypes.SWORD:
                 //Put Equip and Upgrade for sword here
                 /*EquipAndUpgradeWeapon(weaponList[1], SwordWeapon, type);*/
@@ -99,6 +102,13 @@ public class WeaponManager : Singleton<WeaponManager>
     public void UpgradeBowButton()
     {
         WeaponModifier(WeaponTypes.BOW);
+        ResumeGame();
+
+    }
+
+    public void UpgradeEtherealWarriorButton()
+    {
+        WeaponModifier(WeaponTypes.ETHEREAL_WARRIOR);
         ResumeGame();
 
     }
