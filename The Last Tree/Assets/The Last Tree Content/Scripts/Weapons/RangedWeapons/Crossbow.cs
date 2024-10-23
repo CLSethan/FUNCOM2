@@ -9,11 +9,6 @@ public class Crossbow : RangedWeapon
     private void Awake()
     {
         WeaponManager.Instance.CrossbowWeapon = this;
-        InitCrossbowData();
-    }
-
-    private void InitCrossbowData()
-    {
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
         currentFireRate = 1.1f; // The rate of fire (shots per second)

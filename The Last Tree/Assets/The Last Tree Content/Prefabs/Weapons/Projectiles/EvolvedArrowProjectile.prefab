@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2665388019319871968
+--- !u!1 &1721133684456996866
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8005418136175630222}
-  - component: {fileID: -1813760259079295466}
-  - component: {fileID: 4607998204735725483}
-  - component: {fileID: 6088565905207616576}
+  - component: {fileID: 7233182040192321930}
+  - component: {fileID: -2384136814503115255}
+  - component: {fileID: -838961309664623318}
+  - component: {fileID: -1058014063952135621}
   m_Layer: 0
-  m_Name: CrossbowProjectilePlaceHolder
+  m_Name: EvolvedArrowProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8005418136175630222
+--- !u!4 &7233182040192321930
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2665388019319871968}
+  m_GameObject: {fileID: 1721133684456996866}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.2725767, y: -0.65333647, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3695381, y: -0.10351997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9051218151025218233}
+  - {fileID: 8950307405869989179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &-1813760259079295466
+--- !u!50 &-2384136814503115255
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2665388019319871968}
+  m_GameObject: {fileID: 1721133684456996866}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -50,7 +50,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -62,13 +62,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &4607998204735725483
+--- !u!61 &-838961309664623318
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2665388019319871968}
+  m_GameObject: {fileID: 1721133684456996866}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -94,10 +94,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09587598, y: -0.053735405}
+  m_Offset: {x: -0.038707733, y: -0.041685343}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -105,23 +105,23 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9587595, y: 0.7744096}
+  m_Size: {x: 2.0897741, y: 0.5355061}
   m_EdgeRadius: 0
---- !u!114 &6088565905207616576
+--- !u!114 &-1058014063952135621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2665388019319871968}
+  m_GameObject: {fileID: 1721133684456996866}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 498f24129bdd2924a948217bf55695c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  isEvolvedArrow: 0
---- !u!1 &2909713026951573420
+  damage: 25
+  isEvolvedArrow: 1
+--- !u!1 &6281500458327518672
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,38 +129,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9051218151025218233}
-  - component: {fileID: 4308477063248684398}
-  - component: {fileID: 863938772405123761}
+  - component: {fileID: 8950307405869989179}
+  - component: {fileID: 6248367819370367081}
+  - component: {fileID: 7259737369363802346}
   m_Layer: 0
-  m_Name: CrossbowProjectileSprite
+  m_Name: EvolvedArrowSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9051218151025218233
+--- !u!4 &8950307405869989179
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2909713026951573420}
+  m_GameObject: {fileID: 6281500458327518672}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8005418136175630222}
+  m_Father: {fileID: 7233182040192321930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
---- !u!212 &4308477063248684398
+--- !u!212 &6248367819370367081
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2909713026951573420}
+  m_GameObject: {fileID: 6281500458327518672}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -195,24 +195,24 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2624c48670f92d649b04d03fe36abcd8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8f4e1ea22c66c7478593a19e0add994, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.92, y: 1.92}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &863938772405123761
+--- !u!114 &7259737369363802346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2909713026951573420}
+  m_GameObject: {fileID: 6281500458327518672}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ad5caaa8f6ecaf40a4b2442ec283d7d, type: 3}

@@ -29,8 +29,6 @@ public class RangedWeapon : MonoBehaviour, IUpgradeableWeapon
 
     [SerializeField] protected bool canShoot = true;
 
-    private float nextFireTime = 0f;                       // Time until next shot
-
     protected virtual void Start()
     {
         Debug.Log("currentFireRate: " + currentFireRate);

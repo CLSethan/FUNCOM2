@@ -7,6 +7,7 @@ public enum WeaponTypes
     NONE,
     BOW,
     CROSSBOW,
+    ETHEREAL_WARRIOR,
     SWORD,
     SHIELD
 }
@@ -23,9 +24,12 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public Bow BowWeapon { get { return _bow; } set { _bow = value; } }
 
-    [SerializeField] public List<GameObject> weaponList;
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] EtherealWarrior _etherealWarrior;
 
-    [SerializeField] private WeaponTypes currentWeaponType = WeaponTypes.NONE;
+    public EtherealWarrior EtherealWarriorWeapon { get { return _etherealWarrior; } set { _etherealWarrior = value; } }
+
+    [SerializeField] public List<GameObject> weaponList;
 
     [SerializeField] WeaponTypes weaponTypes;
 
