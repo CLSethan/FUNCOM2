@@ -15,6 +15,9 @@ public class EtherealWarrior : RangedWeapon
     [SerializeField] private float CooldownTime = 3f;
     [SerializeField] public float maxKillTime = 3f;
 
+    private bool isCooldownActive = false;
+    private bool isActiveTimeActive = false;
+
     private void Awake()
     {
         WeaponManager.Instance.EtherealWarriorWeapon = this;
@@ -80,18 +83,30 @@ public class EtherealWarrior : RangedWeapon
     {
         Projectile.transform.position = this.transform.position;
 
+        if (isCooldownActive || isActiveTimeActive)
+            yield break; // Avoid multiple instances of the coroutine
+
+        isCooldownActive = true;
+
         yield return new WaitForSeconds(CooldownTime);
 
         isAvailable = true;
+        isCooldownActive = false;
 
         Debug.Log("THE WARRIOR HAS COME BACK TO KILL AGAIN");
     }
 
     private IEnumerator ActiveTime()
     {
+        if (isActiveTimeActive || isCooldownActive)
+            yield break; // Avoid multiple instances of the coroutine
+
+        isActiveTimeActive = true;
+
         yield return new WaitForSeconds(maxKillTime);
 
         isAvailable = false;
+        isActiveTimeActive = false;
     }
 
     public override void Evolve()
