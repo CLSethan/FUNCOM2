@@ -2,50 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crossbow : MonoBehaviour, IUpgradeableWeapon
+public class Crossbow : RangedWeapon
 {
-    private int _currentUpgradeLevel;
-    private int _upgradeLevelMax;
-
-    public int currentUpgradeLevel
-    {
-        get { return _currentUpgradeLevel; }
-        private set { _currentUpgradeLevel = Mathf.Clamp(value, 0, upgradeLevelMax); } // Ensure it doesn't exceed the max level
-    }
-
-    public int upgradeLevelMax
-    {
-        get { return _upgradeLevelMax; }
-        private set { _upgradeLevelMax = Mathf.Max(value, 0); } // Ensure max level is positive
-    }
-
-    /*    [SerializeField] private WeaponManager weaponManager;*/
-
-    [SerializeField] private GameObject projectilePrefab;  // The projectile to shoot
-    [SerializeField] private Transform firePoint;          // The point where the arrow is shot from
-    [SerializeField] public float currentFireRate = 1.1f; // The rate of fire (shots per second)
-    [SerializeField] public float fireRateMax = 0.5f;
-    [SerializeField] private float projectileSpeed = 10f;  // Speed of the projectile
-
-    [SerializeField] bool canShoot = true;
-
     private Vector3 projectileScaleMultiplier = Vector3.one; //sets the vector3 to (1, 1, 1)
-
-    private float nextFireTime = 0f;                       // Time until next shot
 
     private void Awake()
     {
         WeaponManager.Instance.CrossbowWeapon = this;
+        InitCrossbowData();
+    }
 
+    private void InitCrossbowData()
+    {
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
+        currentFireRate = 1.1f; // The rate of fire (shots per second)
+        fireRateMax = 0.5f;
+        projectileSpeed = 10f;  // Speed of the projectile
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
+    protected override void Update()
     {
         if (canShoot)
         {
@@ -70,14 +46,7 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         }
     }
 
-    private IEnumerator ReloadTime(float reloadTime)
-    {
-        yield return new WaitForSeconds(reloadTime);
-
-        canShoot = true;
-    }
-
-    void Shoot(Vector2 direction)
+    protected override void Shoot(Vector2 direction)
     {
         // Instantiate the projectile at the fire point's position and rotation
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -95,7 +64,7 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         canShoot = false;
     }
 
-    public void Evolve()
+    public override void Evolve()
     {
         // Increase the scale multiplier for future projectiles
         projectileScaleMultiplier += new Vector3(1f, 1f, 0f); // Increase scale on x and y axes
@@ -103,7 +72,7 @@ public class Crossbow : MonoBehaviour, IUpgradeableWeapon
         Debug.Log("Bow has evolved");
     }
 
-    public void Upgrade()
+    public override void Upgrade()
     {
         currentFireRate = Mathf.Max(currentFireRate - 0.1f, fireRateMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
