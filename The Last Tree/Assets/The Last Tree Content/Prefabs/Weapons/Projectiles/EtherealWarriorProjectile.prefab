@@ -186,11 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf194c2278d84743ad63e235701e943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  CooldownTime: 3
-  currentKillCount: 0
-  maxKillCount: 3
-  isEvolved: 0
+  speed: 10
   EtherealWarriorScript: {fileID: 0}
   EtherealWarriorGameObject: {fileID: 0}
   detectionCollider: {fileID: 0}

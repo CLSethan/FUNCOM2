@@ -27,14 +27,6 @@ public class EtherealWarriorProjectile : MonoBehaviour
             if (EtherealWarriorScript.enemyList[0] == null)
             {
                 EtherealWarriorScript.enemyList.RemoveAt(0);
-                EtherealWarriorScript.currentKillCount++;
-
-                if (EtherealWarriorScript.currentKillCount >= EtherealWarriorScript.maxKillCount)
-                {
-                    EtherealWarriorScript.isAvailable = false;
-                    EtherealWarriorScript.currentKillCount = 0;
-                    Debug.Log("THE WARRIOR HAS KILLED ENOUGH");
-                }
 
                 Debug.Log("Removed 1st element in enemyList");
             }
@@ -47,12 +39,6 @@ public class EtherealWarriorProjectile : MonoBehaviour
                 Vector3 direction = (enemyTarget.transform.position - transform.position).normalized;
                 transform.position += direction * speed * Time.deltaTime;
             }
-        }
-        else
-        {
-            // Optionally destroy projectile if no targets remain
-            this.gameObject.transform.position = initialPosition;
-            this.gameObject.SetActive(false);
         }
     }
 

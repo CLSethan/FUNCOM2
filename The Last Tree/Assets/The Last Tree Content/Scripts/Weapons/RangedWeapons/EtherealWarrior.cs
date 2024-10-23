@@ -11,9 +11,9 @@ public class EtherealWarrior : RangedWeapon
 
     [SerializeField] public bool isAvailable = true;
     [SerializeField] public bool hasActivated = true;
+    [SerializeField] private bool isEvolved = false;
     [SerializeField] private float CooldownTime = 3f;
-    [SerializeField] public int currentKillCount = 0;
-    [SerializeField] public int maxKillCount = 3;
+    [SerializeField] public float maxKillTime = 3f;
 
     private void Awake()
     {
@@ -28,19 +28,27 @@ public class EtherealWarrior : RangedWeapon
     // Update is called once per frame
     protected override void Update()
     {
-    }
-
-    private void Shoot()
-    {
-        if (isAvailable)
+        if (isEvolved)
         {
             Projectile.SetActive(true);
         }
         else
         {
-            Projectile.SetActive(false);
-            StartCoroutine(Cooldown());
+            if (isAvailable)
+            {
+                Projectile.SetActive(true);
+                StartCoroutine(ActiveTime());
+            }
+            else
+            {
+                Projectile.SetActive(false);
+                StartCoroutine(Cooldown());
+            }
         }
+    }
+
+    private void Shoot()
+    {
         if (enemyList.Count <= 0)
         {
             Projectile.transform.position = this.transform.position;
@@ -68,24 +76,33 @@ public class EtherealWarrior : RangedWeapon
         }
     }
 
-    public IEnumerator Cooldown()
+    private IEnumerator Cooldown()
     {
+        Projectile.transform.position = this.transform.position;
+
         yield return new WaitForSeconds(CooldownTime);
 
         isAvailable = true;
-        hasActivated = true;
 
         Debug.Log("THE WARRIOR HAS COME BACK TO KILL AGAIN");
     }
 
+    private IEnumerator ActiveTime()
+    {
+        yield return new WaitForSeconds(maxKillTime);
+
+        isAvailable = false;
+    }
+
     public override void Evolve()
     {
-        base.Evolve();
+        EtherealWarriorProjectileScript.speed += 1f;
+        isEvolved = true;
     }
 
     public override void Upgrade()
     {
-        maxKillCount += 2;
+        maxKillTime += 2f;
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
 }
