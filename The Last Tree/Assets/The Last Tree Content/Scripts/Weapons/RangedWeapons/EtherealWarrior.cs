@@ -33,7 +33,11 @@ public class EtherealWarrior : RangedWeapon
     {
         if (isEvolved)
         {
-            Projectile.SetActive(true);
+            if (!Projectile.activeInHierarchy)  // Check if it's already active
+            {
+                Projectile.SetActive(true);
+                Debug.Log("THE WARRIOR IS NOW IMMORTAL");
+            }
         }
         else
         {
@@ -111,7 +115,7 @@ public class EtherealWarrior : RangedWeapon
 
     public override void Evolve()
     {
-        EtherealWarriorProjectileScript.speed += 1f;
+        EtherealWarriorProjectileScript.speed += 2f;
         isEvolved = true;
         Debug.Log("The Queen has Arrived");
     }
