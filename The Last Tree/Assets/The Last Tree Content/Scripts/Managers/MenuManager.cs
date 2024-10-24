@@ -6,9 +6,9 @@ using UnityEngine;
 public enum MenuType
 {
 	MainMenu = 0,
-	CharacterSelect = 1,
-	InGameMenu = 2,
-	GameOverMenu = 3,
+	/*CharacterSelect = 1,*/
+	InGameMenu = 1,
+	/*GameOverMenu = 3,*/
 }
 
 
