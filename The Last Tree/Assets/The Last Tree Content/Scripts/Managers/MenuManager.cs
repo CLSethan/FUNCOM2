@@ -8,7 +8,7 @@ public enum MenuType
 	MainMenu = 0,
 	/*CharacterSelect = 1,*/
 	InGameMenu = 1,
-	/*GameOverMenu = 3,*/
+    GameOverMenu = 2,
 }
 
 
