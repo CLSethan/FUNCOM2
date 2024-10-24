@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
 	[SerializeField] WeaponManager _weaponManager;
+	[SerializeField] MenuManager _menuManager;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
 
 	public WeaponManager WeaponManager { get { return _weaponManager; } set { _weaponManager = value; } }
+
+	public MenuManager MenuManager { get { return _menuManager; } set { _menuManager = value; } }
 
 	/*    public void StartGame()
 		{
@@ -68,21 +71,29 @@ public class GameManager : Singleton<GameManager>
 
 	public void DestroyNotificationBoard()
 	{
+		MenuManager.buttonClickSound.Play();
+
 		Destroy(NotificationBoard);
 	}
 
 	public void ActivateHowToPlayMenu()
 	{
+		MenuManager.buttonClickSound.Play();
+
 		HowToPlayMenu.SetActive(true);
 	}
 
 	public void DeactivateHowToPlayMenu()
 	{
+		MenuManager.buttonClickSound.Play();
+
 		HowToPlayMenu.SetActive(false);
 	}
 
 	public void QuitGame()
 	{
+		MenuManager.buttonClickSound.Play();
+
 		Application.Quit();
 	}
 }

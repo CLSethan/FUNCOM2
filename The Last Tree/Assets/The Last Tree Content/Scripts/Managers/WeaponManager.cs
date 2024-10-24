@@ -94,6 +94,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void UpgradeCrossbowButton()
     {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
         WeaponModifier(WeaponTypes.CROSSBOW);
         ResumeGame();
 
@@ -101,6 +103,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void UpgradeBowButton()
     {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
         WeaponModifier(WeaponTypes.BOW);
         ResumeGame();
 
@@ -108,6 +112,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void UpgradeEtherealWarriorButton()
     {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
         WeaponModifier(WeaponTypes.ETHEREAL_WARRIOR);
         ResumeGame();
 

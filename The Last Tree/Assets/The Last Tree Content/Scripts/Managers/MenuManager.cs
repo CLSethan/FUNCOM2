@@ -15,6 +15,7 @@ public enum MenuType
 public class MenuManager : Singleton<MenuManager>
 {
 	[SerializeField] GameObject[] menus;
+	[SerializeField] public AudioSource buttonClickSound;
 
 	private void Start()
 	{
@@ -22,6 +23,8 @@ public class MenuManager : Singleton<MenuManager>
 	}
 	public void SwitchMenu(int index)
 	{
+		buttonClickSound.Play();
+
 		foreach (GameObject menuObj in menus)
 		{
 			menuObj.SetActive(false);
