@@ -21,8 +21,6 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            // Logic for what happens when the evolved arrow hits but is not destroyed
-            Debug.Log("Evolved arrow hit but remains indestructible.");
         }
     }
 }

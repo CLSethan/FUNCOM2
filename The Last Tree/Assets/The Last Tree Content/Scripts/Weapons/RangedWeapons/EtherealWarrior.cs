@@ -62,10 +62,10 @@ public class EtherealWarrior : RangedWeapon
         }
         else
         {
-            Debug.Log("There's elements in the list");
+            /*Debug.Log("There's elements in the list");*/
         }
 
-        Debug.Log("Ethereal Warrior is out");
+        /*Debug.Log("Ethereal Warrior is out");*/
     }
 
     private void OnTriggerEnter2D(Collider2D other)
