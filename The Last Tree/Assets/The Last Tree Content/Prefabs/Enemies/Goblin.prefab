@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7637437017199880944}
   - component: {fileID: 8019935987240057286}
   - component: {fileID: 9057242612128982144}
-  - component: {fileID: 4032699524300172539}
+  - component: {fileID: -4988236650341306581}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
@@ -171,7 +171,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.004713878, y: -0.10152261}
   m_Size: {x: 0.3394446, y: 0.40292975}
   m_Direction: 0
---- !u!114 &4032699524300172539
+--- !u!114 &-4988236650341306581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,13 +180,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7996246930946959825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f34f6c630ebc4048b2f3c8a66becd83, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theRigidbody: {fileID: 8019935987240057286}
-  enemySpeed: 5
-  enemyDamage: 5
-  maxEnemyHealth: 0
-  currentEnemyHealth: 2
-  attackSpeed: 0
+  theRigidbody: {fileID: 0}
+  enemySpeed: 8
+  enemyDamage: 2
+  maxEnemyHealth: 2
+  playerAttacker: 1
+  currentEnemyHealth: 0
   attackTimer: 0
+  PlayerExp: {fileID: 0}
+  experienceAmount: 10
+  coinValue: 1
+  coinDropRate: 0.1

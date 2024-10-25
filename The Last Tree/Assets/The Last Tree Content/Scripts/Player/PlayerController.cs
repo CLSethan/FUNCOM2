@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Player player;
+
     // Player movement
     [SerializeField]
     private float moveSpeed;
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
     {
         // Enable player input system
         playerControls.Enable();
+    }
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+        moveSpeed = player.moveSpeed;
     }
 
     private void Update()

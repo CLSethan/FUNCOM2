@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public RuntimeAnimatorController[] Controllers;
     public GameObject[] PlayerPrefabs;
 
+    [Header("Stats")]
+    public float pickupRange;
+    public float moveSpeed;
     [SerializeField] private GameObject currentPlayerType;
 
     void Start()
@@ -26,12 +29,14 @@ public class Player : MonoBehaviour
             Animator.runtimeAnimatorController = Controllers[0];
             ChangeCharacter();
         }
+        
         if (Input.GetKey(KeyCode.Alpha2))
         {
             SetCurrentPlayerType(PlayerPrefabs[1]);
             Animator.runtimeAnimatorController = Controllers[1];
             ChangeCharacter();
         }
+       
         if (Input.GetKey(KeyCode.Alpha3))
         {
             SetCurrentPlayerType(PlayerPrefabs[2]);

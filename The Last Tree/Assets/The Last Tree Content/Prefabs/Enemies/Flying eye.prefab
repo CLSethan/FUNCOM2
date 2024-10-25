@@ -123,7 +123,10 @@ MonoBehaviour:
   enemySpeed: 10
   enemyDamage: 2.5
   maxEnemyHealth: 0
+  playerAttacker: 1
   currentEnemyHealth: 0
-  PlayerExp: {fileID: 0}
   attackTimer: 0
+  PlayerExp: {fileID: 0}
   experienceAmount: 10
+  coinValue: 1
+  coinDropRate: 0.1
