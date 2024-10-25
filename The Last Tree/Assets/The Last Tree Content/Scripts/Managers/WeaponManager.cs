@@ -29,6 +29,11 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public EtherealWarrior EtherealWarriorWeapon { get { return _etherealWarrior; } set { _etherealWarrior = value; } }
 
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] Sword _sword;
+
+    public Sword SwordWeapon { get { return _sword; } set { _sword = value; } }
+
     [SerializeField] public List<GameObject> weaponList;
 
     [SerializeField] WeaponTypes weaponTypes;
@@ -82,11 +87,10 @@ public class WeaponManager : Singleton<WeaponManager>
                 EquipAndUpgradeWeapon(weaponList[2], EtherealWarriorWeapon, type);
                 break;
             case WeaponTypes.SWORD:
-                //Put Equip and Upgrade for sword here
-                /*EquipAndUpgradeWeapon(weaponList[1], SwordWeapon, type);*/
+                EquipAndUpgradeWeapon(weaponList[3], SwordWeapon, type);
                 break;
             case WeaponTypes.SHIELD:
-                //Put Equip and Upgrade for sword here
+                //Put Equip and Upgrade for shield here
                 break;
 
         }
@@ -124,10 +128,12 @@ public class WeaponManager : Singleton<WeaponManager>
         WeaponModifier(WeaponTypes.CROSSBOW);
     }*/
 
-    /*    public void UpgradeSwordButton()
+        public void UpgradeSwordButton()
         {
+            GameManager.Instance.MenuManager.buttonClickSound.Play();
             WeaponModifier(WeaponTypes.SWORD);
-        }*/
+            ResumeGame();
+        }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
     {
