@@ -10,9 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 8178749810709965151}
   - component: {fileID: 2827539611878929122}
+  - component: {fileID: 929043088087682835}
   - component: {fileID: 4402292832568910636}
   - component: {fileID: 211506993760177787}
+<<<<<<< Updated upstream:The Last Tree/Assets/The Last Tree Content/Prefabs/Flying eye.prefab
   m_Layer: 0
+=======
+  - component: {fileID: 2816221401753123259}
+  m_Layer: 7
+>>>>>>> Stashed changes:The Last Tree/Assets/The Last Tree Content/Prefabs/Enemies/Flying eye.prefab
   m_Name: Flying eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,6 +92,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &929043088087682835
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113213742800088379}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!95 &4402292832568910636
 Animator:
   serializedVersion: 5
@@ -119,7 +152,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theRigidbody: {fileID: 0}
+  theRigidbody: {fileID: 929043088087682835}
   enemySpeed: 10
   enemyDamage: 2.5
+<<<<<<< Updated upstream:The Last Tree/Assets/The Last Tree Content/Prefabs/Flying eye.prefab
   maxHealth: 25
+=======
+  maxEnemyHealth: 0
+  playerAttacker: 1
+  currentEnemyHealth: 0
+  attackTimer: 0
+  PlayerExp: {fileID: 0}
+  experienceAmount: 10
+  coinValue: 1
+  coinDropRate: 0.1
+--- !u!70 &2816221401753123259
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113213742800088379}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04474932, y: -0.012632847}
+  m_Size: {x: 0.25727445, y: 0.25727445}
+  m_Direction: 0
+>>>>>>> Stashed changes:The Last Tree/Assets/The Last Tree Content/Prefabs/Enemies/Flying eye.prefab
