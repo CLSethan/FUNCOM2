@@ -7,7 +7,6 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
     [SerializeField] private int _currentUpgradeLevel;
     [SerializeField] protected int _upgradeLevelMax;
     
-
     public int currentUpgradeLevel
     {
         get { return _currentUpgradeLevel; }
@@ -22,29 +21,28 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     /*    [SerializeField] private WeaponManager weaponManager;*/
 
-    [SerializeField] protected float currentSwingRate; // The speed of swinging
-    [SerializeField] protected float maxSwingRate;
+    [SerializeField] protected float currentAttackRate; // The speed of swinging
+    [SerializeField] protected float maxAttackRate;
+    [SerializeField] protected bool doneReloading = true;
 
-    [SerializeField] protected bool canSwing = true;
+    protected virtual IEnumerator ReloadTime(float reloadTime)
+    {
+        yield return new WaitForSeconds(reloadTime);
+
+        doneReloading = true;
+    }
 
     protected virtual void Start()
     {
-        Debug.Log("currentSwingRate: " + currentSwingRate);
-        Debug.Log("maxSwingRate: " + maxSwingRate);
+        Debug.Log("currentAttackRate: " + currentAttackRate);
+        Debug.Log("maxAttackRate: " + maxAttackRate);
     }
 
     protected virtual void Update()
     {
     }
 
-    protected virtual IEnumerator ReloadTime(float reloadTime)
-    {
-        yield return new WaitForSeconds(reloadTime);
-
-        canSwing = true;
-    }
-
-    protected virtual void Swing(Vector2 direction)
+    protected virtual void TriggerAttack()
     {
         Debug.Log(this.gameObject.name + ": swish swash");
     }

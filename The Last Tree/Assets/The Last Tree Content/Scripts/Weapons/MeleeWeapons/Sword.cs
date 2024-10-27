@@ -15,13 +15,13 @@ public class Sword : MeleeWeapon
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
 
-        currentSwingRate = 4f;
-        maxSwingRate = 8f;
+        currentAttackRate = 4f;
+        maxAttackRate = 8f;
     }
     protected override void Update()
     {
         // Update the angle over time
-        angle += currentSwingRate * Time.deltaTime;
+        angle += currentAttackRate * Time.deltaTime;
 
         // Calculate new position in a circular orbit around the player
         UnityEngine.Vector2 offset = new UnityEngine.Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * rotateRadius;
@@ -30,7 +30,7 @@ public class Sword : MeleeWeapon
 
     public override void Upgrade()
     {
-        currentSwingRate = Mathf.Min(currentSwingRate + 1f, maxSwingRate);
+        currentAttackRate = Mathf.Min(currentAttackRate + 1f, maxAttackRate);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
 

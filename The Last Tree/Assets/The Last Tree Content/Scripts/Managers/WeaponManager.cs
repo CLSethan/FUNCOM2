@@ -34,6 +34,11 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public Sword SwordWeapon { get { return _sword; } set { _sword = value; } }
 
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] Shield _shield;
+
+    public Shield ShieldWeapon { get { return _shield; } set { _shield = value; } }
+
     [SerializeField] public List<GameObject> weaponList;
 
     [SerializeField] WeaponTypes weaponTypes;
@@ -90,7 +95,7 @@ public class WeaponManager : Singleton<WeaponManager>
                 EquipAndUpgradeWeapon(weaponList[3], SwordWeapon, type);
                 break;
             case WeaponTypes.SHIELD:
-                //Put Equip and Upgrade for shield here
+                EquipAndUpgradeWeapon(weaponList[4], SwordWeapon, type);
                 break;
 
         }
@@ -128,12 +133,21 @@ public class WeaponManager : Singleton<WeaponManager>
         WeaponModifier(WeaponTypes.CROSSBOW);
     }*/
 
-        public void UpgradeSwordButton()
-        {
-            GameManager.Instance.MenuManager.buttonClickSound.Play();
-            WeaponModifier(WeaponTypes.SWORD);
-            ResumeGame();
-        }
+    public void UpgradeSwordButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+            
+        WeaponModifier(WeaponTypes.SWORD);
+        ResumeGame();
+    }
+
+        public void UpgradeShielddButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+            
+        WeaponModifier(WeaponTypes.SHIELD);
+        ResumeGame();
+    }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
     {

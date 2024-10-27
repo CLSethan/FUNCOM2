@@ -40,7 +40,7 @@ public class Bow : RangedWeapon
     {
         yield return new WaitForSeconds(reloadTime);
 
-        canShoot = true;
+        canShoot = true; 
     }
 
     protected override void Shoot(Vector2 direction)
