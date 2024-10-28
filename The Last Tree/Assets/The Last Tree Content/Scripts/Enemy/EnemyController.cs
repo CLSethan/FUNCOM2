@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     // Enemy Refs
     public Rigidbody2D theRigidbody;
     public float enemySpeed, enemyDamage, maxEnemyHealth;
+
     //created bool to check if the enemy attacks the player or tree
     public bool playerAttacker;
     [SerializeField] private float currentEnemyHealth;
@@ -25,6 +26,11 @@ public class EnemyController : MonoBehaviour
     //Coin Refs
     public int coinValue;
     public float coinDropRate;
+
+    //Health Refs
+    public float healthDropRate;
+
+
 
     void Start()
     {
@@ -65,7 +71,7 @@ public class EnemyController : MonoBehaviour
         {
             if (treeHealth.tag == "Tree" && attackTimer <= 0)
             {
-                Debug.Log("enemy is dealing damage to Tree");
+                Debug.Log("Enemy is dealing damage to Tree");
                 TreeHealth.instance.takeDamage(enemyDamage);
                 attackTimer = attackSpeed;
             }
@@ -75,7 +81,7 @@ public class EnemyController : MonoBehaviour
         {
             if (playerHealth.tag == "Player" && attackTimer <= 0)
             {
-                Debug.Log("enemy is dealing damage to Player");
+                Debug.Log("Enemy is dealing damage to Player");
                 PlayerHealth.instance.takeDamage(enemyDamage);
 
                 attackTimer = attackSpeed;
@@ -95,6 +101,7 @@ public class EnemyController : MonoBehaviour
             {
                 PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
                 DropCoin();
+                DropHealth();
                 Destroy(this.gameObject);
             }
         }
@@ -102,7 +109,14 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Debug.Log("Enemy Took Damage");
         currentEnemyHealth -= damage;
+
+        if (currentEnemyHealth < 0)
+        {
+            Debug.Log("Enemy has Died");
+            Destroy(gameObject);
+        }
     }
 
     void DropCoin()
@@ -110,6 +124,14 @@ public class EnemyController : MonoBehaviour
         if(UnityEngine.Random.value <= coinDropRate)
         {
             CoinController.instance.DropCoin(transform.position, coinValue);
+        }
+    }
+
+    void DropHealth()
+    {
+        if (UnityEngine.Random.value <= healthDropRate)
+        {
+            HealthController.instance.DropHealth(transform.position);
         }
     }
 }
