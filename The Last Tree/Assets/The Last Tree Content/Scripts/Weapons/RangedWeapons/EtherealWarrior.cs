@@ -71,7 +71,7 @@ public class EtherealWarrior : RangedWeapon
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the collided object contains "Skeleton" in its name (Should change this to Enemy instead)
-        if (other.gameObject.name.Contains("Skeleton"))
+        if (other.gameObject.name.Contains("Enemy"))
         {
             Shoot();
 
