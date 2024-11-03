@@ -22,6 +22,7 @@ public class PlayerExperience : MonoBehaviour
 
     private void LevelUp()
     {
+        GameManager.Instance.WeaponManager.isUpgradeMenuActive = true;
         UpgradeMenu.SetActive(true);
         currentPlayerExperience = 0;
         Time.timeScale = 0;
