@@ -88,4 +88,9 @@ public class PlayerController : MonoBehaviour
             transform.localScale = Vector3.one;
         }
     }
+
+    public void SetMoveSpeed()
+    {
+        moveSpeed = player.moveSpeed;
+    }
 }

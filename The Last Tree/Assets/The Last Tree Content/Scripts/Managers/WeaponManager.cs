@@ -179,8 +179,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
-        isUpgradeMenuActive = false;
-        UpgradeMenu.SetActive(false);
+        UIController.Instance.HideUpgradeMenu();
     }    
 }

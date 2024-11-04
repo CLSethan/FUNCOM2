@@ -4,29 +4,133 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyToSpawn;
 
+    public GameObject enemyToSpawn;
     public float timeToSpawn;
     private float spawnCounter;
 
-    // Start is called before the first frame update
+    public Transform minSpawnPoint, maxSpawnPoint;
+
+    public List<WaveInfo> waves;
+
+    private int currentWave;
+    private float waveCounter;
+    private List<GameObject> spawnedEnemies = new List<GameObject>();   
+
     void Start()
     {
-        spawnCounter = timeToSpawn;
+        //spawnCounter = timeToSpawn;
+
+        currentWave = -1;
+        GoToNextWave();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //If we do wave based spawning then we need to set the amount of enemies per wave and what enemies to spawn
+        // check if player still alive
+        if (PlayerHealth.instance.gameObject.activeSelf)
+        {
+            SpawnEnemyWave();
+        }
 
+       //SpawnEnemy();
+    }
+
+    void SpawnEnemyWave()
+    {
+        if (currentWave < waves.Count)
+        {
+            waveCounter -= Time.deltaTime;
+            if (waveCounter <= 0)
+            {
+                GoToNextWave();
+            }
+
+            spawnCounter -= Time.deltaTime;
+
+            if (spawnCounter <= 0)
+            {
+                spawnCounter = waves[currentWave].timeBetweenSpawns;
+
+                GameObject newEnemy = Instantiate(waves[currentWave].enemyToSpawn, SelectSpawnPoint(), Quaternion.identity);
+
+                spawnedEnemies.Add(newEnemy);
+
+            }
+        }
+    }
+
+    void SpawnEnemy()
+    {
+        //If we do wave based spawning then we need to set the amount of enemies per wave and what enemies to spawn
 
         spawnCounter -= Time.deltaTime;
         if (spawnCounter <= 0)
         {
             spawnCounter = timeToSpawn;
 
-            Instantiate(enemyToSpawn,transform.position, transform.rotation);
+            Instantiate(enemyToSpawn, SelectSpawnPoint(), transform.rotation);
         }
     }
+
+    public Vector3 SelectSpawnPoint()
+    {
+        Vector3 spawnPoint = Vector3.zero;
+
+        bool spawnVerticalEdge = Random.Range(0f, 1f) > .5f;
+
+        if (spawnVerticalEdge)
+        {
+            spawnPoint.y = Random.Range(minSpawnPoint.position.y, maxSpawnPoint.position.y);
+
+            if(Random.Range(0f, 1f) > .5f)
+            {
+                spawnPoint.x = maxSpawnPoint.position.x;
+            }
+            else
+            {
+                spawnPoint.x = minSpawnPoint.position.x;
+
+            }
+        }
+        else
+        {
+            spawnPoint.x = Random.Range(minSpawnPoint.position.x, maxSpawnPoint.position.x);
+
+            if (Random.Range(0f, 1f) > .5f)
+            {
+                spawnPoint.y = maxSpawnPoint.position.y;
+            }
+            else
+            {
+                spawnPoint.y = minSpawnPoint.position.y;
+
+            }
+        }
+
+        return spawnPoint;
+    }
+
+    public void GoToNextWave()
+    {
+        currentWave++;
+
+        //if player reaches last wave, repeat last wave
+        if(currentWave >= waves.Count)
+        {
+            currentWave = waves.Count - 1;
+        }
+
+        waveCounter = waves[currentWave].waveLength;
+        spawnCounter = waves[currentWave].timeBetweenSpawns;
+    }
+}
+
+
+[System.Serializable]
+public class WaveInfo
+{
+    public GameObject enemyToSpawn;
+    public float waveLength = 10f;
+    public float timeBetweenSpawns = 1f;
 }

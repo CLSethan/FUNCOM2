@@ -18,7 +18,7 @@ public class CoinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UIController.Instance.UpdateCoins();
     }
 
     // Update is called once per frame
@@ -30,6 +30,13 @@ public class CoinController : MonoBehaviour
     public void AddCoins(int coinsToAdd)
     {
         currentCoins += coinsToAdd;
+        UIController.Instance.UpdateCoins();
+    }
+
+    public void SpendCoins(int coinToSpend)
+    {
+        currentCoins -= coinToSpend;
+        UIController.Instance.UpdateCoins();
     }
 
     public void DropCoin(Vector3 position, int value)
