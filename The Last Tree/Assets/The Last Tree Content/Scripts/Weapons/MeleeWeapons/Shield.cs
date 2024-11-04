@@ -48,7 +48,7 @@ private IEnumerator PerformAttack()
     //When the shield starts growing in size, it's damage is set to 20.
     isEnlarged = true;
     _projectile.damage = 20;
-    // shieldCollider.SetActive(true);
+    shieldCollider.SetActive(true);
 
     Vector3 initialScale = transform.localScale;
     Vector3 targetScale = new Vector3(currentAttackRate, currentAttackRate, currentAttackRate);
@@ -83,7 +83,7 @@ private IEnumerator PerformAttack()
     // When the shield is in it's idle state, it deals no damage.
     isEnlarged = false;
     _projectile.damage = 0;
-    // shieldCollider.SetActive(false);
+    shieldCollider.SetActive(false);
 
     StartCoroutine(ReloadTime(reloadTime));
 }
@@ -95,4 +95,25 @@ private IEnumerator PerformAttack()
             TriggerAttack();
         }
     }
+    
+// private void OnTriggerEnter2D(Collider2D other)
+//     {
+
+//         Debug.Log(other.gameObject.name);
+//         // Check if the object we collided with has a Rigidbody2D
+//         if (other.gameObject.name == "EnemySkeleton" || other.gameObject.name == "EnemyGoblin" || other.gameObject.name == "EnemyFlyingEye" )
+//         {
+//             Rigidbody2D enemyRb = other.GetComponent<Rigidbody2D>();
+//             if (enemyRb != null)
+//             {
+//                 // Calculate the direction of the knockback
+//                 Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+
+//                 // Apply the knockback force
+//                 enemyRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+//             }
+//         }
+//     }
+
+
 }
