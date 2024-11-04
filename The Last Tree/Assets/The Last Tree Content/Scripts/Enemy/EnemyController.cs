@@ -8,7 +8,6 @@ public class EnemyController : MonoBehaviour
 {
     // Enemy Refs
     public Rigidbody2D theRigidbody;
-    private Animator animator;
     public float enemySpeed, enemyDamage, maxEnemyHealth;
 
     //created bool to check if the enemy attacks the player or tree
@@ -100,10 +99,10 @@ public class EnemyController : MonoBehaviour
 
             if (currentEnemyHealth <= 0)
             {
-                animator.SetBool("isDead", true);
                 PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
                 DropCoin();
                 DropHealth();
+                Destroy(this.gameObject);
             }
         }
     }
@@ -113,10 +112,10 @@ public class EnemyController : MonoBehaviour
         Debug.Log("Enemy Took Damage");
         currentEnemyHealth -= damage;
 
-        if (currentEnemyHealth <= 0)
+        if (currentEnemyHealth < 0)
         {
             Debug.Log("Enemy has Died");
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
