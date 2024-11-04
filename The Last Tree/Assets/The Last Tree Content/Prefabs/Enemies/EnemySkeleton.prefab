@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRigidbody: {fileID: 5907637345173636210}
   enemySpeed: 2.5
-  enemyDamage: 7.5
+  enemyDamage: 8
   maxEnemyHealth: 0
   playerAttacker: 1
   currentEnemyHealth: 0
@@ -193,5 +193,5 @@ MonoBehaviour:
   PlayerExp: {fileID: 0}
   experienceAmount: 10
   coinValue: 1
-  coinDropRate: 0.1
+  coinDropRate: 0.5
   healthDropRate: 0

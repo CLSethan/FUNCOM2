@@ -9,12 +9,13 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] MenuManager _menuManager;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
+	[SerializeField] private GameObject PauseMenu;
 
 	public WeaponManager WeaponManager { get { return _weaponManager; } set { _weaponManager = value; } }
 
 	public MenuManager MenuManager { get { return _menuManager; } set { _menuManager = value; } }
 
-	/*    public void StartGame()
+    /*    public void StartGame()
 		{
 			ResetGameInstances();
 			Time.timeScale = 1;
@@ -69,7 +70,27 @@ public class GameManager : Singleton<GameManager>
 			ScoreManager.Instance.UpdateGameOverScoreText();
 		}*/
 
-	public void DestroyNotificationBoard()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && MenuManager.GetCurrentMenuType() == MenuType.InGameMenu)
+        {
+			if (!WeaponManager.isUpgradeMenuActive)
+			{
+				if (!PauseMenu.activeSelf)
+				{
+					PauseMenu.SetActive(true);
+					Time.timeScale = 0;
+				}
+				else
+				{
+					Time.timeScale = 1;
+					PauseMenu.SetActive(false);
+				}
+			}
+        }
+    }
+
+    public void DestroyNotificationBoard()
 	{
 		MenuManager.buttonClickSound.Play();
 
@@ -88,6 +109,20 @@ public class GameManager : Singleton<GameManager>
 		MenuManager.buttonClickSound.Play();
 
 		HowToPlayMenu.SetActive(false);
+	}
+
+	public void ResetGameInstances()
+	{
+/*		SpawnerController.Instance.Reset();
+		Player.Reset();
+		ScoreManager.ResetScore();*/
+	}
+
+	public void ContinueGame()
+    {
+		Time.timeScale = 1;
+		MenuManager.buttonClickSound.Play();
+		PauseMenu.SetActive(false);
 	}
 
 	public void QuitGame()

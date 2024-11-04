@@ -45,6 +45,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     [SerializeField] private GameObject UpgradeMenu;
 
+    [SerializeField] public bool isUpgradeMenuActive = false;
+
     void Awake()
     {
         GameManager.Instance.WeaponManager = this;
@@ -128,11 +130,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
     }
 
-    /*    public void UpgradeCrossbowButton()
-    {
-        WeaponModifier(WeaponTypes.CROSSBOW);
-    }*/
-
     public void UpgradeSwordButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
@@ -141,7 +138,7 @@ public class WeaponManager : Singleton<WeaponManager>
         ResumeGame();
     }
 
-        public void UpgradeShielddButton()
+        public void UpgradeShieldButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
             
@@ -182,7 +179,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
-        UpgradeMenu.SetActive(false);
+        UIController.Instance.HideUpgradeMenu();
     }    
 }

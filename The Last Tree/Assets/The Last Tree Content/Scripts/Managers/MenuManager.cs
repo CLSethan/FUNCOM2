@@ -11,24 +11,35 @@ public enum MenuType
     GameOverMenu = 2,
 }
 
-
 public class MenuManager : Singleton<MenuManager>
 {
 	[SerializeField] GameObject[] menus;
 	[SerializeField] public AudioSource buttonClickSound;
 
+	private MenuType currentMenuType;
+
 	private void Start()
 	{
 		SwitchMenu((int)MenuType.MainMenu);
 	}
+
 	public void SwitchMenu(int index)
 	{
 		buttonClickSound.Play();
 
+		// Deactivate all menus
 		foreach (GameObject menuObj in menus)
 		{
 			menuObj.SetActive(false);
 		}
+
+		// Activate the selected menu and update the current menu type
 		menus[index].SetActive(true);
+		currentMenuType = (MenuType)index;
+	}
+
+	public MenuType GetCurrentMenuType()
+	{
+		return currentMenuType;
 	}
 }
