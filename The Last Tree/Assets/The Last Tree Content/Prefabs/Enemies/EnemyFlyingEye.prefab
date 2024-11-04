@@ -147,8 +147,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0006117424, y: -0.07377974}
-  m_Size: {x: 0.18016157, y: 0.3540616}
+  m_Offset: {x: 0.028313747, y: -0.020378828}
+  m_Size: {x: 0.15791121, y: 0.24725986}
   m_Direction: 0
 --- !u!95 &9062017980239818470
 Animator:
@@ -194,4 +194,4 @@ MonoBehaviour:
   experienceAmount: 10
   coinValue: 1
   coinDropRate: 0.1
-  healthDropRate: 0
+  healthDropRate: 0.05

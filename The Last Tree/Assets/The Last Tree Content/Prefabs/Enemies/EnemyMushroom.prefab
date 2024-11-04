@@ -194,4 +194,4 @@ MonoBehaviour:
   experienceAmount: 10
   coinValue: 1
   coinDropRate: 0.1
-  healthDropRate: 0
+  healthDropRate: 0.05
