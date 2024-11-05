@@ -34,6 +34,9 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        // [Temporary] Randomizes whether the enemy attacks the player or the tree. 
+        playerAttacker = UnityEngine.Random.value < 0.5f;
+
         currentEnemyHealth = maxEnemyHealth;
         PlayerExp = FindObjectOfType<PlayerExperience>();
 
