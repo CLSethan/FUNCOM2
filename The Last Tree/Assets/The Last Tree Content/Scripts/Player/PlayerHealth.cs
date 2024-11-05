@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,25 @@ public class PlayerHealth : MonoBehaviour
 
     public Slider healthSlider;
 
+    [SerializeField] private EnemySpawner enemySpawner;
+
+    [SerializeField] private WeaponManager _weaponManager;
+
+    private SpriteRenderer _spriteRenderer;
+
+    private PlayerController _playerController;
+
+    private Rigidbody2D _playerRb;
+
+    Color initialSprite;
+
     private void Awake()
     {
         instance = this;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerRb = GetComponent<Rigidbody2D>();
+        _playerController = GetComponent<PlayerController>();
+        initialSprite = _spriteRenderer.color;
     }
 
     void Start()
@@ -23,22 +40,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
-
-        UIController.Instance.UpdateHealth();
-
-    }
-
-    public void takeDamage(float enemyDamage)
-    {
-        currentHealth -= enemyDamage;
-
-        if (currentHealth <= 0)
-        {
-            gameObject.SetActive(false);
-            Debug.Log("player has died");
-        }
-
-        healthSlider.value = currentHealth;
+        enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
         UIController.Instance.UpdateHealth();
 
     }
@@ -54,6 +56,40 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
 
         UIController.Instance.UpdateHealth();
+    }
 
+    public void takeDamage(float enemyDamage)
+    {
+        currentHealth -= enemyDamage;
+        if (currentHealth <= 0)
+        {
+            playerDied();
+        }
+        healthSlider.value = currentHealth;
+        UIController.Instance.UpdateHealth();
+    }
+
+    public void playerDied()
+    {
+        _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+        _weaponManager.gameObject.SetActive(false);
+        _playerRb.mass = 1000;
+
+        _playerController.enabled = false;
+        enemySpawner.playerDead();
+        StartCoroutine(respawn());
+    }
+
+    public IEnumerator respawn()
+    {
+        yield return new WaitForSeconds(10f);
+        transform.localPosition = new UnityEngine.Vector2(0, 0);
+        _spriteRenderer.color = initialSprite;
+        _weaponManager.gameObject.SetActive(true);
+        _playerRb.mass = 1;
+        currentHealth = maxHealth;
+        
+        _playerController.enabled = true;
+        enemySpawner.playerAlive();
     }
 }

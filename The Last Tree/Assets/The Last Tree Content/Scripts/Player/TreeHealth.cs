@@ -16,6 +16,7 @@ public class TreeHealth : MonoBehaviour
     public Color flashColor = Color.red; // Color to flash
     public GameObject upperTreeSprite;
     public GameObject lowerTreeSprite;
+    [SerializeField] private GameObject gameOverScreen;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class TreeHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("tree has died");
+            GameManager.Instance.MenuManager.SwitchMenu(2);
         }
     }
 

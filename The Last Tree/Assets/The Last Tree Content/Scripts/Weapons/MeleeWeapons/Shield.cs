@@ -21,9 +21,9 @@ public class Shield : MeleeWeapon
         WeaponManager.Instance.ShieldWeapon = this;
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
-        currentAttackRate = 0.6f;
-        maxAttackRate = 1f;
-        reloadTime = 2;
+        currentAttackRate = 0.8f;
+        maxAttackRate = 1.2f;
+        reloadTime = 0.5f;
     }
 
     protected override IEnumerator ReloadTime(float reloadTime)
@@ -42,12 +42,12 @@ protected override void TriggerAttack()
 
 private IEnumerator PerformAttack()
 {
-    Projectile _projectile = shieldCollider.GetComponent<Projectile>();
+    // Projectile _projectile = shieldCollider.GetComponent<Projectile>();
     canTrigger = false;
 
     //When the shield starts growing in size, it's damage is set to 20.
     isEnlarged = true;
-    _projectile.damage = 20;
+    // _projectile.damage = 20;
     shieldCollider.SetActive(true);
 
     Vector3 initialScale = transform.localScale;
@@ -82,7 +82,7 @@ private IEnumerator PerformAttack()
 
     // When the shield is in it's idle state, it deals no damage.
     isEnlarged = false;
-    _projectile.damage = 0;
+    // _projectile.damage = 0;
     shieldCollider.SetActive(false);
 
     StartCoroutine(ReloadTime(reloadTime));
@@ -94,6 +94,12 @@ private IEnumerator PerformAttack()
         {
             TriggerAttack();
         }
+    }
+
+    public override void Upgrade()
+    {
+        currentAttackRate = Mathf.Min(currentAttackRate + 0.1f, maxAttackRate);
+        currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
     
 // private void OnTriggerEnter2D(Collider2D other)

@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         {
             if (playerHealth.tag == "Player" && attackTimer <= 0)
             {
-                Debug.Log("Enemy is dealing damage to Player");
+                // Debug.Log("Enemy is dealing damage to Player");
                 PlayerHealth.instance.takeDamage(enemyDamage);
 
                 attackTimer = attackSpeed;

@@ -6,7 +6,6 @@ public class ShieldKnockback : MonoBehaviour
 {
 
     public float knockbackForce = 10f; // The strength of the knockback
-    public float knockbackDuration = 0.5f; // How long the knockback lasts
 
     // Start is called before the first frame update
     void Start()
@@ -20,20 +19,32 @@ public class ShieldKnockback : MonoBehaviour
     
     }
         
-private void OnCollisionEnter2D(Collision2D other)
-    {
-        Debug.Log(other.gameObject.name);
-        // Check if the object we collided with has a Rigidbody2D
-        if (other.gameObject.name == "EnemySkeleton" || other.gameObject.name == "EnemyGoblin" || other.gameObject.name == "EnemyFlyingEye" )
-        {
-            Rigidbody2D enemyRb = other.gameObject.GetComponent<Rigidbody2D>();
-            if (enemyRb != null)
-            {
-                // Calculate the direction of the knockback
-                Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.name.Contains("Enemy") && other.gameObject.tag != "Player")
+    //     {
+    //         Rigidbody2D _enemyRigidbody = other.gameObject.GetComponent<Rigidbody2D>();
 
-                // Apply the knockback force
-                enemyRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+    //         if (_enemyRigidbody != null)
+    //         {
+    //             Debug.Log("applying knockback");
+    //             Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+
+    //             _enemyRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+    //         }
+    //     }
+    // }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.name.Contains("Enemy") && other.gameObject.tag != "Player")
+        {
+            Rigidbody2D enemyRigidbody = other.gameObject.GetComponent<Rigidbody2D>();
+            if (enemyRigidbody != null)
+            {
+                Debug.Log(other.gameObject.name);
+                Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+                enemyRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
             }
         }
     }
