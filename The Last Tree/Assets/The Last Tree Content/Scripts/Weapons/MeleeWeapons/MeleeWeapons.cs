@@ -6,6 +6,7 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 {
     [SerializeField] private int _currentUpgradeLevel;
     [SerializeField] protected int _upgradeLevelMax;
+    private bool isEvolved;
     
     public int currentUpgradeLevel
     {
@@ -49,6 +50,7 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     public virtual void Evolve()
     {
+        isEvolved = true;
         Debug.Log("Sword has evolved");
     }
 

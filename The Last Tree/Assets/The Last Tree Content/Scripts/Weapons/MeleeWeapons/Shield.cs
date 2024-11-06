@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
@@ -12,14 +13,20 @@ public class Shield : MeleeWeapon
     [SerializeField] private bool canTrigger;
     [SerializeField] private GameObject shieldCollider;
 
-                    private float currentScale;
-                    public bool isEnlarged;
+    private ShieldKnockback _shieldKnockback;
 
+        private float currentScale;
+        public bool isEnlarged;
+
+
+    protected override void Start()
+    {
+    }
 
     private void Awake()
     {
         WeaponManager.Instance.ShieldWeapon = this;
-        currentUpgradeLevel = 0;
+        currentUpgradeLevel = 7;
         upgradeLevelMax = 6;
         currentAttackRate = 0.8f;
         maxAttackRate = 1.2f;
@@ -82,7 +89,6 @@ private IEnumerator PerformAttack()
 
     // When the shield is in it's idle state, it deals no damage.
     isEnlarged = false;
-    // _projectile.damage = 0;
     shieldCollider.SetActive(false);
 
     StartCoroutine(ReloadTime(reloadTime));
@@ -100,26 +106,8 @@ private IEnumerator PerformAttack()
     {
         currentAttackRate = Mathf.Min(currentAttackRate + 0.1f, maxAttackRate);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
+
+        _shieldKnockback.fixLevel(currentUpgradeLevel);
     }
-    
-// private void OnTriggerEnter2D(Collider2D other)
-//     {
-
-//         Debug.Log(other.gameObject.name);
-//         // Check if the object we collided with has a Rigidbody2D
-//         if (other.gameObject.name == "EnemySkeleton" || other.gameObject.name == "EnemyGoblin" || other.gameObject.name == "EnemyFlyingEye" )
-//         {
-//             Rigidbody2D enemyRb = other.GetComponent<Rigidbody2D>();
-//             if (enemyRb != null)
-//             {
-//                 // Calculate the direction of the knockback
-//                 Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
-
-//                 // Apply the knockback force
-//                 enemyRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-//             }
-//         }
-//     }
-
 
 }
