@@ -29,8 +29,6 @@ public class ShieldKnockback : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collided with: " + other.gameObject.name);
-
         if (other.gameObject.name.Contains("Enemy") && other.gameObject.tag != "Player")
         {
             Rigidbody2D enemyRigidbody = other.gameObject.GetComponent<Rigidbody2D>();
@@ -93,6 +91,8 @@ public class ShieldKnockback : MonoBehaviour
             break;
 
             case 7:
+            knockbackForce = 9f;
+            knockbackLength = 0.25f;
             isEvolved = true;
             break;
         }
