@@ -97,9 +97,8 @@ public class WeaponManager : Singleton<WeaponManager>
                 EquipAndUpgradeWeapon(weaponList[3], SwordWeapon, type);
                 break;
             case WeaponTypes.SHIELD:
-                EquipAndUpgradeWeapon(weaponList[4], SwordWeapon, type);
+                EquipAndUpgradeWeapon(weaponList[4], ShieldWeapon, type);
                 break;
-
         }
     }
 

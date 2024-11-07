@@ -31,8 +31,6 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     protected virtual void Start()
     {
-        Debug.Log("currentAttackRate: " + currentAttackRate);
-        Debug.Log("maxAttackRate: " + maxAttackRate);
     }
 
     protected virtual void Update()
@@ -46,7 +44,7 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     public virtual void Evolve()
     {
-        Debug.Log("Sword has evolved");
+        Debug.Log("Melee weapon " + this.gameObject.name + " has evolved");
     }
 
     public virtual void Upgrade()

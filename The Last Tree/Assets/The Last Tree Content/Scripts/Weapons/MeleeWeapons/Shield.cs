@@ -50,7 +50,7 @@ public class Shield : MeleeWeapon
     {
         if (canTrigger)
         {
-        StartCoroutine(PerformAttack(evolutionStatus));
+            StartCoroutine(PerformAttack(evolutionStatus));
         }
     }
 
@@ -144,16 +144,15 @@ public class Shield : MeleeWeapon
                 TriggerAttack();
             }
 
-            if (Input.GetKeyDown(KeyCode.F9))
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                currentUpgradeLevel = 7;
                 Upgrade();
             }
         }
 
         public override void Upgrade()
         {
-            if (currentUpgradeLevel >= 6)
+            if (currentUpgradeLevel == 6)
             {
                 Evolve();
             }
@@ -224,15 +223,9 @@ public class Shield : MeleeWeapon
                         Instantiate(shieldObject, newPos, transform.rotation, transform.parent);
                         shieldObject.transform.localScale = new UnityEngine.Vector2(0.3f,  0.3f);
                     }
-                    // else 
-                    // {
-                    //     isEvolving = false;
-                    //     transform.position = new UnityEngine.Vector2(_initialPosition.x - offset, _initialPosition.y + offset);
-                    // }
                     shieldNumber++;
                     spawnedShieldCount++;
                 }
-                
                 GetComponentInChildren<CircleCollider2D>().enabled =  false;
                 GetComponent<SpriteRenderer>().enabled = false;
             }
