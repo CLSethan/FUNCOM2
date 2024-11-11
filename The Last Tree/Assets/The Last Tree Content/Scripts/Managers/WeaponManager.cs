@@ -9,7 +9,8 @@ public enum WeaponTypes
     CROSSBOW,
     ETHEREAL_WARRIOR,
     SWORD,
-    SHIELD
+    SHIELD,
+    FIRE_ORB
 }
 
 public class WeaponManager : Singleton<WeaponManager>
@@ -38,6 +39,11 @@ public class WeaponManager : Singleton<WeaponManager>
     [SerializeField] Shield _shield;
 
     public Shield ShieldWeapon { get { return _shield; } set { _shield = value; } }
+
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] FireOrb _fireOrb;
+
+    public FireOrb FireOrbWeapon { get { return _fireOrb; } set { _fireOrb = value; } }
 
     [SerializeField] public List<GameObject> weaponList;
 
@@ -97,7 +103,10 @@ public class WeaponManager : Singleton<WeaponManager>
                 EquipAndUpgradeWeapon(weaponList[3], SwordWeapon, type);
                 break;
             case WeaponTypes.SHIELD:
-                EquipAndUpgradeWeapon(weaponList[4], SwordWeapon, type);
+                EquipAndUpgradeWeapon(weaponList[4], ShieldWeapon, type);
+                break;
+            case WeaponTypes.FIRE_ORB:
+                EquipAndUpgradeWeapon(weaponList[5], FireOrbWeapon, type);
                 break;
 
         }
@@ -138,12 +147,21 @@ public class WeaponManager : Singleton<WeaponManager>
         ResumeGame();
     }
 
-        public void UpgradeShieldButton()
+    public void UpgradeShieldButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
             
         WeaponModifier(WeaponTypes.SHIELD);
         ResumeGame();
+    }
+
+    public void UpgradeFireOrbButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
+        WeaponModifier(WeaponTypes.FIRE_ORB);
+        ResumeGame();
+
     }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)

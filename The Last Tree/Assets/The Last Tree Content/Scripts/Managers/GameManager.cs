@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] MenuManager _menuManager;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
+	[SerializeField] private GameObject OptionsMenu;
 	[SerializeField] private GameObject PauseMenu;
 
 	public WeaponManager WeaponManager { get { return _weaponManager; } set { _weaponManager = value; } }
@@ -109,6 +110,20 @@ public class GameManager : Singleton<GameManager>
 		MenuManager.buttonClickSound.Play();
 
 		HowToPlayMenu.SetActive(false);
+	}
+
+	public void ActivateOptionsMenu()
+	{
+		MenuManager.buttonClickSound.Play();
+
+		OptionsMenu.SetActive(true);
+	}
+
+	public void DeactivateOptionsMenu()
+	{
+		MenuManager.buttonClickSound.Play();
+
+		OptionsMenu.SetActive(false);
 	}
 
 	public void ResetGameInstances()
