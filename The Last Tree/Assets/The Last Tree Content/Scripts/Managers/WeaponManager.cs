@@ -108,7 +108,6 @@ public class WeaponManager : Singleton<WeaponManager>
             case WeaponTypes.FIRE_ORB:
                 EquipAndUpgradeWeapon(weaponList[5], FireOrbWeapon, type);
                 break;
-
         }
     }
 
