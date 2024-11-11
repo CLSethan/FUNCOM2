@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 7996246930946959825}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4f230fa6acf87ff4aa55a06a9691101d, type: 2}
+  m_Controller: {fileID: 9100000, guid: e16a1695fa13f9d49818fb71fa3c4ffe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   theRigidbody: {fileID: 8019935987240057286}
   enemySpeed: 8
   enemyDamage: 2
-  maxEnemyHealth: 2
+  maxEnemyHealth: 25
   playerAttacker: 1
   currentEnemyHealth: 0
   attackTimer: 0
@@ -194,4 +194,4 @@ MonoBehaviour:
   experienceAmount: 10
   coinValue: 1
   coinDropRate: 0.7
-  healthDropRate: 0
+  healthDropRate: 0.2

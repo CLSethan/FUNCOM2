@@ -8,13 +8,13 @@ public class EnemyController : MonoBehaviour
 {
     // Enemy Refs
     public Rigidbody2D theRigidbody;
+    private Animator animator;
     public float enemySpeed, enemyDamage, maxEnemyHealth;
 
     //created bool to check if the enemy attacks the player or tree
     public bool playerAttacker;
     [SerializeField] private float currentEnemyHealth;
     private Transform target;
-
 
     private float attackSpeed = 2;
     [SerializeField] private float attackTimer;
@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     {
         currentEnemyHealth = maxEnemyHealth;
         PlayerExp = FindObjectOfType<PlayerExperience>();
+        animator = gameObject.GetComponent<Animator>();
 
         // if player attack find player transform
         if (playerAttacker)
@@ -96,14 +97,6 @@ public class EnemyController : MonoBehaviour
         {
             TakeDamage(projectile.GetDamage());
             projectile.OnHit(); // optional if the projectile has specific behavior on hit (e.g., destroy itself)
-
-            if (currentEnemyHealth <= 0)
-            {
-                PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
-                DropCoin();
-                DropHealth();
-                Destroy(this.gameObject);
-            }
         }
     }
 
@@ -115,7 +108,7 @@ public class EnemyController : MonoBehaviour
         if (currentEnemyHealth < 0)
         {
             Debug.Log("Enemy has Died");
-            Destroy(gameObject);
+            animator.SetTrigger("isDead");
         }
     }
 
@@ -133,5 +126,14 @@ public class EnemyController : MonoBehaviour
         {
             HealthController.instance.DropHealth(transform.position);
         }
+    }
+
+    public void Death()
+    {
+        Debug.Log("Triggering Enemy Death events");
+        PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
+        DropCoin();
+        DropHealth();
+        Destroy(this.gameObject);
     }
 }
