@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -30,7 +31,7 @@ public class EnemyController : MonoBehaviour
     //Health Refs
     public float healthDropRate;
 
-
+    private bool canMove = true;
 
     void Start()
     {
@@ -55,11 +56,14 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        theRigidbody.velocity = (target.position - transform.position).normalized * enemySpeed;
-
-        if (attackTimer > 0)
+        if (canMove)
         {
-            attackTimer -= Time.deltaTime;
+            theRigidbody.velocity = (target.position - transform.position).normalized * enemySpeed;
+
+            if (attackTimer > 0)
+            {
+                attackTimer -= Time.deltaTime;
+            }
         }
     }
 
@@ -84,7 +88,7 @@ public class EnemyController : MonoBehaviour
         {
             if (playerHealth.tag == "Player" && attackTimer <= 0)
             {
-                Debug.Log("Enemy is dealing damage to Player");
+                // Debug.Log("Enemy is dealing damage to Player");
                 PlayerHealth.instance.takeDamage(enemyDamage);
 
                 attackTimer = attackSpeed;
@@ -136,5 +140,13 @@ public class EnemyController : MonoBehaviour
         {
             HealthController.instance.DropHealth(transform.position);
         }
+    }
+
+    public IEnumerator movementStunLock(float stunDuration, bool willStun)
+    {
+        canMove = false;
+        yield return new WaitForSeconds(stunDuration);
+        canMove = true;
+        yield return null;
     }
 }
