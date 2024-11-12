@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 251381298156953545}
   - component: {fileID: 9062017980239818470}
   - component: {fileID: 5718662377454561047}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemyFlyingEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     private float waveCounter;
     private List<GameObject> spawnedEnemies = new List<GameObject>();   
 
+    private List<GameObject> playerAttackerEnemies = new List<GameObject>();
+
     void Start()
     {
         //spawnCounter = timeToSpawn;
@@ -124,7 +126,30 @@ public class EnemySpawner : MonoBehaviour
         waveCounter = waves[currentWave].waveLength;
         spawnCounter = waves[currentWave].timeBetweenSpawns;
     }
+
+    public void playerDead()
+    {
+        for (int i = 0; i < spawnedEnemies.Count; ++i)
+        {
+           EnemyController _enemyController = spawnedEnemies[i].GetComponent<EnemyController>();
+           if (_enemyController.playerAttacker == true)
+           {
+            playerAttackerEnemies.Add(spawnedEnemies[i]);
+            _enemyController.playerAttacker = false;
+           }
+        }
+    }
+
+    public void playerAlive()
+    {
+        for (int i = 0; i < playerAttackerEnemies.Count; ++i)
+        {
+            EnemyController _enemyController = playerAttackerEnemies[i].GetComponent<EnemyController>();
+            _enemyController.playerAttacker = true;
+        }
+    }
 }
+
 
 
 [System.Serializable]

@@ -23,19 +23,14 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     [SerializeField] protected float currentAttackRate; // The speed of swinging
     [SerializeField] protected float maxAttackRate;
-    [SerializeField] protected bool doneReloading = true;
 
     protected virtual IEnumerator ReloadTime(float reloadTime)
     {
         yield return new WaitForSeconds(reloadTime);
-
-        doneReloading = true;
     }
 
     protected virtual void Start()
     {
-        Debug.Log("currentAttackRate: " + currentAttackRate);
-        Debug.Log("maxAttackRate: " + maxAttackRate);
     }
 
     protected virtual void Update()
@@ -49,7 +44,7 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     public virtual void Evolve()
     {
-        Debug.Log("Sword has evolved");
+        Debug.Log("Melee weapon " + this.gameObject.name + " has evolved");
     }
 
     public virtual void Upgrade()

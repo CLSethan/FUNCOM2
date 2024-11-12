@@ -31,6 +31,7 @@ public class Sword : MeleeWeapon
     public override void Upgrade()
     {
         currentAttackRate = Mathf.Min(currentAttackRate + 1f, maxAttackRate);
+        transform.localScale += new  UnityEngine.Vector3(0.1f, 0.1f, 0.1f);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
 
