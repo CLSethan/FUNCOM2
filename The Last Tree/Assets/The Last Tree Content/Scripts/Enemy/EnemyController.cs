@@ -7,8 +7,17 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    //GREX: Added animator variables for animations & collider variable
+    private Animator anim;
+    [SerializeField] private RuntimeAnimatorController idleAnimatorController;
+    [SerializeField] private RuntimeAnimatorController runAnimatorController;
+    [SerializeField] private RuntimeAnimatorController attackAnimatorController;
+    [SerializeField] private RuntimeAnimatorController deathAnimatorController;
+    [SerializeField] private Collider2D enemyCollider;
+
     // Enemy Refs
     public Rigidbody2D theRigidbody;
+
     public float enemySpeed, enemyDamage, maxEnemyHealth;
 
     //created bool to check if the enemy attacks the player or tree
@@ -32,6 +41,16 @@ public class EnemyController : MonoBehaviour
     public float healthDropRate;
 
     private bool canMove = true;
+    //GREX: Added bools for death and attack anims
+    public bool isDead { get; private set; } = false;
+    private bool isAttacking = false;
+
+    //GREX: Added Awake to get animator when enemy spawns
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        enemyCollider = GetComponent<Collider2D>();
+    }
 
     void Start()
     {
@@ -56,6 +75,8 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        FlipCharacterSprite();
+
         if (canMove)
         {
             theRigidbody.velocity = (target.position - transform.position).normalized * enemySpeed;
@@ -73,14 +94,20 @@ public class EnemyController : MonoBehaviour
         // get components
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
         TreeHealth treeHealth = collision.gameObject.GetComponent<TreeHealth>();
-        
+
         if (treeHealth != null)
         {
             if (treeHealth.tag == "Tree" && attackTimer <= 0)
             {
+                //GREX: Added a bool check for when its attacking to activate attack animation
+                isAttacking = true;
+                anim.runtimeAnimatorController = attackAnimatorController;
+
                 Debug.Log("Enemy is dealing damage to Tree");
                 TreeHealth.instance.takeDamage(enemyDamage);
                 attackTimer = attackSpeed;
+
+                StartCoroutine(EnemyAttackTime());
             }
         }
 
@@ -88,10 +115,16 @@ public class EnemyController : MonoBehaviour
         {
             if (playerHealth.tag == "Player" && attackTimer <= 0)
             {
+                isAttacking = true;
+                anim.runtimeAnimatorController = attackAnimatorController;
+                theRigidbody.isKinematic = true;
+
                 // Debug.Log("Enemy is dealing damage to Player");
                 PlayerHealth.instance.takeDamage(enemyDamage);
 
                 attackTimer = attackSpeed;
+
+                StartCoroutine(EnemyAttackTime());
             }
         }
     }
@@ -104,31 +137,54 @@ public class EnemyController : MonoBehaviour
             TakeDamage(projectile.GetDamage());
             projectile.OnHit(); // optional if the projectile has specific behavior on hit (e.g., destroy itself)
 
-            if (currentEnemyHealth <= 0)
-            {
-                PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
-                DropCoin();
-                DropHealth();
-                Destroy(this.gameObject);
-            }
+            //GREX: Commented this out since there's already a check for when currentEnemyHealth is below or equal to 0 in the TakeDamage function
+            /*            if (currentEnemyHealth <= 0)
+                        {
+                            PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
+                            DropCoin();
+                            DropHealth();
+                            anim.runtimeAnimatorController = deathAnimatorController;
+                            StartCoroutine(DestroyEnemy());
+                        }*/
         }
     }
 
     public void TakeDamage(float damage)
     {
+        if (isDead)
+            return;
+
         Debug.Log("Enemy Took Damage");
         currentEnemyHealth -= damage;
 
-        if (currentEnemyHealth < 0)
+        //GREX: Moved the death logic in TakeDamage function
+        if (currentEnemyHealth <= 0 && !isDead)
         {
-            Debug.Log("Enemy has Died");
-            Destroy(gameObject);
+            EnemyDeath();
         }
+    }
+
+    //GREX: Added EnemyDeath function to handle death logic
+    void EnemyDeath()
+    {
+        isDead = true;
+        canMove = false;
+
+        //GREX: Added rigidbody and collider disables when enemy dies
+
+        enemyCollider.enabled = false;
+        theRigidbody.simulated = false;
+
+        PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
+        DropCoin();
+        DropHealth();
+        anim.runtimeAnimatorController = deathAnimatorController;
+        StartCoroutine(DestroyEnemy());
     }
 
     void DropCoin()
     {
-        if(UnityEngine.Random.value <= coinDropRate)
+        if (UnityEngine.Random.value <= coinDropRate)
         {
             CoinController.instance.DropCoin(transform.position, coinValue);
         }
@@ -142,11 +198,53 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    //GREX: Added timer for Destroying enemyGameObject for enemy to perform death animation before getting destroyed
+    private IEnumerator DestroyEnemy()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(gameObject);
+    }
+
+    private IEnumerator EnemyAttackTime()
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        isAttacking = false;
+    }
+
     public IEnumerator movementStunLock(float stunDuration, bool willStun)
     {
         canMove = false;
         yield return new WaitForSeconds(stunDuration);
         canMove = true;
         yield return null;
+    }
+
+    //GREX: Added FlipCharacterSprite for enemy's sprite to flip based on their velocity
+    private void FlipCharacterSprite()
+    {
+        if (isDead)
+            return;
+
+        if (!isAttacking)
+        {
+            if (theRigidbody.velocity.x > 0)
+            {
+                anim.runtimeAnimatorController = runAnimatorController;
+                transform.localScale = new Vector3(4f, 4f, 4f);
+            }
+
+            if (theRigidbody.velocity.x < 0)
+            {
+                anim.runtimeAnimatorController = runAnimatorController;
+                transform.localScale = new Vector3(-4f, 4f, 4f);
+            }
+
+            if (theRigidbody.velocity.x == 0)
+            {
+                anim.runtimeAnimatorController = idleAnimatorController;
+            }
+        }
     }
 }

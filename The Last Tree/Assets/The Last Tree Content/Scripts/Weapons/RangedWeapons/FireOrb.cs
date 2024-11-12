@@ -19,7 +19,7 @@ public class FireOrb : RangedWeapon
 
     protected override void Update()
     {
-        RemoveNullEnemies(); // Clean up any null references in the enemy list
+        RemoveDeadEnemies(); // Clean up any null references in the enemy list
 
         if (enemyList.Count > 0)
         {
@@ -64,9 +64,9 @@ public class FireOrb : RangedWeapon
         canShoot = false;
     }
 
-    private void RemoveNullEnemies()
+    private void RemoveDeadEnemies()
     {
-        enemyList.RemoveAll(enemy => enemy == null); // Remove any null elements from enemyList
+        enemyList.RemoveAll(enemy => enemy == null || enemy.GetComponent<EnemyController>().isDead); // Remove any null elements from enemyList
     }
 
     private void OnTriggerEnter2D(Collider2D other)

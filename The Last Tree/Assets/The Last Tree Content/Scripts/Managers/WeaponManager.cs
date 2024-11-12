@@ -36,9 +36,9 @@ public class WeaponManager : Singleton<WeaponManager>
     public Sword SwordWeapon { get { return _sword; } set { _sword = value; } }
 
     //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
-    [SerializeField] Shield _shield;
+    [SerializeField] ShieldWeapon _shield;
 
-    public Shield ShieldWeapon { get { return _shield; } set { _shield = value; } }
+    public ShieldWeapon ShieldWeapon { get { return _shield; } set { _shield = value; } }
 
     //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
     [SerializeField] FireOrb _fireOrb;

@@ -28,7 +28,7 @@ public class Shield : MeleeWeapon
     private void Awake()
     {
         _shieldKnockback = GetComponentInChildren<ShieldKnockback>();
-        WeaponManager.Instance.ShieldWeapon = this;
+        /*WeaponManager.Instance.ShieldWeapon = this;*/
         currentUpgradeLevel = 1;
         upgradeLevelMax = 7;
         currentAttackRate = 0.8f;

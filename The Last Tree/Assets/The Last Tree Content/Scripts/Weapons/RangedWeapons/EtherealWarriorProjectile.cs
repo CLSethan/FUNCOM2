@@ -31,14 +31,19 @@ public class EtherealWarriorProjectile : MonoBehaviour
     {
         if (EtherealWarriorScript.enemyList.Count > 0)
         {
-            // Directly check if the first element of the list is null
-            if (EtherealWarriorScript.enemyList[0] == null)
+            // Remove null or dead enemies from the list
+            for (int i = EtherealWarriorScript.enemyList.Count - 1; i >= 0; i--)
             {
-                EtherealWarriorScript.enemyList.RemoveAt(0);
+                GameObject enemy = EtherealWarriorScript.enemyList[i];
+                if (enemy == null || enemy.GetComponent<EnemyController>().isDead)
+                {
+                    EtherealWarriorScript.enemyList.RemoveAt(i);
+                }
             }
-            else
+
+            if (EtherealWarriorScript.enemyList.Count > 0)
             {
-                // Target the first skeleton in the list
+                // Target the first alive skeleton in the list
                 enemyTarget = EtherealWarriorScript.enemyList[0];
 
                 if (!hasReachedTarget)
@@ -51,6 +56,11 @@ public class EtherealWarriorProjectile : MonoBehaviour
                     // Move to the right after reaching the target
                     MoveToRightOfTarget(enemyTarget);
                 }
+            }
+            else
+            {
+                // Stop the projectile if there are no targets
+                rb.velocity = Vector2.zero;
             }
         }
         else

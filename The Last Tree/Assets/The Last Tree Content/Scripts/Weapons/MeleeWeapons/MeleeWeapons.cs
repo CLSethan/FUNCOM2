@@ -23,10 +23,13 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
 
     [SerializeField] protected float currentAttackRate; // The speed of swinging
     [SerializeField] protected float maxAttackRate;
+    [SerializeField] protected bool canAttack = true;
 
     protected virtual IEnumerator ReloadTime(float reloadTime)
     {
         yield return new WaitForSeconds(reloadTime);
+
+        canAttack = true;
     }
 
     protected virtual void Start()
