@@ -33,6 +33,7 @@ public class UIController : MonoBehaviour
         // moved from weaponmanager
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = true;
         UpgradeMenu.SetActive(true);
+        GameManager.Instance.WeaponUpgradeMenu.GenerateRandomWeaponUpgrades();
         Time.timeScale = 0;
     }
 
@@ -41,6 +42,7 @@ public class UIController : MonoBehaviour
         //moved from player experience
         Time.timeScale = 1;
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = false;
+        /*GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();*/
         UpgradeMenu.SetActive(false);
     }
 

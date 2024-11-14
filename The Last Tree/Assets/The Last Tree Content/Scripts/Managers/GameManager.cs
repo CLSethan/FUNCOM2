@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
 	[SerializeField] WeaponManager _weaponManager;
 	[SerializeField] MenuManager _menuManager;
+	[SerializeField] WeaponUpgradeMenu _weaponUpgradeMenu;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
 	[SerializeField] private GameObject OptionsMenu;
@@ -16,7 +17,9 @@ public class GameManager : Singleton<GameManager>
 
 	public MenuManager MenuManager { get { return _menuManager; } set { _menuManager = value; } }
 
-    /*    public void StartGame()
+	public WeaponUpgradeMenu WeaponUpgradeMenu { get { return _weaponUpgradeMenu; } set { _weaponUpgradeMenu = value; } }
+
+	/*    public void StartGame()
 		{
 			ResetGameInstances();
 			Time.timeScale = 1;
@@ -71,7 +74,7 @@ public class GameManager : Singleton<GameManager>
 			ScoreManager.Instance.UpdateGameOverScoreText();
 		}*/
 
-    private void Update()
+	private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && MenuManager.GetCurrentMenuType() == MenuType.InGameMenu)
         {
