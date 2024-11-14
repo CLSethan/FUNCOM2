@@ -47906,8 +47906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30164adbd3f54094cb04959a10b41e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponUpgradeList: []
-  upgradeBoardGameObjectList:
+  currentUpgradeBoardGameObjectList: []
+  maxUpgradeBoardGameObjectList:
   - {fileID: 1134903519}
   - {fileID: 1625141086}
   - {fileID: 1097817443}
@@ -47923,6 +47923,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  maxUpgradeBoardSlots: 3
 --- !u!1001 &1942587106
 PrefabInstance:
   m_ObjectHideFlags: 0
