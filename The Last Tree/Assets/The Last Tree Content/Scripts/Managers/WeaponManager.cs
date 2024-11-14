@@ -53,7 +53,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
     [SerializeField] public List<GameObject> weaponList;
 
-    [SerializeField] WeaponTypes weaponTypes;
+    [SerializeField] public WeaponTypes weaponTypes;
 
     [SerializeField] private GameObject UpgradeMenu;
 
