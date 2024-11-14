@@ -27,19 +27,32 @@ public class CurrentLevelText : MonoBehaviour
         switch (weaponTypeText)
         {
             case WeaponTypeText.BOW_TEXT:
-                currentLevelText.text = "Current Level: " + WeaponManager.Instance.BowWeapon.currentUpgradeLevel;
-                maxLevelText.text = "Max Level: " + WeaponManager.Instance.BowWeapon.upgradeLevelMax;
+                DisplayLevels(currentLevelText, WeaponManager.Instance.BowWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.BowWeapon.upgradeLevelMax);
                 break;
             case WeaponTypeText.CROSSBOW_TEXT:
-                currentLevelText.text = "Current Level: " + WeaponManager.Instance.CrossbowWeapon.currentUpgradeLevel;
-                maxLevelText.text = "Max Level: " + WeaponManager.Instance.CrossbowWeapon.upgradeLevelMax;
+                DisplayLevels(currentLevelText, WeaponManager.Instance.CrossbowWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.CrossbowWeapon.upgradeLevelMax);
+                break;
+            case WeaponTypeText.ETHEREAL_WARRIOR_TEXT:
+                DisplayLevels(currentLevelText, WeaponManager.Instance.EtherealWarriorWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.EtherealWarriorWeapon.upgradeLevelMax);
+                break;
+            case WeaponTypeText.SWORD_TEXT:
+                DisplayLevels(currentLevelText, WeaponManager.Instance.SwordWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.SwordWeapon.upgradeLevelMax);
+                break;
+            case WeaponTypeText.SHIELD_TEXT:
+                DisplayLevels(currentLevelText, WeaponManager.Instance.ShieldWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.ShieldWeapon.upgradeLevelMax);
+                break;
+            case WeaponTypeText.FIRE_ORB_TEXT:
+                DisplayLevels(currentLevelText, WeaponManager.Instance.FireOrbWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.FireOrbWeapon.upgradeLevelMax);
+                break;
+            case WeaponTypeText.DEATH_SPIRITS_TEXT:
+                DisplayLevels(currentLevelText, WeaponManager.Instance.DeathSpiritsWeapon.currentUpgradeLevel, maxLevelText, WeaponManager.Instance.DeathSpiritsWeapon.upgradeLevelMax);
                 break;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisplayLevels(Text currentLevelText, int currentLevel, Text maxLevelText, int maxLevel)
     {
-        
+        currentLevelText.text = "Current Level: " + currentLevel;
+        maxLevelText.text = "Max Level: " + maxLevel;
     }
 }
