@@ -10,7 +10,8 @@ public enum WeaponTypes
     ETHEREAL_WARRIOR,
     SWORD,
     SHIELD,
-    FIRE_ORB
+    FIRE_ORB,
+    DEATH_SPIRITS
 }
 
 public class WeaponManager : Singleton<WeaponManager>
@@ -44,6 +45,11 @@ public class WeaponManager : Singleton<WeaponManager>
     [SerializeField] FireOrb _fireOrb;
 
     public FireOrb FireOrbWeapon { get { return _fireOrb; } set { _fireOrb = value; } }
+
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] DeathSpirits _deathSpirits;
+
+    public DeathSpirits DeathSpiritsWeapon { get { return _deathSpirits; } set { _deathSpirits = value; } }
 
     [SerializeField] public List<GameObject> weaponList;
 
@@ -108,6 +114,9 @@ public class WeaponManager : Singleton<WeaponManager>
             case WeaponTypes.FIRE_ORB:
                 EquipAndUpgradeWeapon(weaponList[5], FireOrbWeapon, type);
                 break;
+            case WeaponTypes.DEATH_SPIRITS:
+                EquipAndUpgradeWeapon(weaponList[6], DeathSpiritsWeapon, type);
+                break;
         }
     }
 
@@ -160,7 +169,14 @@ public class WeaponManager : Singleton<WeaponManager>
 
         WeaponModifier(WeaponTypes.FIRE_ORB);
         ResumeGame();
+    }
 
+    public void UpgradeDeathSpiritsButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
+        WeaponModifier(WeaponTypes.DEATH_SPIRITS);
+        ResumeGame();
     }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
@@ -185,10 +201,10 @@ public class WeaponManager : Singleton<WeaponManager>
                 Debug.Log($"{type} Evolved");
             }
         }
-        else
+/*        else
         {
             Debug.Log($"{type} has reached full upgrade");
-        }
+        }*/
 
         // Reset weapon type
         type = WeaponTypes.NONE;
