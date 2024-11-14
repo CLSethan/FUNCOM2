@@ -57,6 +57,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     [SerializeField] private GameObject UpgradeMenu;
 
+    [SerializeField] private GameObject FullUpgradeBoard;
+
     [SerializeField] public bool isUpgradeMenuActive = false;
 
     void Awake()
@@ -175,8 +177,19 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
 
-        WeaponModifier(WeaponTypes.DEATH_SPIRITS);
-        ResumeGame();
+        if (DeathSpiritsWeapon.currentUpgradeLevel < DeathSpiritsWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.DEATH_SPIRITS);
+            ResumeGame();
+        }
+        else
+        {
+            if (!FullUpgradeBoard.activeSelf)
+            {
+                ActivateFullUpgradeBoard();
+                Debug.Log("You just saw this debug huh");
+            }
+        }    
     }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
@@ -208,6 +221,22 @@ public class WeaponManager : Singleton<WeaponManager>
 
         // Reset weapon type
         type = WeaponTypes.NONE;
+    }
+
+    public void ActivateFullUpgradeBoard()
+    {
+        FullUpgradeBoard.SetActive(true);
+
+        StartCoroutine(DeactivateFullUpgradeBoard());
+
+        //then set its active state to false after 2 seconds
+    }
+
+    private IEnumerator DeactivateFullUpgradeBoard()
+    {
+        yield return new WaitForSecondsRealtime(2.5f);
+
+        FullUpgradeBoard.SetActive(false);
     }
 
     public void ResumeGame()
