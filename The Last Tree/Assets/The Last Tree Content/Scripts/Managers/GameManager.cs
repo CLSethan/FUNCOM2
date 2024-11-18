@@ -7,15 +7,19 @@ public class GameManager : Singleton<GameManager>
 {
 	[SerializeField] WeaponManager _weaponManager;
 	[SerializeField] MenuManager _menuManager;
+	[SerializeField] WeaponUpgradeMenu _weaponUpgradeMenu;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
+	[SerializeField] private GameObject OptionsMenu;
 	[SerializeField] private GameObject PauseMenu;
 
 	public WeaponManager WeaponManager { get { return _weaponManager; } set { _weaponManager = value; } }
 
 	public MenuManager MenuManager { get { return _menuManager; } set { _menuManager = value; } }
 
-    /*    public void StartGame()
+	public WeaponUpgradeMenu WeaponUpgradeMenu { get { return _weaponUpgradeMenu; } set { _weaponUpgradeMenu = value; } }
+
+	/*    public void StartGame()
 		{
 			ResetGameInstances();
 			Time.timeScale = 1;
@@ -70,7 +74,7 @@ public class GameManager : Singleton<GameManager>
 			ScoreManager.Instance.UpdateGameOverScoreText();
 		}*/
 
-    private void Update()
+	private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && MenuManager.GetCurrentMenuType() == MenuType.InGameMenu)
         {
@@ -109,6 +113,20 @@ public class GameManager : Singleton<GameManager>
 		MenuManager.buttonClickSound.Play();
 
 		HowToPlayMenu.SetActive(false);
+	}
+
+	public void ActivateOptionsMenu()
+	{
+		MenuManager.buttonClickSound.Play();
+
+		OptionsMenu.SetActive(true);
+	}
+
+	public void DeactivateOptionsMenu()
+	{
+		MenuManager.buttonClickSound.Play();
+
+		OptionsMenu.SetActive(false);
 	}
 
 	public void ResetGameInstances()

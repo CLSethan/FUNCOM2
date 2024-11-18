@@ -9,7 +9,9 @@ public enum WeaponTypes
     CROSSBOW,
     ETHEREAL_WARRIOR,
     SWORD,
-    SHIELD
+    SHIELD,
+    FIRE_ORB,
+    DEATH_SPIRITS
 }
 
 public class WeaponManager : Singleton<WeaponManager>
@@ -35,15 +37,27 @@ public class WeaponManager : Singleton<WeaponManager>
     public Sword SwordWeapon { get { return _sword; } set { _sword = value; } }
 
     //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
-    [SerializeField] Shield _shield;
+    [SerializeField] ShieldWeapon _shield;
 
-    public Shield ShieldWeapon { get { return _shield; } set { _shield = value; } }
+    public ShieldWeapon ShieldWeapon { get { return _shield; } set { _shield = value; } }
+
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] FireOrb _fireOrb;
+
+    public FireOrb FireOrbWeapon { get { return _fireOrb; } set { _fireOrb = value; } }
+
+    //Copy paste the serializefield and public Bow to connect scripts of weapons to WeaponManager script
+    [SerializeField] DeathSpirits _deathSpirits;
+
+    public DeathSpirits DeathSpiritsWeapon { get { return _deathSpirits; } set { _deathSpirits = value; } }
 
     [SerializeField] public List<GameObject> weaponList;
 
-    [SerializeField] WeaponTypes weaponTypes;
+    [SerializeField] public WeaponTypes weaponTypes;
 
     [SerializeField] private GameObject UpgradeMenu;
+
+    [SerializeField] private GameObject FullUpgradeBoard;
 
     [SerializeField] public bool isUpgradeMenuActive = false;
 
@@ -99,6 +113,12 @@ public class WeaponManager : Singleton<WeaponManager>
             case WeaponTypes.SHIELD:
                 EquipAndUpgradeWeapon(weaponList[4], ShieldWeapon, type);
                 break;
+            case WeaponTypes.FIRE_ORB:
+                EquipAndUpgradeWeapon(weaponList[5], FireOrbWeapon, type);
+                break;
+            case WeaponTypes.DEATH_SPIRITS:
+                EquipAndUpgradeWeapon(weaponList[6], DeathSpiritsWeapon, type);
+                break;
         }
     }
 
@@ -106,8 +126,15 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
 
-        WeaponModifier(WeaponTypes.CROSSBOW);
-        ResumeGame();
+        if (CrossbowWeapon.currentUpgradeLevel < CrossbowWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.CROSSBOW);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
 
     }
 
@@ -115,8 +142,15 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
 
-        WeaponModifier(WeaponTypes.BOW);
-        ResumeGame();
+        if (BowWeapon.currentUpgradeLevel < BowWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.BOW);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
 
     }
 
@@ -124,25 +158,75 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
 
-        WeaponModifier(WeaponTypes.ETHEREAL_WARRIOR);
-        ResumeGame();
-
+        if (EtherealWarriorWeapon.currentUpgradeLevel < EtherealWarriorWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.ETHEREAL_WARRIOR);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
     }
 
     public void UpgradeSwordButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
-            
-        WeaponModifier(WeaponTypes.SWORD);
-        ResumeGame();
+
+        if (SwordWeapon.currentUpgradeLevel < SwordWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.SWORD);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
     }
 
-        public void UpgradeShieldButton()
+    public void UpgradeShieldButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
-            
-        WeaponModifier(WeaponTypes.SHIELD);
-        ResumeGame();
+
+        if (ShieldWeapon.currentUpgradeLevel < ShieldWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.SHIELD);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
+    }
+
+    public void UpgradeFireOrbButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
+        if (FireOrbWeapon.currentUpgradeLevel < FireOrbWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.FIRE_ORB);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
+    }
+
+    public void UpgradeDeathSpiritsButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+
+        if (DeathSpiritsWeapon.currentUpgradeLevel < DeathSpiritsWeapon.upgradeLevelMax)
+        {
+            WeaponModifier(WeaponTypes.DEATH_SPIRITS);
+            ResumeGame();
+        }
+        else
+        {
+            ActivateFullUpgradeBoard();
+        }
     }
 
     public void EquipAndUpgradeWeapon(GameObject weapon, IUpgradeableWeapon weaponClass, WeaponTypes type)
@@ -167,17 +251,37 @@ public class WeaponManager : Singleton<WeaponManager>
                 Debug.Log($"{type} Evolved");
             }
         }
-        else
+/*        else
         {
             Debug.Log($"{type} has reached full upgrade");
-        }
+        }*/
 
         // Reset weapon type
         type = WeaponTypes.NONE;
     }
 
+    public void ActivateFullUpgradeBoard()
+    {
+        if (!FullUpgradeBoard.activeSelf)
+        {
+            FullUpgradeBoard.SetActive(true);
+
+            StartCoroutine(DeactivateFullUpgradeBoard());
+
+            //then set its active state to false after 2 seconds
+        }
+    }
+
+    private IEnumerator DeactivateFullUpgradeBoard()
+    {
+        yield return new WaitForSecondsRealtime(2.5f);
+
+        FullUpgradeBoard.SetActive(false);
+    }
+
     public void ResumeGame()
     {
         UIController.Instance.HideUpgradeMenu();
+        GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();
     }    
 }

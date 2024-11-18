@@ -183,6 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleAnimatorController: {fileID: 9100000, guid: d98da1b4b607a2c4d8188dbcd51f89ec, type: 2}
+  runAnimatorController: {fileID: 9100000, guid: 34c7aa9fc2799e8489aae5686b0ca683, type: 2}
+  attackAnimatorController: {fileID: 9100000, guid: d20425123a052434fa02d28ce48d5a2e, type: 2}
+  deathAnimatorController: {fileID: 9100000, guid: 8e587f4eff57eac49a53dbdc8e9448cb, type: 2}
+  enemyCollider: {fileID: 0}
   theRigidbody: {fileID: 8302310534292896305}
   enemySpeed: 1
   enemyDamage: 7.5

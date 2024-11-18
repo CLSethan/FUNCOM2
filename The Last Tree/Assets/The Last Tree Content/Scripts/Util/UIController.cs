@@ -10,7 +10,6 @@ public class UIController : MonoBehaviour
     public GameObject UpgradeMenu;
 
     public TMP_Text coinText;
-    public TMP_Text healthText;
 
     private void Awake()
     {
@@ -26,13 +25,14 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void ShowUpgradeMenu()
     {
         // moved from weaponmanager
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = true;
         UpgradeMenu.SetActive(true);
+        GameManager.Instance.WeaponUpgradeMenu.GenerateRandomWeaponUpgrades();
         Time.timeScale = 0;
     }
 
@@ -41,13 +41,8 @@ public class UIController : MonoBehaviour
         //moved from player experience
         Time.timeScale = 1;
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = false;
+        /*GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();*/
         UpgradeMenu.SetActive(false);
-    }
-
-    public void UpdateHealth()
-    {
-        healthText.text = "Health: " + PlayerHealth.instance.currentHealth;
-
     }
 
     public void UpdateCoins()
