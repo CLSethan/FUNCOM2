@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 449937030175201354}
   - component: {fileID: 9131848527161580087}
+  - component: {fileID: 2383155534116017780}
   - component: {fileID: 8302310534292896305}
   - component: {fileID: -1994553934228571486}
-  - component: {fileID: 2383155534116017780}
   - component: {fileID: -1194724880391704762}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemyMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,6 +88,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2383155534116017780
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005919296131164555}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 739240ec3c850bd449c1aae3fd751554, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &8302310534292896305
 Rigidbody2D:
   serializedVersion: 4
@@ -150,27 +171,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0006117424, y: -0.07377974}
   m_Size: {x: 0.18016157, y: 0.3540616}
   m_Direction: 0
---- !u!95 &2383155534116017780
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2005919296131164555}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 739240ec3c850bd449c1aae3fd751554, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-1194724880391704762
 MonoBehaviour:
   m_ObjectHideFlags: 0

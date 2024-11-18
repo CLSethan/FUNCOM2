@@ -17,7 +17,7 @@ public class EtherealWarriorProjectile : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Animator anim;
 
-    private bool hasReachedTarget = false; // State variable
+    [SerializeField] private bool hasReachedTarget = false; // State variable
     private GameObject enemyTarget;
 
     private void Awake()
@@ -75,23 +75,21 @@ public class EtherealWarriorProjectile : MonoBehaviour
         Vector3 direction = (target.transform.position - transform.position).normalized;
         rb.velocity = direction * speed;
 
-        // Check if projectile has reached the target
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.1f)
+        // Use Rigidbody position for the distance check
+        if (Vector3.Distance(rb.position, target.transform.position) < 0.5f)
         {
             hasReachedTarget = true; // Set flag to true when target is reached
+            Debug.Log("Reached the target man");
         }
     }
 
     private void MoveToRightOfTarget(GameObject target)
     {
-        // Move 2 units to the right of the target
         Vector3 direction = (target.transform.position + new Vector3(rightMovementOffset, 0f, 0f) - transform.position).normalized;
         rb.velocity = direction * speed;
 
-        // Once you've moved to the right, you can add logic to return to the target
-        if (Vector3.Distance(transform.position, target.transform.position + new Vector3(rightMovementOffset, 0f, 0f)) < 0.1f)
+        if (Vector3.Distance(rb.position, target.transform.position + new Vector3(rightMovementOffset, 0f, 0f)) < 0.5f)
         {
-            // Logic for returning to the target or resetting the state can go here
             Debug.Log("Reached the right of the target.");
             hasReachedTarget = false;  // Reset state to start moving toward the target again
         }

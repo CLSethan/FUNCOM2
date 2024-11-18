@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9062017980239818470}
   - component: {fileID: 5718662377454561047}
   m_Layer: 0
-  m_Name: EnemyFlyingEye
+  m_Name: EnemyFlyingEyeBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 6654528964602932286}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.56735325, y: -0.4337632, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: -0.56735325, y: -0.43376, z: 0}
+  m_LocalScale: {x: 11.15763, y: 11.15763, z: 11.15763}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -7500690451134026123, guid: 244d2b7af82202d4daae9b898fd596d1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8396226, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -189,9 +189,9 @@ MonoBehaviour:
   deathAnimatorController: {fileID: 9100000, guid: 7ddf94a0e195d464faea044e4e8cf1ca, type: 2}
   enemyCollider: {fileID: 0}
   theRigidbody: {fileID: 6984483144116872855}
-  enemySpeed: 2.5
+  enemySpeed: 0.5
   enemyDamage: 5
-  maxEnemyHealth: 10
+  maxEnemyHealth: 500
   playerAttacker: 1
   currentEnemyHealth: 0
   attackTimer: 0
