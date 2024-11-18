@@ -156,6 +156,7 @@ public class EnemyController : MonoBehaviour
 
         Debug.Log("Enemy Took Damage");
         currentEnemyHealth -= damage;
+        DamageNumberController.instance.SpawnDamage(damage, transform.position);
 
         //GREX: Moved the death logic in TakeDamage function
         if (currentEnemyHealth <= 0 && !isDead)

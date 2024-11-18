@@ -41,7 +41,6 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
         enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
-        UIController.Instance.UpdateHealth();
 
     }
 
@@ -54,8 +53,6 @@ public class PlayerHealth : MonoBehaviour
         }
         Debug.Log("Healed Player");
         healthSlider.value = currentHealth;
-
-        UIController.Instance.UpdateHealth();
     }
 
     public void takeDamage(float enemyDamage)
@@ -66,7 +63,6 @@ public class PlayerHealth : MonoBehaviour
             playerDied();
         }
         healthSlider.value = currentHealth;
-        UIController.Instance.UpdateHealth();
     }
 
     public void playerDied()
