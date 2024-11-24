@@ -180,23 +180,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6654528964602932286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
+  m_Script: {fileID: 11500000, guid: b57114963a0ba924399cb1c8193a429c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnimatorController: {fileID: 9100000, guid: 15ff9db9ebd9b1f41b38514447342f13, type: 2}
+  idleAnimatorController: {fileID: 9100000, guid: 5b24a2bdaf6724d43884e3242e902ebc, type: 2}
   runAnimatorController: {fileID: 9100000, guid: 15ff9db9ebd9b1f41b38514447342f13, type: 2}
-  attackAnimatorController: {fileID: 9100000, guid: 5b24a2bdaf6724d43884e3242e902ebc, type: 2}
+  attackAnimatorController: {fileID: 9100000, guid: 7ddf94a0e195d464faea044e4e8cf1ca, type: 2}
   deathAnimatorController: {fileID: 9100000, guid: 7ddf94a0e195d464faea044e4e8cf1ca, type: 2}
-  enemyCollider: {fileID: 0}
+  enemyCollider: {fileID: 251381298156953545}
   theRigidbody: {fileID: 6984483144116872855}
-  enemySpeed: 0.5
-  enemyDamage: 5
-  maxEnemyHealth: 500
-  playerAttacker: 1
+  enemySpeed: 1
+  enemyDamage: 25
+  maxEnemyHealth: 150
+  enemiesKilled: 0
+  playerAttacker: 0
   currentEnemyHealth: 0
-  attackTimer: 0
+  attackTimer: 0.5
   PlayerExp: {fileID: 0}
-  experienceAmount: 10
-  coinValue: 1
-  coinDropRate: 0.5
-  healthDropRate: 0
+  experienceAmount: 25
+  coinValue: 10
+  coinDropRate: 0.8
+  healthDropRate: 1

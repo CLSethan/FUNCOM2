@@ -15,6 +15,7 @@ public class PlayerStatController : MonoBehaviour
     public List<PlayerStatValue> moveSpeed, health, pickupRange;
     public int moveSpeedLevelCount, healthLevelCount, pickupRangeLevelCount;
     public int moveSpeedLevel, healthLevel, pickupRangeLevel;
+    public int 
 
     private void Awake()
     {

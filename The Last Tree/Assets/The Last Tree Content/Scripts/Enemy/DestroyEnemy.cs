@@ -23,7 +23,7 @@ public class DestroyEnemy : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        controller.Death();
+        //controller.Death();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

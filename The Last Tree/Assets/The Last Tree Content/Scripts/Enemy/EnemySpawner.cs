@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-
     public GameObject enemyToSpawn;
+    public GameObject bossToSpawn; //Added Boss Game Object
+
     public float timeToSpawn;
     private float spawnCounter;
 
@@ -15,9 +16,10 @@ public class EnemySpawner : MonoBehaviour
 
     private int currentWave;
     private float waveCounter;
-    private List<GameObject> spawnedEnemies = new List<GameObject>();   
 
+    private List<GameObject> spawnedEnemies = new List<GameObject>();   
     private List<GameObject> playerAttackerEnemies = new List<GameObject>();
+
 
     void Start()
     {
@@ -73,6 +75,13 @@ public class EnemySpawner : MonoBehaviour
 
             Instantiate(enemyToSpawn, SelectSpawnPoint(), transform.rotation);
         }
+
+
+    }
+
+    void SpawnBoss()
+    {
+        Instantiate(bossToSpawn, SelectSpawnPoint(), transform.rotation);
     }
 
     public Vector3 SelectSpawnPoint()
@@ -156,6 +165,7 @@ public class EnemySpawner : MonoBehaviour
 public class WaveInfo
 {
     public GameObject enemyToSpawn;
+    public GameObject bossToSpawn;
     public float waveLength = 10f;
     public float timeBetweenSpawns = 1f;
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
+    private EnemyController enemyController;
     public static UIController Instance;
     public PlayerStatUpgradeUI moveSpeedUpgradeUI, healthUpgradeUI, pickupRangeUpgradeUI;
     public GameObject UpgradeMenu;
 
     public TMP_Text coinText;
+    public TMP_Text enemyText; //Added text to count kills
 
     private void Awake()
     {
@@ -48,6 +50,11 @@ public class UIController : MonoBehaviour
     public void UpdateCoins()
     {
         coinText.text = "Seeds: " + CoinController.instance.currentCoins;
+    }
+
+    public void UpdateKills()
+    {
+        enemyText.text = "Kills: " + enemyController.enemiesKilled;
     }
 
     public void PurchaseMoveSpeed()

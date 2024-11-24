@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using JetBrains.Annotations;
+using TMPro.Examples;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -18,9 +19,11 @@ public class EnemyController : MonoBehaviour
     // Enemy Refs
     public Rigidbody2D theRigidbody;
 
-    public float enemySpeed, enemyDamage, maxEnemyHealth;
+    public float enemySpeed, enemyDamage, maxEnemyHealth, enemiesKilled;
 
-    //created bool to check if the enemy attacks the player or tree
+    private UIController UIController;
+   
+        //created bool to check if the enemy attacks the player or tree
     public bool playerAttacker;
     [SerializeField] private float currentEnemyHealth;
     private Transform target;
@@ -29,7 +32,10 @@ public class EnemyController : MonoBehaviour
     private float attackSpeed = 2;
     [SerializeField] private float attackTimer;
 
-    //Player Experince
+    //EnemySpawner
+    private EnemySpawner BossToSpawn;
+
+    //Player Experience
     [SerializeField] private PlayerExperience PlayerExp;
     [SerializeField] private int experienceAmount = 10;
 
@@ -58,7 +64,12 @@ public class EnemyController : MonoBehaviour
         playerAttacker = UnityEngine.Random.value < 0.5f;
 
         currentEnemyHealth = maxEnemyHealth;
+
         PlayerExp = FindObjectOfType<PlayerExperience>();
+
+       // UIController.UpdateKills();
+
+        BossToSpawn = FindObjectOfType<EnemySpawner>();
 
         // if player attack find player transform
         if (playerAttacker)
@@ -175,6 +186,18 @@ public class EnemyController : MonoBehaviour
 
         enemyCollider.enabled = false;
         theRigidbody.simulated = false;
+
+        //PATRICK: added a kill count
+        enemiesKilled += 1;
+        //UIController.UpdateKills();
+
+        //PATRICK: Added a check to spawn the boss
+
+        if (enemiesKilled == 100)
+        {
+            Debug.Log("Enemy Killed");
+            //boss.SpawnBoss();
+        }
 
         PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
         DropCoin();

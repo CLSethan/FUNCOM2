@@ -180,23 +180,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7996246930946959825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff5ba8e88551094cb8f7ab7f35c033f, type: 3}
+  m_Script: {fileID: 11500000, guid: b57114963a0ba924399cb1c8193a429c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idleAnimatorController: {fileID: 9100000, guid: 1322b83421ce8f247842b4a77acf75cc, type: 2}
   runAnimatorController: {fileID: 9100000, guid: 1f7d7059f67456c4097172c5e45a6ef9, type: 2}
   attackAnimatorController: {fileID: 9100000, guid: ffa31edb25ad2e7448de5e6c16033409, type: 2}
   deathAnimatorController: {fileID: 9100000, guid: 2d1b42057a4d6d343be826564167f4c7, type: 2}
-  enemyCollider: {fileID: 0}
+  enemyCollider: {fileID: 9057242612128982144}
   theRigidbody: {fileID: 8019935987240057286}
-  enemySpeed: 4
-  enemyDamage: 2
-  maxEnemyHealth: 25
-  playerAttacker: 1
+  enemySpeed: 2
+  enemyDamage: 10
+  maxEnemyHealth: 50
+  playerAttacker: 0
   currentEnemyHealth: 0
-  attackTimer: 0
+  attackTimer: 0.1
   PlayerExp: {fileID: 0}
   experienceAmount: 10
   coinValue: 1
-  coinDropRate: 0.7
-  healthDropRate: 0.2
+  coinDropRate: 0.3
+  healthDropRate: 0.1
