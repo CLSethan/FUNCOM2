@@ -130,6 +130,9 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.CROSSBOW);
             ResumeGame();
+
+           //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -146,6 +149,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.BOW);
             ResumeGame();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -162,6 +167,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.ETHEREAL_WARRIOR);
             ResumeGame();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -177,6 +184,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.SWORD);
             ResumeGame();
+           // UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -192,6 +201,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.SHIELD);
             ResumeGame();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -207,6 +218,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.FIRE_ORB);
             ResumeGame();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -222,6 +235,8 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.DEATH_SPIRITS);
             ResumeGame();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
+
         }
         else
         {
@@ -282,6 +297,9 @@ public class WeaponManager : Singleton<WeaponManager>
     public void ResumeGame()
     {
         UIController.Instance.HideUpgradeMenu();
+        //UIController.Instance.ShowPlayerUpgradeMenu();
         GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();
-    }    
+        UIController.Instance.ShowPlayerUpgradeMenu();
+
+    }
 }

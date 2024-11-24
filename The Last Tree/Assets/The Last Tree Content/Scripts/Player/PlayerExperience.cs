@@ -39,6 +39,7 @@ public class PlayerExperience : MonoBehaviour
         PlayerStatController.instance.UpdateUI();
         currentPlayerExperience = 0;
         maxPlayerExperience += 50;
+        xpSlider.maxValue = maxPlayerExperience;
         Debug.Log("Player leveled up!");
         // Add logic for what happens when the player levels up
     }

@@ -40,8 +40,9 @@ public class WeaponUpgradeMenu : MonoBehaviour
 
             Debug.Log($"upgradeRandomNumber: {upgradeRandomNumber}");
 
-            upgradeInstanceList[i] = Instantiate(currentUpgradeBoardGameObjectList[upgradeRandomNumber], boardAttachpointList[i].transform.position, boardAttachpointList[i].rotation);
+            upgradeInstanceList[i] = Instantiate(currentUpgradeBoardGameObjectList[upgradeRandomNumber], boardAttachpointList[i].transform.position, Quaternion.identity);
             upgradeInstanceList[i].transform.SetParent(this.transform);
+            upgradeInstanceList[i].transform.localScale = boardAttachpointList[i].transform.localScale;
 
             currentUpgradeBoardGameObjectList.RemoveAt(upgradeRandomNumber);
         }

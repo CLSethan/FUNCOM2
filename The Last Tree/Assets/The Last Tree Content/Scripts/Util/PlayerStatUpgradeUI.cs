@@ -23,8 +23,6 @@ public class PlayerStatUpgradeUI : MonoBehaviour
         {
             upgradeButton.SetActive(false);
         }
-    
-
     }
 
     public void ShowMaxLevel()

@@ -8,10 +8,13 @@ public class UIController : MonoBehaviour
     private EnemyController enemyController;
     public static UIController Instance;
     public PlayerStatUpgradeUI moveSpeedUpgradeUI, healthUpgradeUI, pickupRangeUpgradeUI;
-    public GameObject UpgradeMenu;
+    public GameObject WeaponUpgradeMenu;
+    public GameObject PlayerUpgradeMenu;
 
     public TMP_Text coinText;
     public TMP_Text enemyText; //Added text to count kills
+
+    public bool playerCanUpgrade;
 
     private void Awake()
     {
@@ -33,7 +36,7 @@ public class UIController : MonoBehaviour
     {
         // moved from weaponmanager
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = true;
-        UpgradeMenu.SetActive(true);
+        WeaponUpgradeMenu.SetActive(true);
         GameManager.Instance.WeaponUpgradeMenu.GenerateRandomWeaponUpgrades();
         Time.timeScale = 0;
     }
@@ -43,8 +46,19 @@ public class UIController : MonoBehaviour
         //moved from player experience
         Time.timeScale = 1;
         GameManager.Instance.WeaponManager.isUpgradeMenuActive = false;
-        /*GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();*/
-        UpgradeMenu.SetActive(false);
+       // GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();
+        WeaponUpgradeMenu.SetActive(false);
+    }
+
+    public void ShowPlayerUpgradeMenu()
+    {
+        if (CoinController.instance.currentCoins <= 5)
+        {
+            return;
+        }
+
+        Time.timeScale = 0;
+        PlayerUpgradeMenu.SetActive(true);
     }
 
     public void UpdateCoins()
@@ -55,6 +69,12 @@ public class UIController : MonoBehaviour
     public void UpdateKills()
     {
         enemyText.text = "Kills: " + enemyController.enemiesKilled;
+    }
+
+    public void ClosePlayerUpgradeMenu()
+    {
+        Time.timeScale = 1;
+        PlayerUpgradeMenu.SetActive(false);
     }
 
     public void PurchaseMoveSpeed()
