@@ -300,6 +300,5 @@ public class WeaponManager : Singleton<WeaponManager>
         //UIController.Instance.ShowPlayerUpgradeMenu();
         GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();
         UIController.Instance.ShowPlayerUpgradeMenu();
-
     }
 }

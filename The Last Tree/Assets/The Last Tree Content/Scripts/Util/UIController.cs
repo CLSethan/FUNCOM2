@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        WeaponUpgradeMenu.SetActive(false);
     }
 
     // Start is called before the first frame update

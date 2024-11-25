@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TreeHealth : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class TreeHealth : MonoBehaviour
     public GameObject lowerTreeSprite;
     [SerializeField] private GameObject gameOverScreen;
 
+    public Slider treeHpSlider;
+
     private void Awake()
     {
         instance = this;
@@ -34,6 +37,8 @@ public class TreeHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        treeHpSlider.maxValue = maxHealth;
+        treeHpSlider.value = currentHealth;
     }
 
     // Update is called once per frame
@@ -52,6 +57,8 @@ public class TreeHealth : MonoBehaviour
             Debug.Log("tree has died");
             GameManager.Instance.MenuManager.SwitchMenu(2);
         }
+
+        treeHpSlider.value = currentHealth;
     }
 
     private IEnumerator Flash()
