@@ -3437,7 +3437,7 @@ GameObject:
   - component: {fileID: 354579031}
   - component: {fileID: 354579030}
   m_Layer: 0
-  m_Name: UpgradePickupRange
+  m_Name: UpgradeTreeHealthRegen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3525,7 +3525,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 995973404}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PurchasePickupRange
+        m_MethodName: PurchaseTreeHealthRegen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3587,7 +3587,7 @@ GameObject:
   - component: {fileID: 359623731}
   - component: {fileID: 359623730}
   m_Layer: 0
-  m_Name: UpgradeHealth
+  m_Name: UpgradeDamageReduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3675,7 +3675,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 995973404}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PurchaseHealth
+        m_MethodName: PurchaseDamageReduction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7250,7 +7250,7 @@ GameObject:
   - component: {fileID: 661283407}
   - component: {fileID: 661283406}
   m_Layer: 0
-  m_Name: UpgradeHealthRegen
+  m_Name: UpgradeWeaponDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7338,7 +7338,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 995973404}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PurchaseMoveSpeed
+        m_MethodName: PurchaseWeaponDamage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7788,18 +7788,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
-    m_FontSize: 25
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 30
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade pickup Range
+  m_Text: Upgrade Tree Health Regen
 --- !u!222 &692344090
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10578,6 +10578,9 @@ MonoBehaviour:
   moveSpeedUpgradeUI: {fileID: 394784439}
   healthUpgradeUI: {fileID: 1835102046}
   pickupRangeUpgradeUI: {fileID: 183418378}
+  weaponDamageUpgradeUI: {fileID: 661283406}
+  treeHealthRegenUpgradeUI: {fileID: 354579030}
+  damageReductionUpgradeUI: {fileID: 359623730}
   WeaponUpgradeMenu: {fileID: 1140539567}
   PlayerUpgradeMenu: {fileID: 59458080}
   coinText: {fileID: 1861963495}
@@ -47338,18 +47341,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
-    m_FontSize: 16
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 30
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Health
+  m_Text: Upgrade Damage Reduction
 --- !u!222 &1487283592
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50176,6 +50179,7 @@ MonoBehaviour:
   player: {fileID: 481510409}
   playerHealth: {fileID: 0}
   playerController: {fileID: 0}
+  tree: {fileID: 1919467784}
   moveSpeed:
   - cost: 0
     value: 4
@@ -50191,12 +50195,33 @@ MonoBehaviour:
     value: 1
   - cost: 50
     value: 1.2
+  weaponDamage:
+  - cost: 0
+    value: 2
+  - cost: 40
+    value: 4
+  healthRegen:
+  - cost: 0
+    value: 1
+  - cost: 45
+    value: 2
+  damageReduction:
+  - cost: 0
+    value: 0.95
+  - cost: 50
+    value: 0.9
   moveSpeedLevelCount: 25
   healthLevelCount: 25
   pickupRangeLevelCount: 25
   moveSpeedLevel: 0
   healthLevel: 0
   pickupRangeLevel: 0
+  weaponDamageLevelCount: 25
+  healthRegenLevelCount: 25
+  damageReductionLevelCount: 25
+  weaponDamageLevel: 0
+  healthRegenLevel: 0
+  damageReductionLevel: 0
 --- !u!4 &1787394850
 Transform:
   m_ObjectHideFlags: 0
@@ -50229,6 +50254,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
+      propertyPath: bossToSpawn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: timeToSpawn
       value: 0.1
       objectReference: {fileID: 0}
@@ -50246,7 +50275,7 @@ PrefabInstance:
       objectReference: {fileID: 932634350}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: waves.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: waves.Array.data[0].waveLength
@@ -50269,6 +50298,14 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
+      propertyPath: waves.Array.data[5].waveLength
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
+      propertyPath: waves.Array.data[0].bossToSpawn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: waves.Array.data[0].enemyToSpawn
       value: 
       objectReference: {fileID: 6654528964602932286, guid: 5232f738abacc6749abe8f4a7d42adbc, type: 3}
@@ -50289,6 +50326,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6654528964602932286, guid: 5232f738abacc6749abe8f4a7d42adbc, type: 3}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
+      propertyPath: waves.Array.data[5].enemyToSpawn
+      value: 
+      objectReference: {fileID: 1463392086428580, guid: 28208f2c9df4fa54ea4b7c5bdfd628c0, type: 3}
+    - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: waves.Array.data[0].timeBetweenSpawns
       value: 0.5
       objectReference: {fileID: 0}
@@ -50306,6 +50347,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
       propertyPath: waves.Array.data[4].timeBetweenSpawns
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521991135967528142, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
+      propertyPath: waves.Array.data[5].timeBetweenSpawns
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8278455351891389440, guid: 899c1fbd93c2c6542bfb442f95222568, type: 3}
@@ -51221,18 +51266,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
-    m_FontSize: 20
+    m_FontSize: 34
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 150
+    m_MaxSize: 34
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Move Speed
+  m_Text: Upgrade Weapon Damage
 --- !u!222 &1844928884
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -52408,6 +52453,8 @@ MonoBehaviour:
   lowerTreeSprite: {fileID: 2027772362}
   gameOverScreen: {fileID: 0}
   treeHpSlider: {fileID: 702203369}
+  _timeTick: 0
+  _waitTime: 0
 --- !u!70 &1919467781
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -53941,73 +53988,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093520192}
   m_CullTransparentMesh: 0
---- !u!1 &2093731905
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2093731907}
-  - component: {fileID: 2093731908}
-  m_Layer: 0
-  m_Name: TreeStatController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2093731907
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093731905}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2093731908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093731905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c01045bda57bf74d95296fa5873aebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tree: {fileID: 1919467784}
-  treeHealth: {fileID: 0}
-  weaponDamage:
-  - cost: 0
-    value: 2
-  - cost: 100
-    value: 4
-  healthRegen:
-  - cost: 0
-    value: 1
-  - cost: 150
-    value: 2
-  damageReduction:
-  - cost: 0
-    value: 0.95
-  - cost: 200
-    value: 0.9
-  weaponDamageLevelCount: 25
-  healthRegenLevelCount: 25
-  damageReductionLevelCount: 25
-  weaponDamageLevel: 0
-  healthRegenLevel: 0
-  damageReductionLevel: 0
 --- !u!4 &2101284896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 413081fc53a78a043b38591243616398, type: 3}
@@ -55402,7 +55382,6 @@ SceneRoots:
   - {fileID: 656349972}
   - {fileID: 1316465974}
   - {fileID: 1787394850}
-  - {fileID: 2093731907}
   - {fileID: 420264179}
   - {fileID: 438980036}
   - {fileID: 463254072}

@@ -21,6 +21,9 @@ public class TreeHealth : MonoBehaviour
 
     public Slider treeHpSlider;
 
+    [SerializeField] private float _timeTick;
+    [SerializeField] private float _waitTime;
+
     private void Awake()
     {
         instance = this;
@@ -44,12 +47,28 @@ public class TreeHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Tree.instance.healthRegen > 0)
+        HealthRegenUpdate();
+    }
+
+    void HealthRegenUpdate()
+    {
+        _timeTick += Time.deltaTime;
+
+        if (_timeTick > _waitTime)
+        {
+            _timeTick = 0;
+            _waitTime = 2.5f;
+
+            currentHealth = Mathf.Clamp(currentHealth + Tree.instance.healthRegen, 0, maxHealth);
+            treeHpSlider.value = currentHealth;
+            Debug.Log("Added health");
+        }
     }
 
     public void takeDamage(float enemyDamage)
     {
-        currentHealth -= enemyDamage;
+        currentHealth -= enemyDamage * Tree.instance.damageReduction;
         StartCoroutine(Flash());
 
         if (currentHealth <= 0)

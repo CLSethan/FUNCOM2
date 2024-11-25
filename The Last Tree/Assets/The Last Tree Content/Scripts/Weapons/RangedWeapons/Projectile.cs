@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
 
     public float GetDamage()
     {
-        return damage;
+        return damage + Tree.instance.weaponDamage;
     }
 
     public void OnHit()

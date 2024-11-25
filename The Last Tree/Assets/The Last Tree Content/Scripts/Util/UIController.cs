@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour
 {
     private EnemyController enemyController;
     public static UIController Instance;
-    public PlayerStatUpgradeUI moveSpeedUpgradeUI, healthUpgradeUI, pickupRangeUpgradeUI;
+    public PlayerStatUpgradeUI moveSpeedUpgradeUI, healthUpgradeUI, pickupRangeUpgradeUI, weaponDamageUpgradeUI, treeHealthRegenUpgradeUI, damageReductionUpgradeUI;
     public GameObject WeaponUpgradeMenu;
     public GameObject PlayerUpgradeMenu;
 
@@ -90,6 +90,22 @@ public class UIController : MonoBehaviour
     public void PurchasePickupRange()
     {
         PlayerStatController.instance.PurchasePickupRange();
+
+    }
+
+    //tree
+    public void PurchaseWeaponDamage()
+    {
+        PlayerStatController.instance.PurchaseWeaponDamage();
+    }
+    public void PurchaseTreeHealthRegen()
+    {
+        PlayerStatController.instance.PurchaseTreeHealthRegen();
+
+    }
+    public void PurchaseDamageReduction()
+    {
+        PlayerStatController.instance.PurchaseDamageReduction();
 
     }
 }
