@@ -17,9 +17,13 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave;
     private float waveCounter;
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>();   
+    [SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();   
     private List<GameObject> playerAttackerEnemies = new List<GameObject>();
 
+    private void Awake()
+    {
+        GameManager.Instance.EnemySpawner = this;
+    }
 
     void Start()
     {
@@ -156,6 +160,18 @@ public class EnemySpawner : MonoBehaviour
             EnemyController _enemyController = playerAttackerEnemies[i].GetComponent<EnemyController>();
             _enemyController.playerAttacker = true;
         }
+    }
+
+    public void ResetEnemySpawner()
+    {
+        foreach (var enemy in spawnedEnemies)
+        {
+            Destroy(enemy);
+        }
+        spawnedEnemies.Clear();
+
+        currentWave = -1;
+        GoToNextWave();
     }
 }
 

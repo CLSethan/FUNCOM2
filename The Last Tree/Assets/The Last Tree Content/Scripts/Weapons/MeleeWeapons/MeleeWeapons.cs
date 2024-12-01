@@ -54,4 +54,10 @@ public class MeleeWeapon : MonoBehaviour, IUpgradeableWeapon
     {
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
+
+    public virtual void ResetWeapon()
+    {
+        currentUpgradeLevel = 0;
+        canAttack = true;
+    }
 }

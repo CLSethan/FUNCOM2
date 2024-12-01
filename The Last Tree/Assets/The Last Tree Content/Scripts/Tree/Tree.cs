@@ -17,15 +17,10 @@ public class Tree : MonoBehaviour
         damageReduction = 1;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void ResetTreeStats()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        weaponDamage = 0;
+        healthRegen = 0;
+        damageReduction = 1;
     }
 }

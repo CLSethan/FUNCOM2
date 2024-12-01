@@ -7,7 +7,7 @@ public class ShieldWeapon : MeleeWeapon
     private Vector3 shieldScaleMultiplier = Vector3.zero;
     [SerializeField] private GameObject shieldGameObject;
     [SerializeField] private float scaleSpeed = 0.05f;
-    [SerializeField] private Vector3 maxScale = new Vector3(1.5f, 1.5f, 1f);
+    [SerializeField] private Vector3 maxScale = new Vector3(2f, 2f, 1f);
     [SerializeField] private bool isExpanding = false;
     [SerializeField] private bool isShrinking = false;
     [SerializeField] private bool isOnCooldown = false;
@@ -21,6 +21,7 @@ public class ShieldWeapon : MeleeWeapon
         shieldGameObject.transform.localScale = shieldScaleMultiplier;
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
+        maxScale = new Vector3(2f, 2f, 1f);
     }
 
     protected override void Update()
@@ -92,5 +93,12 @@ public class ShieldWeapon : MeleeWeapon
         Debug.Log("This shield is upgrading");
         maxScale.x = Mathf.Min(maxScale.x + shieldUpgradeSizeAmount, maxShieldSize);
         base.Upgrade();
+    }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        maxScale.x = 2f;
     }
 }

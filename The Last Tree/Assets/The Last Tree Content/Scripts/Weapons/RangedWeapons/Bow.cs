@@ -5,10 +5,11 @@ using UnityEngine;
 public class Bow : RangedWeapon
 {
     [SerializeField] private GameObject evolvedProjectilePrefab;  // The projectile to shoot
+    [SerializeField] private GameObject originalProjectilePrefab;
 
     [SerializeField] private float currentSpreadAngle = 15f;  // Angle between each projectile in the spread
     [SerializeField] private float maxSpreadAngle = 105f;  // Angle between each projectile in the spread
-    [SerializeField] private int currentNumProjectiles = 3;   // Number of projectiles to shoot in the spread
+    [SerializeField] private int currentNumProjectiles = 2;   // Number of projectiles to shoot in the spread
     [SerializeField] private int numProjectilesMax = 10;   // Number of projectiles to shoot in the spread
     Vector2 adjustedDirection;
 
@@ -20,6 +21,7 @@ public class Bow : RangedWeapon
         currentFireRate = 1.1f; // The rate of fire (shots per second)
         fireRateMax = 0.5f;
         projectileSpeed = 10f;  // Speed of the projectile
+        originalProjectilePrefab = projectilePrefab;
     }
 
     // Update is called once per frame
@@ -92,5 +94,14 @@ public class Bow : RangedWeapon
         currentSpreadAngle = Mathf.Min(currentSpreadAngle + 15f, maxSpreadAngle);
         currentNumProjectiles = Mathf.Min(currentNumProjectiles + 1, numProjectilesMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
+    }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        currentNumProjectiles = 2;
+        currentSpreadAngle = 15f;
+        projectilePrefab = originalProjectilePrefab;
     }
 }

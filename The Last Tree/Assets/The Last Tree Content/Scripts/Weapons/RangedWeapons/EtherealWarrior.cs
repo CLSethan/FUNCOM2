@@ -125,4 +125,13 @@ public class EtherealWarrior : RangedWeapon
         maxKillTime += 2f;
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        isEvolved = false;
+        maxKillTime = 3f;
+        EtherealWarriorProjectileScript.speed = 10f;
+    }
 }

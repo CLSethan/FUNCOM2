@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EtherealWarriorProjectile : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed = 10f;
     [SerializeField] private float rightMovementOffset = 4f;
     [SerializeField] private EtherealWarrior EtherealWarriorScript;
     [SerializeField] private GameObject EtherealWarriorGameObject;
@@ -25,6 +25,7 @@ public class EtherealWarriorProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         initialPosition = EtherealWarriorGameObject.transform.position;
+        speed = 10f;
     }
 
     private void Update()

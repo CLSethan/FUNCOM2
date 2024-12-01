@@ -7,10 +7,20 @@ public class DeathSpiritProjectile : MonoBehaviour
     private Animator anim;
     [SerializeField] private Collider2D hitCollider;
 
+    [SerializeField] private GameObject parentObject;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
         hitCollider.enabled = false;
+
+        //element 1 of MenuManager's menus list (which is InGameMenu)
+        parentObject = GameManager.Instance.MenuManager.menus[1];
+
+        if (parentObject != null)
+        {
+            transform.SetParent(parentObject.transform);
+        }
     }
 
     // Update is called once per frame
@@ -49,5 +59,10 @@ public class DeathSpiritProjectile : MonoBehaviour
     private void DestroySelf()
     {
         Destroy(this.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        DestroySelf();
     }
 }

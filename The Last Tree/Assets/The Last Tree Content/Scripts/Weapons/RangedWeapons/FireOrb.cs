@@ -5,7 +5,6 @@ using UnityEngine;
 public class FireOrb : RangedWeapon
 {
     [SerializeField] private List<GameObject> enemyList = new List<GameObject>();
-    [SerializeField] private bool isEvolved = false;
 
     private void Awake()
     {
@@ -84,7 +83,6 @@ public class FireOrb : RangedWeapon
 
     public override void Evolve()
     {
-        isEvolved = true;
         currentFireRate = Mathf.Max(currentFireRate - 5f, fireRateMax);
         Debug.Log("Auto Orbs incoming");
     }
@@ -93,5 +91,13 @@ public class FireOrb : RangedWeapon
     {
         currentFireRate = Mathf.Max(currentFireRate - 0.2f, fireRateMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
+    }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        currentFireRate = 1.5f;
+        projectileSpeed = 8f;
     }
 }

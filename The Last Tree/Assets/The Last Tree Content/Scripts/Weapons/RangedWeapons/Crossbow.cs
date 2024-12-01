@@ -14,6 +14,7 @@ public class Crossbow : RangedWeapon
         currentFireRate = 1.1f; // The rate of fire (shots per second)
         fireRateMax = 0.5f;
         projectileSpeed = 10f;  // Speed of the projectile
+        projectileScaleMultiplier = Vector3.one;
     }
 
     protected override void Update()
@@ -71,5 +72,14 @@ public class Crossbow : RangedWeapon
     {
         currentFireRate = Mathf.Max(currentFireRate - 0.1f, fireRateMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
+    }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        currentFireRate = 1.1f; // The rate of fire (shots per second)
+        projectileSpeed = 10f;  // Speed of the projectile
+        projectileScaleMultiplier = Vector3.one;
     }
 }

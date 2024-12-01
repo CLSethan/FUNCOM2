@@ -74,10 +74,10 @@ public class WeaponManager : Singleton<WeaponManager>
     void Update()
     {
         //Placeholder for a button upgrade/obtain weapon button
-/*        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            weaponTypes = WeaponTypes.BOW;
-        }*/
+        /*        if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    weaponTypes = WeaponTypes.BOW;
+                }*/
     }
 
     //fills the weaponList with the child gameObjects under WeaponManager gameObject
@@ -89,6 +89,12 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             GameObject weapon = child.gameObject;
             weaponList.Add(weapon);
+        }
+
+        foreach (Transform child in transform)
+        {
+            GameObject weapon = child.gameObject;
+            weapon.SetActive(false);
         }
     }
 
@@ -131,7 +137,7 @@ public class WeaponManager : Singleton<WeaponManager>
             WeaponModifier(WeaponTypes.CROSSBOW);
             ResumeGame();
 
-           //UIController.Instance.ShowPlayerUpgradeMenu();
+            //UIController.Instance.ShowPlayerUpgradeMenu();
 
         }
         else
@@ -184,7 +190,7 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             WeaponModifier(WeaponTypes.SWORD);
             ResumeGame();
-           // UIController.Instance.ShowPlayerUpgradeMenu();
+            // UIController.Instance.ShowPlayerUpgradeMenu();
 
         }
         else
@@ -266,10 +272,10 @@ public class WeaponManager : Singleton<WeaponManager>
                 Debug.Log($"{type} Evolved");
             }
         }
-/*        else
-        {
-            Debug.Log($"{type} has reached full upgrade");
-        }*/
+        /*        else
+                {
+                    Debug.Log($"{type} has reached full upgrade");
+                }*/
 
         // Reset weapon type
         type = WeaponTypes.NONE;
@@ -300,5 +306,18 @@ public class WeaponManager : Singleton<WeaponManager>
         //UIController.Instance.ShowPlayerUpgradeMenu();
         GameManager.Instance.WeaponUpgradeMenu.DestroyWeaponUpgradeInstances();
         UIController.Instance.ShowPlayerUpgradeMenu();
+    }
+
+    public void ResetWeaponManager()
+    {
+        CrossbowWeapon.ResetWeapon();
+        BowWeapon.ResetWeapon();
+        EtherealWarriorWeapon.ResetWeapon();
+        SwordWeapon.ResetWeapon();
+        ShieldWeapon.ResetWeapon();
+        FireOrbWeapon.ResetWeapon();
+        DeathSpiritsWeapon.ResetWeapon();
+
+        FillWeaponList();
     }
 }

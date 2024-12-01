@@ -54,4 +54,12 @@ public class DeathSpirits : RangedWeapon
         currentFireRate = Mathf.Max(currentFireRate - 1f, fireRateMax);
         currentUpgradeLevel = Mathf.Min(currentUpgradeLevel + 1, upgradeLevelMax);
     }
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        currentFireRate = 11f; // The rate of fire (shots per second)
+        currentActiveTime = 4f;
+    }
 }

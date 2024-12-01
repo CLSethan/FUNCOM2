@@ -13,7 +13,7 @@ public enum MenuType
 
 public class MenuManager : Singleton<MenuManager>
 {
-	[SerializeField] GameObject[] menus;
+	[SerializeField] public GameObject[] menus;
 	[SerializeField] public AudioSource buttonClickSound;
 
 	private MenuType currentMenuType;

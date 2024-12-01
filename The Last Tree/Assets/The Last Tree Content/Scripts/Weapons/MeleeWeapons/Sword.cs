@@ -8,13 +8,16 @@ public class Sword : MeleeWeapon
     [SerializeField] private float rotateRadius = 1;
     [SerializeField] private float angle;
     [SerializeField] private Transform player;
+    [SerializeField] private UnityEngine.Vector3 initialScale;
 
     private void Awake()
     {
         WeaponManager.Instance.SwordWeapon = this;
+
+        this.transform.localScale = new UnityEngine.Vector3(0.7f, 0.7f, 0.65f);
         currentUpgradeLevel = 0;
         upgradeLevelMax = 6;
-
+        initialScale = this.transform.localScale;
         currentAttackRate = 4f;
         maxAttackRate = 8f;
     }
@@ -42,5 +45,13 @@ public class Sword : MeleeWeapon
         Debug.Log($"Sword scale increased to: {transform.localScale}");
         Debug.Log("Sword has evolved");
     }
-  
+
+    public override void ResetWeapon()
+    {
+        base.ResetWeapon();
+
+        currentAttackRate = 4f;
+        this.transform.localScale = initialScale;
+    }
+
 }

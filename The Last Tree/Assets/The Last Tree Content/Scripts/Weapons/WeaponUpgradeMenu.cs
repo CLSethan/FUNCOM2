@@ -19,13 +19,13 @@ public class WeaponUpgradeMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GenerateRandomWeaponUpgrades();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void GenerateRandomWeaponUpgrades()

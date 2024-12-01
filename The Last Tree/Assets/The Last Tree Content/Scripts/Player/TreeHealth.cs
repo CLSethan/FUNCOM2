@@ -93,4 +93,13 @@ public class TreeHealth : MonoBehaviour
         spriteRendererUpper.color = originalColor;
         spriteRendererLower.color = originalColor;
     }
+
+    public void ResetTreeHealth()
+    {
+        currentHealth = maxHealth;
+        treeHpSlider.maxValue = maxHealth;
+        treeHpSlider.value = currentHealth;
+        spriteRendererUpper.color = originalColor;
+        spriteRendererLower.color = originalColor;
+    }
 }

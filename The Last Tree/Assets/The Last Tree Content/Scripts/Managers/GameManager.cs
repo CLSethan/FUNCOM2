@@ -5,13 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+	public static GameManager instance;
+
 	[SerializeField] WeaponManager _weaponManager;
 	[SerializeField] MenuManager _menuManager;
 	[SerializeField] WeaponUpgradeMenu _weaponUpgradeMenu;
+	[SerializeField] EnemySpawner _enemySpawner;
+	[SerializeField] PlayerExperience _playerExperience;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
 	[SerializeField] private GameObject OptionsMenu;
 	[SerializeField] private GameObject PauseMenu;
+
+	public PlayerExperience PlayerExperience { get { return _playerExperience; } set { _playerExperience = value; } }
+
+	public EnemySpawner EnemySpawner { get { return _enemySpawner; } set { _enemySpawner = value; } }
 
 	public WeaponManager WeaponManager { get { return _weaponManager; } set { _weaponManager = value; } }
 
@@ -19,62 +27,12 @@ public class GameManager : Singleton<GameManager>
 
 	public WeaponUpgradeMenu WeaponUpgradeMenu { get { return _weaponUpgradeMenu; } set { _weaponUpgradeMenu = value; } }
 
-	/*    public void StartGame()
-		{
-			ResetGameInstances();
-			Time.timeScale = 1;
-		}
+    private void Awake()
+    {
+		instance = this;
+    }
 
-		public void DefaultCharacterPick()
-		{
-			Player.characterType = CharacterType.DEFAULT;
-
-			ResetGameInstances();
-
-			Time.timeScale = 1;
-		}
-
-		public void SpeedCharacterPick()
-		{
-			Player.characterType = CharacterType.SPEED;
-
-			ResetGameInstances();
-
-			Time.timeScale = 1;
-		}
-
-		public void TankCharacterPick()
-		{
-			Player.characterType = CharacterType.TANK;
-
-			ResetGameInstances();
-
-			Time.timeScale = 1;
-		}
-
-		public void RestartGame()
-		{
-			ResetGameInstances();
-			Time.timeScale = 1;
-		}
-
-		public void ResetGameInstances()
-		{
-			SpawnerController.Instance.Reset();
-			Player.Reset();
-			ScoreManager.ResetScore();
-		}
-
-
-
-		public void GameOver()
-		{
-			Time.timeScale = 0;
-			MenuMgr.Instance.SwitchMenu((int)MenuType.GameOverMenu);
-			ScoreManager.Instance.UpdateGameOverScoreText();
-		}*/
-
-	private void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && MenuManager.GetCurrentMenuType() == MenuType.InGameMenu)
         {
@@ -129,13 +87,6 @@ public class GameManager : Singleton<GameManager>
 		OptionsMenu.SetActive(false);
 	}
 
-	public void ResetGameInstances()
-	{
-/*		SpawnerController.Instance.Reset();
-		Player.Reset();
-		ScoreManager.ResetScore();*/
-	}
-
 	public void ContinueGame()
     {
 		Time.timeScale = 1;
@@ -148,5 +99,15 @@ public class GameManager : Singleton<GameManager>
 		MenuManager.buttonClickSound.Play();
 
 		Application.Quit();
+	}
+
+	public void ResetGameInstances()
+	{
+		EnemySpawner.ResetEnemySpawner();
+		TreeHealth.instance.ResetTreeHealth();
+		Tree.instance.ResetTreeStats();
+		PlayerExperience.ResetPlayerExperience();
+		WeaponManager.ResetWeaponManager();
+		PauseMenu.SetActive(false);
 	}
 }
