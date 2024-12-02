@@ -14,7 +14,6 @@ public class HealthPickup : MonoBehaviour
     private float checkCounter;
 
     private Player player;
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -30,8 +29,8 @@ public class HealthPickup : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-
             PlayerHealth.instance.addHealth(healAmount);
+            SFXManager.instance.PlaySFXPitched(1);
             Destroy(gameObject);
         }
     }

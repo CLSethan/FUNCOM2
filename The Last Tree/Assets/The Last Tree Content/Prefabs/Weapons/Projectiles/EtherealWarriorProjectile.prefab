@@ -194,8 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498f24129bdd2924a948217bf55695c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 25
   isEvolvedArrow: 1
+  isMeleeWeapon: 0
 --- !u!114 &-1224010999333263525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +210,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  rightMovementOffset: 4
   EtherealWarriorScript: {fileID: 0}
   EtherealWarriorGameObject: {fileID: 0}
+  idleAnimatorController: {fileID: 0}
+  runAnimatorController: {fileID: 0}
   detectionCollider: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  hasReachedTarget: 0

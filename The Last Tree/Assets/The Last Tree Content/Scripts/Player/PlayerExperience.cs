@@ -32,7 +32,9 @@ public class PlayerExperience : MonoBehaviour
     {
         if (!hasStartedGame)
         {
+            //disabled for now
             LevelUp();
+
             hasStartedGame = true; // Disable further checks
         }
     }

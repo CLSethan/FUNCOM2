@@ -13,6 +13,7 @@ public class ShieldWeapon : MeleeWeapon
     [SerializeField] private bool isOnCooldown = false;
     [SerializeField] private float maxShieldSize = 7f;
     [SerializeField] private float shieldUpgradeSizeAmount = 0.5f;
+    public float damage = 10f;
 
     private void Awake()
     {
@@ -31,6 +32,10 @@ public class ShieldWeapon : MeleeWeapon
             StartCoroutine(ExpandShield());
             canAttack = false;
         }
+    }
+    public float GetDamage()
+    {
+        return damage + Tree.instance.weaponDamage;
     }
 
     private IEnumerator ExpandShield()

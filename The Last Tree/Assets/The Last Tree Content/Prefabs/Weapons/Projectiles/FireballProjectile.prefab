@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498f24129bdd2924a948217bf55695c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 20
   isEvolvedArrow: 0
   isMeleeWeapon: 0
 --- !u!1 &8542370029776581095

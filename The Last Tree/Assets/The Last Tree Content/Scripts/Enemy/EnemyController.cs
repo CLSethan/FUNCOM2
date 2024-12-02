@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -50,6 +49,7 @@ public class EnemyController : MonoBehaviour
     //GREX: Added bools for death and attack anims
     public bool isDead { get; private set; } = false;
     private bool isAttacking = false;
+
 
     //GREX: Added Awake to get animator when enemy spawns
     private void Awake()
@@ -105,6 +105,68 @@ public class EnemyController : MonoBehaviour
         // get components
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
         TreeHealth treeHealth = collision.gameObject.GetComponent<TreeHealth>();
+        
+        ShieldWeapon shield = collision.gameObject.GetComponent<ShieldWeapon>();
+        TakeDamage(shield.GetDamage());
+        Debug.Log(collision.gameObject.name);
+
+        // moved to OnTriggerEnter2D
+
+        //if (treeHealth != null)
+        //{
+        //    if (treeHealth.tag == "Tree" && attackTimer <= 0)
+        //    {
+        //        //GREX: Added a bool check for when its attacking to activate attack animation
+        //        isAttacking = true;
+        //        anim.runtimeAnimatorController = attackAnimatorController;
+
+        //        Debug.Log("Enemy is dealing damage to Tree");
+        //        TreeHealth.instance.takeDamage(enemyDamage);
+        //        attackTimer = attackSpeed;
+
+        //        StartCoroutine(EnemyAttackTime());
+        //    }
+        //}
+
+        //if (playerHealth != null)
+        //{
+        //    if (playerHealth.tag == "Player" && attackTimer <= 0)
+        //    {
+        //        isAttacking = true;
+        //        anim.runtimeAnimatorController = attackAnimatorController;
+        //        theRigidbody.isKinematic = true;
+
+        //        // Debug.Log("Enemy is dealing damage to Player");
+        //        PlayerHealth.instance.takeDamage(enemyDamage);
+
+        //        attackTimer = attackSpeed;
+
+        //        StartCoroutine(EnemyAttackTime());
+        //    }
+        //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Projectile projectile = other.GetComponent<Projectile>();
+        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
+        TreeHealth treeHealth = other.gameObject.GetComponent<TreeHealth>();
+
+        if (projectile != null)
+        {
+            TakeDamage(projectile.GetDamage());
+            projectile.OnHit(); // optional if the projectile has specific behavior on hit (e.g., destroy itself)
+
+            //GREX: Commented this out since there's already a check for when currentEnemyHealth is below or equal to 0 in the TakeDamage function
+            /*            if (currentEnemyHealth <= 0)
+                        {
+                            PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
+                            DropCoin();
+                            DropHealth();
+                            anim.runtimeAnimatorController = deathAnimatorController;
+                            StartCoroutine(DestroyEnemy());
+                        }*/
+        }
 
         if (treeHealth != null)
         {
@@ -140,26 +202,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Projectile projectile = other.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            TakeDamage(projectile.GetDamage());
-            projectile.OnHit(); // optional if the projectile has specific behavior on hit (e.g., destroy itself)
-
-            //GREX: Commented this out since there's already a check for when currentEnemyHealth is below or equal to 0 in the TakeDamage function
-            /*            if (currentEnemyHealth <= 0)
-                        {
-                            PlayerExp.AddExperience(experienceAmount); // public variable in 'Upgrades' script
-                            DropCoin();
-                            DropHealth();
-                            anim.runtimeAnimatorController = deathAnimatorController;
-                            StartCoroutine(DestroyEnemy());
-                        }*/
-        }
-    }
-
     public void TakeDamage(float damage)
     {
         if (isDead)
@@ -167,6 +209,8 @@ public class EnemyController : MonoBehaviour
 
         Debug.Log("Enemy Took Damage");
         currentEnemyHealth -= damage;
+
+        SFXManager.instance.PlaySFXPitched(10);
         DamageNumberController.instance.SpawnDamage(damage, transform.position);
 
         //GREX: Moved the death logic in TakeDamage function
@@ -181,6 +225,7 @@ public class EnemyController : MonoBehaviour
     {
         isDead = true;
         canMove = false;
+        SFXManager.instance.PlaySFXPitched(0);
 
         //GREX: Added rigidbody and collider disables when enemy dies
 

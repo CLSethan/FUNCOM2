@@ -9,6 +9,7 @@ public enum MenuType
 	/*CharacterSelect = 1,*/
 	InGameMenu = 1,
     GameOverMenu = 2,
+	VictoryScreen = 3,
 }
 
 public class MenuManager : Singleton<MenuManager>

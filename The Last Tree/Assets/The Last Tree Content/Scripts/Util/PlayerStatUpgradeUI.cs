@@ -8,7 +8,7 @@ public class PlayerStatUpgradeUI : MonoBehaviour
 {
     public Text valueText, costText;
 
-    public GameObject upgradeButton;
+    public Button upgradeButton;
 
     public void UpdateDisplay(int cost, float oldValue, float newValue)
     {
@@ -17,11 +17,14 @@ public class PlayerStatUpgradeUI : MonoBehaviour
 
         if(cost <= CoinController.instance.currentCoins)
         {
-            upgradeButton.SetActive(true);
+         //   upgradeButton.SetActive(true);
+            upgradeButton.interactable = true;
         }
         else
         {
-            upgradeButton.SetActive(false);
+           // upgradeButton.SetActive(false);
+            upgradeButton.interactable = false;
+
         }
     }
 
@@ -29,7 +32,9 @@ public class PlayerStatUpgradeUI : MonoBehaviour
     {
         valueText.text = "THIS IS YOUR LIMIT!";
         costText.text = "THIS IS YOUR LIMIT!";
-        upgradeButton.SetActive(false);
+       // upgradeButton.SetActive(false);
+        upgradeButton.interactable = false;
+
 
     }
 }

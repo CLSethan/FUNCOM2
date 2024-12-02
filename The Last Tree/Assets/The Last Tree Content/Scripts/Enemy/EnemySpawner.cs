@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyToSpawn;
-    public GameObject bossToSpawn; //Added Boss Game Object
-
     public float timeToSpawn;
     private float spawnCounter;
 
@@ -17,8 +14,11 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave;
     private float waveCounter;
 
-    [SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();   
+    [SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> playerAttackerEnemies = new List<GameObject>();
+
+    private bool isBossWave = false;
+    private GameObject currentBoss;
 
     private void Awake()
     {
@@ -27,21 +27,36 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        //spawnCounter = timeToSpawn;
-
         currentWave = -1;
         GoToNextWave();
+        UIController.Instance.UpdateWaveUI();
     }
 
     void Update()
     {
-        // check if player still alive
+        // Check if the player is still alive
         if (PlayerHealth.instance.gameObject.activeSelf)
         {
-            SpawnEnemyWave();
-        }
+            if (isBossWave)
+            {
+                CheckBossDefeated();
 
-       //SpawnEnemy();
+                spawnCounter -= Time.deltaTime;
+
+                if (spawnCounter <= 0)
+                {
+                    spawnCounter = waves[currentWave].timeBetweenSpawns;
+
+                    GameObject newEnemy = Instantiate(waves[currentWave].enemyToSpawn, SelectSpawnPoint(), Quaternion.identity);
+
+                    spawnedEnemies.Add(newEnemy);
+                }
+            }
+            else
+            {
+                SpawnEnemyWave();
+            }
+        }
     }
 
     void SpawnEnemyWave()
@@ -63,29 +78,8 @@ public class EnemySpawner : MonoBehaviour
                 GameObject newEnemy = Instantiate(waves[currentWave].enemyToSpawn, SelectSpawnPoint(), Quaternion.identity);
 
                 spawnedEnemies.Add(newEnemy);
-
             }
         }
-    }
-
-    void SpawnEnemy()
-    {
-        //If we do wave based spawning then we need to set the amount of enemies per wave and what enemies to spawn
-
-        spawnCounter -= Time.deltaTime;
-        if (spawnCounter <= 0)
-        {
-            spawnCounter = timeToSpawn;
-
-            Instantiate(enemyToSpawn, SelectSpawnPoint(), transform.rotation);
-        }
-
-
-    }
-
-    void SpawnBoss()
-    {
-        Instantiate(bossToSpawn, SelectSpawnPoint(), transform.rotation);
     }
 
     public Vector3 SelectSpawnPoint()
@@ -98,29 +92,13 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnPoint.y = Random.Range(minSpawnPoint.position.y, maxSpawnPoint.position.y);
 
-            if(Random.Range(0f, 1f) > .5f)
-            {
-                spawnPoint.x = maxSpawnPoint.position.x;
-            }
-            else
-            {
-                spawnPoint.x = minSpawnPoint.position.x;
-
-            }
+            spawnPoint.x = Random.Range(0f, 1f) > .5f ? maxSpawnPoint.position.x : minSpawnPoint.position.x;
         }
         else
         {
             spawnPoint.x = Random.Range(minSpawnPoint.position.x, maxSpawnPoint.position.x);
 
-            if (Random.Range(0f, 1f) > .5f)
-            {
-                spawnPoint.y = maxSpawnPoint.position.y;
-            }
-            else
-            {
-                spawnPoint.y = minSpawnPoint.position.y;
-
-            }
+            spawnPoint.y = Random.Range(0f, 1f) > .5f ? maxSpawnPoint.position.y : minSpawnPoint.position.y;
         }
 
         return spawnPoint;
@@ -129,35 +107,64 @@ public class EnemySpawner : MonoBehaviour
     public void GoToNextWave()
     {
         currentWave++;
+        UIController.Instance.UpdateWaveUI();
 
-        //if player reaches last wave, repeat last wave
-        if(currentWave >= waves.Count)
+        // Check for boss waves
+        if (currentWave == 4 || currentWave == 9 || currentWave == 14 || currentWave == 19)
         {
-            currentWave = waves.Count - 1;
+            SpawnBoss();
+            waveCounter = waves[currentWave].waveLength;
+            spawnCounter = waves[currentWave].timeBetweenSpawns;
         }
+        else
+        {
+            // If player reaches the last wave, repeat the last wave
+            if (currentWave >= waves.Count)
+            {
+                //show victory screen here
+              //  UIController.Instance.ShowVictoryScreen();
+                //currentWave = waves.Count - 1;
+            }
 
-        waveCounter = waves[currentWave].waveLength;
-        spawnCounter = waves[currentWave].timeBetweenSpawns;
+            waveCounter = waves[currentWave].waveLength;
+            spawnCounter = waves[currentWave].timeBetweenSpawns;
+        }
+    }
+
+    void SpawnBoss()
+    {
+        isBossWave = true;
+
+        currentBoss = Instantiate(waves[currentWave].bossToSpawn, SelectSpawnPoint(), Quaternion.identity);
+    }
+
+    void CheckBossDefeated()
+    {
+        if (currentBoss == null) // Boss is defeated
+        {
+            isBossWave = false;
+            GoToNextWave();
+        }
     }
 
     public void playerDead()
     {
-        for (int i = 0; i < spawnedEnemies.Count; ++i)
+        foreach (var enemy in spawnedEnemies)
         {
-           EnemyController _enemyController = spawnedEnemies[i].GetComponent<EnemyController>();
-           if (_enemyController.playerAttacker == true)
-           {
-            playerAttackerEnemies.Add(spawnedEnemies[i]);
-            _enemyController.playerAttacker = false;
-           }
+            EnemyController _enemyController = enemy.GetComponent<EnemyController>();
+            if (_enemyController.playerAttacker)
+            {
+                playerAttackerEnemies.Add(enemy);
+                _enemyController.playerAttacker = false;
+            }
         }
     }
 
     public void playerAlive()
     {
-        for (int i = 0; i < playerAttackerEnemies.Count; ++i)
+        foreach (var enemy in playerAttackerEnemies)
         {
-            EnemyController _enemyController = playerAttackerEnemies[i].GetComponent<EnemyController>();
+            EnemyController _enemyController = enemy.GetComponent<EnemyController>();
             _enemyController.playerAttacker = true;
         }
     }
@@ -173,9 +180,12 @@ public class EnemySpawner : MonoBehaviour
         currentWave = -1;
         GoToNextWave();
     }
+
+    public int GetCurrentWave()
+    {
+        return currentWave;
+    }
 }
-
-
 
 [System.Serializable]
 public class WaveInfo

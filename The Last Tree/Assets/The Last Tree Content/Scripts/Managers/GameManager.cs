@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,8 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private GameObject HowToPlayMenu;
 	[SerializeField] private GameObject OptionsMenu;
 	[SerializeField] private GameObject PauseMenu;
-
+	public Player player;
+	public Transform playerSpawnPoint;
 	public PlayerExperience PlayerExperience { get { return _playerExperience; } set { _playerExperience = value; } }
 
 	public EnemySpawner EnemySpawner { get { return _enemySpawner; } set { _enemySpawner = value; } }
@@ -103,6 +105,10 @@ public class GameManager : Singleton<GameManager>
 
 	public void ResetGameInstances()
 	{
+		//Time.timeScale = 1;
+		// SceneManager.LoadScene("FinalGameScene 1");
+		Time.timeScale = 1;
+		player.transform.position = playerSpawnPoint.position;
 		EnemySpawner.ResetEnemySpawner();
 		TreeHealth.instance.ResetTreeHealth();
 		Tree.instance.ResetTreeStats();

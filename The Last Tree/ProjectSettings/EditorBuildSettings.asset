@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/The Last Tree Content/Scenes/FinalGameScene 1.unity
+    guid: a245756955fa04344bd134353040864b
   m_configObjects: {}

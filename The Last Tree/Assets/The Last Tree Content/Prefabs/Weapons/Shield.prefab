@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 926441823382664397}
   - component: {fileID: 2677688250015377230}
   - component: {fileID: 1649648550533880592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShieldCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 2638827949411082564}
   - component: {fileID: 4500122282704805749}
   - component: {fileID: 606563666211463677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,9 +212,11 @@ MonoBehaviour:
   _upgradeLevelMax: 6
   currentAttackRate: 0.5
   maxAttackRate: 0.7
+  canAttack: 1
   reloadTime: 1
   shieldCollider: {fileID: 1144314949654829481}
   shieldPrefab: {fileID: 0}
   shieldObjects: []
   isEvolving: 0
   evolutionStatus: 1
+  damage: 100

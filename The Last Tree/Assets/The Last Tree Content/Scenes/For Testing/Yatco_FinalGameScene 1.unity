@@ -1369,7 +1369,6 @@ MonoBehaviour:
   projectileSpeed: 0
   canShoot: 1
   enemyList: []
-  isEvolved: 0
 --- !u!61 &129430547
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1895,7 +1894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 386224969}
   costText: {fileID: 1239647139}
-  upgradeButton: {fileID: 183418376}
+  upgradeButton: {fileID: 183418379}
 --- !u!114 &183418379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1926,9 +1925,9 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3490,7 +3489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 776416625}
   costText: {fileID: 1339973781}
-  upgradeButton: {fileID: 354579028}
+  upgradeButton: {fileID: 354579031}
 --- !u!114 &354579031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3521,9 +3520,9 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3640,7 +3639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 2131017197}
   costText: {fileID: 1383329529}
-  upgradeButton: {fileID: 359623728}
+  upgradeButton: {fileID: 359623731}
 --- !u!114 &359623731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3671,9 +3670,9 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3984,7 +3983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 1284951823}
   costText: {fileID: 927751035}
-  upgradeButton: {fileID: 394784437}
+  upgradeButton: {fileID: 394784440}
 --- !u!114 &394784440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,7 +4016,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -7315,7 +7314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 1613103987}
   costText: {fileID: 43588044}
-  upgradeButton: {fileID: 661283404}
+  upgradeButton: {fileID: 661283407}
 --- !u!114 &661283407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7348,7 +7347,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -51055,7 +51054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueText: {fileID: 2006611864}
   costText: {fileID: 1675609874}
-  upgradeButton: {fileID: 1835102044}
+  upgradeButton: {fileID: 1835102047}
 --- !u!114 &1835102047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51086,9 +51085,9 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf149e2bda1b261439b1955df54a9012, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted

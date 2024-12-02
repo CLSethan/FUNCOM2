@@ -10,8 +10,11 @@ public class UIController : MonoBehaviour
     public PlayerStatUpgradeUI moveSpeedUpgradeUI, healthUpgradeUI, pickupRangeUpgradeUI, weaponDamageUpgradeUI, treeHealthRegenUpgradeUI, damageReductionUpgradeUI;
     public GameObject WeaponUpgradeMenu;
     public GameObject PlayerUpgradeMenu;
+    public EnemySpawner enemySpawner;
+    public GameObject victoryScreen;
 
     public TMP_Text coinText;
+    public TMP_Text waveText;
     public TMP_Text enemyText; //Added text to count kills
 
     public bool playerCanUpgrade;
@@ -67,6 +70,12 @@ public class UIController : MonoBehaviour
         coinText.text = "Seeds: " + CoinController.instance.currentCoins;
     }
 
+    public void UpdateWaveUI()
+    {
+        waveText.text = "Current Wave: " + (enemySpawner.GetCurrentWave() + 1);
+    }
+
+
     public void UpdateKills()
     {
         enemyText.text = "Kills: " + enemyController.enemiesKilled;
@@ -91,6 +100,12 @@ public class UIController : MonoBehaviour
     {
         PlayerStatController.instance.PurchasePickupRange();
 
+    }
+
+    public void ShowVictoryScreen()
+    {
+        // set active victory screen
+        victoryScreen.SetActive(true);
     }
 
     //tree

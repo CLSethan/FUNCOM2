@@ -70,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
         _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
         _weaponManager.gameObject.SetActive(false);
         _playerRb.mass = 1000;
+        SFXManager.instance.PlaySFXPitched(2);
 
         _playerController.enabled = false;
         enemySpawner.playerDead();

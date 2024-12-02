@@ -15,6 +15,8 @@ public class CoinPickup : MonoBehaviour
 
     private Player player;
 
+    public AudioSource pickupSFX;
+
     private void Start()
     {
         player = PlayerHealth.instance.GetComponent<Player>();
@@ -29,8 +31,8 @@ public class CoinPickup : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-
             CoinController.instance.AddCoins(coinAmount);
+            SFXManager.instance.PlaySFXPitched(1);
             Destroy(gameObject);
         }
     }

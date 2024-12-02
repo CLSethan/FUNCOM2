@@ -136,3 +136,4 @@ MonoBehaviour:
   coinAmount: 1
   moveSpeed: 1
   timeBetweenChecks: 0.2
+  pickupSFX: {fileID: 0}

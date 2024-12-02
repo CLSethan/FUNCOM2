@@ -74,7 +74,9 @@ public class TreeHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("tree has died");
+            SFXManager.instance.PlaySFXPitched(2);
             GameManager.Instance.MenuManager.SwitchMenu(2);
+            
         }
 
         treeHpSlider.value = currentHealth;

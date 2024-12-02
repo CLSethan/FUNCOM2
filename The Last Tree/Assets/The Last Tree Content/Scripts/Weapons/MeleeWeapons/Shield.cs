@@ -25,6 +25,7 @@ public class Shield : MeleeWeapon
     public bool isEvolving;
     public bool evolutionStatus;
 
+
     private void Awake()
     {
         _shieldKnockback = GetComponentInChildren<ShieldKnockback>();
@@ -137,18 +138,18 @@ public class Shield : MeleeWeapon
         }
     }
 
-        protected void FixedUpdate()
+    protected void FixedUpdate()
+    {
+        if (canTrigger)
         {
-            if (canTrigger)
-            {
                 TriggerAttack();
-            }
-
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Upgrade();
-            }
         }
+       
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Upgrade();
+        }
+    }
 
         public override void Upgrade()
         {
