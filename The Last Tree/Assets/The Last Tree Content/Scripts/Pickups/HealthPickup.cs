@@ -14,6 +14,20 @@ public class HealthPickup : MonoBehaviour
     private float checkCounter;
 
     private Player player;
+
+    [SerializeField] private GameObject parentObject;
+
+    private void Awake()
+    {
+        //element 1 of MenuManager's menus list (which is InGameMenu)
+        parentObject = GameManager.Instance.MenuManager.menus[1];
+
+        if (parentObject != null)
+        {
+            transform.SetParent(parentObject.transform);
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -57,5 +71,10 @@ public class HealthPickup : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Destroy(this.gameObject);
     }
 }

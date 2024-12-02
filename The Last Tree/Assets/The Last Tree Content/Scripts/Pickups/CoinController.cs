@@ -46,4 +46,10 @@ public class CoinController : MonoBehaviour
         coinDrop.coinAmount = value;
         coinDrop.gameObject.SetActive(true);
     }
+
+    public void ResetCoinController()
+    {
+        currentCoins = 50;
+        UIController.Instance.UpdateCoins();
+    }
 }

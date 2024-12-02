@@ -89,4 +89,13 @@ public class PlayerHealth : MonoBehaviour
         _playerController.enabled = true;
         enemySpawner.playerAlive();
     }
+
+    public void ResetPlayerHealth()
+    {
+        maxHealth = 100;
+        currentHealth = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
+    }
 }

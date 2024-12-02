@@ -133,5 +133,7 @@ public class EtherealWarrior : RangedWeapon
         isEvolved = false;
         maxKillTime = 3f;
         EtherealWarriorProjectileScript.speed = 10f;
+        hasActivated = true;
+        isAvailable = true;
     }
 }

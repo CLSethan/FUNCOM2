@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     [SerializeField] private GameObject currentPlayerType;
 
+    private void Awake()
+    {
+        GameManager.Instance.Player = this;
+    }
+
     void Start()
     {
         SetCurrentPlayerType(PlayerPrefabs[0]);
@@ -61,5 +66,10 @@ public class Player : MonoBehaviour
     public void SetCurrentPlayerType(GameObject player)
     {
         currentPlayerType = player;
+    }
+
+    public void ResetPlayerPickupRange()
+    {
+        pickupRange = 1.5f;
     }
 }

@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] WeaponUpgradeMenu _weaponUpgradeMenu;
 	[SerializeField] EnemySpawner _enemySpawner;
 	[SerializeField] PlayerExperience _playerExperience;
+	[SerializeField] Player _player;
+	[SerializeField] PlayerController _playerController;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
 	[SerializeField] private GameObject OptionsMenu;
@@ -20,6 +22,10 @@ public class GameManager : Singleton<GameManager>
 	public Player player;
 	public Transform playerSpawnPoint;
 	public PlayerExperience PlayerExperience { get { return _playerExperience; } set { _playerExperience = value; } }
+
+	public Player Player { get { return _player; } set { _player = value; } }
+
+	public PlayerController PlayerController { get { return _playerController; } set { _playerController = value; } }
 
 	public EnemySpawner EnemySpawner { get { return _enemySpawner; } set { _enemySpawner = value; } }
 
@@ -114,6 +120,11 @@ public class GameManager : Singleton<GameManager>
 		Tree.instance.ResetTreeStats();
 		PlayerExperience.ResetPlayerExperience();
 		WeaponManager.ResetWeaponManager();
+		CoinController.instance.ResetCoinController();
+		PlayerStatController.instance.ResetPlayerStatController();
+		PlayerHealth.instance.ResetPlayerHealth();
+		Player.ResetPlayerPickupRange();
+		PlayerController.ResetPlayerSpeed();
 		PauseMenu.SetActive(false);
 	}
 }

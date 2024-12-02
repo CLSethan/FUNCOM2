@@ -154,11 +154,6 @@ public class PlayerStatController : MonoBehaviour
     //tree
     public void PurchaseWeaponDamage()
     {
-        /*        if (!treeSpiritSpawner.activeSelf)
-                {
-                    treeSpiritSpawner.SetActive(true);
-                }*/
-
         weaponDamageLevel++;
         CoinController.instance.SpendCoins(weaponDamage[weaponDamageLevel].cost);
         UpdateUI();
@@ -174,9 +169,19 @@ public class PlayerStatController : MonoBehaviour
     public void PurchaseDamageReduction()
     {
         damageReductionLevel++;
-        CoinController.instance.SpendCoins(damageReduction[damageReductionLevel].cost); ;
+        CoinController.instance.SpendCoins(damageReduction[damageReductionLevel].cost);
         UpdateUI();
         tree.damageReduction = damageReduction[damageReductionLevel].value;
+    }
+
+    public void ResetPlayerStatController()
+    {
+        moveSpeedLevel = 0; 
+        healthLevel = 0; 
+        pickupRangeLevel = 0;
+        weaponDamageLevel = 0; 
+        healthRegenLevel = 0;
+        damageReductionLevel = 0;
     }
 }
 

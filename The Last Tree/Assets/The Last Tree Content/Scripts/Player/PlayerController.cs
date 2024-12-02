@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.PlayerController = this;
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -92,5 +93,11 @@ public class PlayerController : MonoBehaviour
     public void SetMoveSpeed()
     {
         moveSpeed = player.moveSpeed;
+    }
+
+    public void ResetPlayerSpeed()
+    {
+        player.moveSpeed = 4;
+        SetMoveSpeed();
     }
 }

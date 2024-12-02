@@ -21,7 +21,7 @@ public class Bow : RangedWeapon
         currentFireRate = 1.1f; // The rate of fire (shots per second)
         fireRateMax = 0.5f;
         projectileSpeed = 10f;  // Speed of the projectile
-        originalProjectilePrefab = projectilePrefab;
+        projectilePrefab = originalProjectilePrefab;
     }
 
     // Update is called once per frame

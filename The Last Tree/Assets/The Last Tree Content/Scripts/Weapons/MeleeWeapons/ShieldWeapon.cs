@@ -74,7 +74,7 @@ public class ShieldWeapon : MeleeWeapon
         StartCoroutine(Cooldown(currentAttackRate));
     }
 
-    private IEnumerator Cooldown (float reloadTime)
+    private IEnumerator Cooldown(float reloadTime)
     {
         if (isExpanding || isShrinking || isOnCooldown)
             yield break;
@@ -105,5 +105,9 @@ public class ShieldWeapon : MeleeWeapon
         base.ResetWeapon();
 
         maxScale.x = 2f;
+        isExpanding = false;
+        isShrinking = false;
+        isOnCooldown = false;
+        shieldGameObject.transform.localScale = shieldScaleMultiplier;
     }
 }

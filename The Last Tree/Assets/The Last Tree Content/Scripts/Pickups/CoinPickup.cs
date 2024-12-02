@@ -17,6 +17,19 @@ public class CoinPickup : MonoBehaviour
 
     public AudioSource pickupSFX;
 
+    [SerializeField] private GameObject parentObject;
+
+    private void Awake()
+    {
+        //element 1 of MenuManager's menus list (which is InGameMenu)
+        parentObject = GameManager.Instance.MenuManager.menus[1];
+
+        if (parentObject != null)
+        {
+            transform.SetParent(parentObject.transform);
+        }
+    }
+
     private void Start()
     {
         player = PlayerHealth.instance.GetComponent<Player>();
@@ -59,5 +72,10 @@ public class CoinPickup : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Destroy(this.gameObject);
     }
 }
