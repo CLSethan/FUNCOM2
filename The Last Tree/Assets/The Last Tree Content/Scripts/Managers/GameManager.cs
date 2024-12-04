@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,17 +16,21 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] PlayerExperience _playerExperience;
 	[SerializeField] Player _player;
 	[SerializeField] PlayerController _playerController;
+	[SerializeField] PlayerHealth _playerHealth;
 	[SerializeField] private GameObject NotificationBoard;
 	[SerializeField] private GameObject HowToPlayMenu;
 	[SerializeField] private GameObject OptionsMenu;
 	[SerializeField] private GameObject PauseMenu;
 	public Player player;
 	public Transform playerSpawnPoint;
+
 	public PlayerExperience PlayerExperience { get { return _playerExperience; } set { _playerExperience = value; } }
 
 	public Player Player { get { return _player; } set { _player = value; } }
 
 	public PlayerController PlayerController { get { return _playerController; } set { _playerController = value; } }
+
+	public PlayerHealth PlayerHealth { get { return _playerHealth; } set { _playerHealth = value; } }
 
 	public EnemySpawner EnemySpawner { get { return _enemySpawner; } set { _enemySpawner = value; } }
 
@@ -127,4 +132,41 @@ public class GameManager : Singleton<GameManager>
 		PlayerController.ResetPlayerSpeed();
 		PauseMenu.SetActive(false);
 	}
+
+	public void PlayerDied()
+	{
+		Rigidbody2D _playerMass = player.GetComponent<Rigidbody2D>();
+		SpriteRenderer _playerSprite = player.GetComponent<SpriteRenderer>();
+		CapsuleCollider2D _playerCollider = player.GetComponent<CapsuleCollider2D>();
+
+		SFXManager.instance.PlaySFXPitched(2);
+		_playerMass.mass = 1000;
+		_playerSprite.color = new Color(255f, 255f, 255f, 0f);
+		_playerController.enabled = false;
+		_playerCollider.enabled = false;
+		_weaponManager.gameObject.SetActive(false);
+		EnemySpawner.playerDead();	
+        StartCoroutine(respawn());
+	}
+
+	public IEnumerator respawn()
+    {
+		Rigidbody2D _playerMass = player.GetComponent<Rigidbody2D>();
+		SpriteRenderer _playerSprite = player.GetComponent<SpriteRenderer>();
+		CapsuleCollider2D _playerCollider = player.GetComponent<CapsuleCollider2D>();
+		
+        yield return new WaitForSeconds(3f);
+
+        player.transform.localPosition = new UnityEngine.Vector2(0, 0);
+        _playerSprite.color = new Color(255f, 255f, 255f, 255f);
+        _weaponManager.gameObject.SetActive(true);
+        _playerMass.mass = 1;
+        _playerHealth.currentHealth = _playerHealth.maxHealth;
+		_playerHealth.healthSlider.value = _playerHealth.currentHealth;
+        _playerController.enabled = true;
+		_playerCollider.enabled = true;
+        EnemySpawner.playerAlive();
+    }
+
+
 }

@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
 
     private UIController UIController;
    
-        //created bool to check if the enemy attacks the player or tree
+    //created bool to check if the enemy attacks the player or tree
     public bool playerAttacker;
     [SerializeField] private float currentEnemyHealth;
     private Transform target;
@@ -61,7 +61,14 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         // [Temporary] Randomizes whether the enemy attacks the player or the tree. 
-        playerAttacker = UnityEngine.Random.value < 0.5f;
+        if (PlayerHealth.instance.gameObject.activeSelf)
+        {
+            playerAttacker = UnityEngine.Random.value < 0.5f;
+        }
+        else
+        {
+            playerAttacker = false;
+        }
 
         currentEnemyHealth = maxEnemyHealth;
 
@@ -105,7 +112,6 @@ public class EnemyController : MonoBehaviour
         // get components
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
         TreeHealth treeHealth = collision.gameObject.GetComponent<TreeHealth>();
-        
         ShieldWeapon shield = collision.gameObject.GetComponent<ShieldWeapon>();
         TakeDamage(shield.GetDamage());
         Debug.Log(collision.gameObject.name);

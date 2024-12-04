@@ -14,29 +14,40 @@ public class PlayerHealth : MonoBehaviour
 
     public Slider healthSlider;
 
+    [SerializeField] private Camera _playerCamera;
+
     [SerializeField] private EnemySpawner enemySpawner;
 
     [SerializeField] private WeaponManager _weaponManager;
 
     private SpriteRenderer _spriteRenderer;
 
-    private PlayerController _playerController;
+    private float flashDuration = 0.2f;
+    
+    private Color flashColor = Color.red;
 
-    private Rigidbody2D _playerRb;
+    private Color originalColor;
 
-    Color initialSprite;
+    public float shakeDuration = 0.5f; 
+
+    public float shakeAmount = 0.7f; 
+
+    public float decreaseFactor = 1.0f;
+
+
+    private UnityEngine.Vector3 playerCameraOriginalPosition;
 
     private void Awake()
     {
+        GameManager.Instance.PlayerHealth = this;
         instance = this;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _playerRb = GetComponent<Rigidbody2D>();
-        _playerController = GetComponent<PlayerController>();
-        initialSprite = _spriteRenderer.color;
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = _spriteRenderer.color;
     }
 
     void Start()
     {
+        playerCameraOriginalPosition = _playerCamera.transform.localPosition; 
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
@@ -60,34 +71,10 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= enemyDamage;
         if (currentHealth <= 0)
         {
-            playerDied();
+            GameManager.Instance.PlayerDied();
         }
         healthSlider.value = currentHealth;
-    }
-
-    public void playerDied()
-    {
-        _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
-        _weaponManager.gameObject.SetActive(false);
-        _playerRb.mass = 1000;
-        SFXManager.instance.PlaySFXPitched(2);
-
-        _playerController.enabled = false;
-        enemySpawner.playerDead();
-        StartCoroutine(respawn());
-    }
-
-    public IEnumerator respawn()
-    {
-        yield return new WaitForSeconds(10f);
-        transform.localPosition = new UnityEngine.Vector2(0, 0);
-        _spriteRenderer.color = initialSprite;
-        _weaponManager.gameObject.SetActive(true);
-        _playerRb.mass = 1;
-        currentHealth = maxHealth;
-        
-        _playerController.enabled = true;
-        enemySpawner.playerAlive();
+        StartCoroutine(Flash());
     }
 
     public void ResetPlayerHealth()
@@ -98,4 +85,26 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
         enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
     }
+
+    public IEnumerator Flash()
+    {
+
+    float elapsed = 0f;
+
+    while (elapsed < shakeDuration)
+    {
+        float x = Random.Range(-1f, 1f) * shakeAmount;
+        float y = Random.Range(-1f, 1f) * shakeAmount;
+        _playerCamera.transform.localPosition = new UnityEngine.Vector3(playerCameraOriginalPosition.x + x, playerCameraOriginalPosition.y + y, playerCameraOriginalPosition.z);
+        elapsed += Time.deltaTime * decreaseFactor;
+        yield return null;
+    }
+
+    _playerCamera.transform.localPosition = playerCameraOriginalPosition; // Reset position after shaking
+
+    _spriteRenderer.color = flashColor;
+    yield return new WaitForSeconds(flashDuration);
+    _spriteRenderer.color = originalColor;
+    }
+
 }
