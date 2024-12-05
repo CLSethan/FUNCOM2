@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     // Player movement
     [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
     private PlayerControls playerControls;
     private Vector2 movement;
     [SerializeField]

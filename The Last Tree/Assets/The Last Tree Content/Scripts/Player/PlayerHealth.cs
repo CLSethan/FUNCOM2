@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
 
     private Rigidbody2D _playerRb;
 
+    private Player _player;
+
     Color initialSprite;
 
     private void Awake()
@@ -32,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerRb = GetComponent<Rigidbody2D>();
         _playerController = GetComponent<PlayerController>();
+        _player = GetComponent<Player>();
+        _weaponManager = GameManager.Instance.WeaponManager;
         initialSprite = _spriteRenderer.color;
     }
 
@@ -67,25 +71,31 @@ public class PlayerHealth : MonoBehaviour
 
     public void playerDied()
     {
-        _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
-        _weaponManager.gameObject.SetActive(false);
-        _playerRb.mass = 1000;
-        SFXManager.instance.PlaySFXPitched(2);
+        /*        _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+                _weaponManager.gameObject.SetActive(false);
+                _playerRb.mass = 1000;
+                SFXManager.instance.PlaySFXPitched(2);
 
-        _playerController.enabled = false;
-        enemySpawner.playerDead();
-        StartCoroutine(respawn());
+                _playerController.moveSpeed = 0;
+                _playerController.enabled = false;
+                enemySpawner.playerDead();
+                StartCoroutine(respawn());*/
+
+        Debug.Log("tree has died");
+        SFXManager.instance.PlaySFXPitched(2);
+        GameManager.Instance.MenuManager.SwitchMenu(2);
     }
 
     public IEnumerator respawn()
     {
         yield return new WaitForSeconds(10f);
-        transform.localPosition = new UnityEngine.Vector2(0, 0);
+        _player.gameObject.transform.position = GameManager.instance.playerSpawnPoint.position;
         _spriteRenderer.color = initialSprite;
         _weaponManager.gameObject.SetActive(true);
         _playerRb.mass = 1;
         currentHealth = maxHealth;
-        
+
+        _playerController.moveSpeed = _player.moveSpeed;
         _playerController.enabled = true;
         enemySpawner.playerAlive();
     }
@@ -96,6 +106,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
-        enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
+        //enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
     }
 }

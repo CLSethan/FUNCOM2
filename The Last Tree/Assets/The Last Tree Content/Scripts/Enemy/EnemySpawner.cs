@@ -151,6 +151,7 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (var enemy in spawnedEnemies)
         {
+
             EnemyController _enemyController = enemy.GetComponent<EnemyController>();
             if (_enemyController.playerAttacker)
             {
