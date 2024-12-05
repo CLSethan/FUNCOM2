@@ -203,7 +203,6 @@ MonoBehaviour:
   coinValue: 1
   coinDropRate: 0.2
   healthDropRate: 0.2
-  hitSFX: {fileID: -3537854104499127695}
 --- !u!61 &5463071541083641563
 BoxCollider2D:
   m_ObjectHideFlags: 0

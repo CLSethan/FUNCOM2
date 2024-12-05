@@ -109,41 +109,6 @@ public class EnemyController : MonoBehaviour
         ShieldWeapon shield = collision.gameObject.GetComponent<ShieldWeapon>();
         TakeDamage(shield.GetDamage());
         Debug.Log(collision.gameObject.name);
-
-        // moved to OnTriggerEnter2D
-
-        //if (treeHealth != null)
-        //{
-        //    if (treeHealth.tag == "Tree" && attackTimer <= 0)
-        //    {
-        //        //GREX: Added a bool check for when its attacking to activate attack animation
-        //        isAttacking = true;
-        //        anim.runtimeAnimatorController = attackAnimatorController;
-
-        //        Debug.Log("Enemy is dealing damage to Tree");
-        //        TreeHealth.instance.takeDamage(enemyDamage);
-        //        attackTimer = attackSpeed;
-
-        //        StartCoroutine(EnemyAttackTime());
-        //    }
-        //}
-
-        //if (playerHealth != null)
-        //{
-        //    if (playerHealth.tag == "Player" && attackTimer <= 0)
-        //    {
-        //        isAttacking = true;
-        //        anim.runtimeAnimatorController = attackAnimatorController;
-        //        theRigidbody.isKinematic = true;
-
-        //        // Debug.Log("Enemy is dealing damage to Player");
-        //        PlayerHealth.instance.takeDamage(enemyDamage);
-
-        //        attackTimer = attackSpeed;
-
-        //        StartCoroutine(EnemyAttackTime());
-        //    }
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -197,10 +162,53 @@ public class EnemyController : MonoBehaviour
 
                 attackTimer = attackSpeed;
 
-                StartCoroutine(EnemyAttackTime());
+                //StartCoroutine(EnemyAttackTime());
             }
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+        TreeHealth treeHealth = collision.gameObject.GetComponent<TreeHealth>();
+
+        if (treeHealth != null)
+        {
+            if (treeHealth.tag == "Tree" && attackTimer <= 0)
+            {
+                StartCoroutine(EnemyAttackTime());
+
+                //GREX: Added a bool check for when its attacking to activate attack animation
+                isAttacking = true;
+                anim.runtimeAnimatorController = attackAnimatorController;
+
+                Debug.Log("Enemy is dealing damage to Tree");
+                TreeHealth.instance.takeDamage(enemyDamage);
+                attackTimer = attackSpeed;
+            }
+        }
+
+        if (playerHealth != null)
+        {
+            if (playerHealth.tag == "Player" && attackTimer <= 0)
+            {
+                StartCoroutine(EnemyAttackTime());
+
+                isAttacking = true;
+                anim.runtimeAnimatorController = attackAnimatorController;
+                theRigidbody.isKinematic = true;
+
+                // Debug.Log("Enemy is dealing damage to Player");
+                PlayerHealth.instance.takeDamage(enemyDamage);
+
+                attackTimer = attackSpeed;
+            }
+        }
+    }
+
+/*    private void OnTriggerExit2D(Collider2D collision)
+    {
+    }*/
 
     public void TakeDamage(float damage)
     {
