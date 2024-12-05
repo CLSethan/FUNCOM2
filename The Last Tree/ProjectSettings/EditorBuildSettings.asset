@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/The Last Tree Content/Scenes/FinalGameScene 1.unity
-    guid: a245756955fa04344bd134353040864b
+    path: Assets/The Last Tree Content/Scenes/For Testing/Yatco_FinalGameScene 2.unity
+    guid: af28ba95540df164ebea517d1107a013
   m_configObjects: {}
