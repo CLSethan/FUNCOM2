@@ -128,6 +128,13 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
+    public void SkipButton()
+    {
+        GameManager.Instance.MenuManager.buttonClickSound.Play();
+            WeaponModifier(WeaponTypes.NONE);
+            ResumeGame();
+    }
+
     public void UpgradeCrossbowButton()
     {
         GameManager.Instance.MenuManager.buttonClickSound.Play();
